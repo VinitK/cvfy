@@ -1,0 +1,10 @@
+.Edit-work {
+    margin-top: 10px;
+}
+
+.Edit-work .content {
+    padding-top: 10px;
+    color: var(--color-dark);
+    max-width: 80%;
+    margin: 0 auto;
+}

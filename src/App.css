@@ -1,38 +1,165 @@
-.App {
-  text-align: center;
+:root {
+  --color-dark: rgb(40, 40, 40);
+  --color-light: rgb(220, 220, 220);
+  --color-ultralight: rgb(240, 240, 240);
+  --color-highlight-1: rgb(255, 101, 37);
+  --color-highlight-2: rgb(255, 228, 0);
+  --color-highlight-3: rgb(20, 167, 108);
+  --color-white: rgb(255, 255, 255);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* font colors */
+.cd {
+  color: var(--color-dark);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.cl {
+  color: var(--color-light);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.cul {
+  color: var(--color-ultralight);
+}
+
+.ch1 {
+  color: var(--color-highlight-1);
+}
+
+.ch2 {
+  color: var(--color-highlight-2);
+}
+
+.ch3 {
+  color: var(--color-highlight-3);
+}
+
+/* padding */
+.ptxs {
+  padding-top: 5px;
+}
+
+.pts {
+  padding-top: 10px;
+}
+
+.ptm {
+  padding-top: 15px;
+}
+
+.ptl {
+  padding-top: 20px;
+}
+
+.ptxl {
+  padding-top: 25px;
+}
+
+/* margin */
+.mtxs {
+  margin-top: 5px;
+}
+
+.mts {
+  margin-top: 10px;
+}
+
+.mtm {
+  margin-top: 15px;
+}
+
+.mtl {
+  margin-top: 20px;
+}
+
+.mtxl {
+  margin-top: 25px;
+}
+
+/* col and row */
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* canvas */
+.App {
+  background-color: var(--color-ultralight);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* logo font */
+.logo-font {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* headings */
+h1 {
+  font-weight: normal;
+  font-size: 48px;
+}
+
+h2 {
+  font-weight: normal;
+  font-size: 36px;
+}
+
+h3 {
+  font-weight: normal;
+  font-size: 30px;
+}
+
+h4 {
+  font-weight: normal;
+  font-size: 24px;
+}
+
+h5 {
+  font-weight: normal;
+  font-size: 20px;
+}
+
+h6 {
+  font-weight: normal;
+  font-size: 18px;
+}
+
+/* font size */
+.fontSizeL {
+  font-size: 24px;
+}
+
+.fontSizeXXL {
+  font-size: 48px;
+}
+
+/* font weight */
+.bold {
+  font-weight: bold;
+}
+
+/* card */
+.card {
+  padding: 25px;
+  border-radius: 3px;
+  box-shadow: 5px 5px 10px var(--color-light), 
+              -5px -5px 10px var(--color-white);
+}
+
+.card-header {
+  padding-top: 10px;
+}
+
+/* input */
+input {
+  border: none;
+  border-bottom: 1px solid var(--color-light);
+  background-color: transparent;
+  outline: none;
+  height: 30px;
 }

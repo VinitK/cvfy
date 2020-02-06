@@ -1,0 +1,18 @@
+.Footer .box {
+    height: 200px;
+    background-color: var(--color-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Footer svg {
+    display: block;
+}
+
+.Footer .box .content {
+    color: var(--color-dark);
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+}

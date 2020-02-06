@@ -1,0 +1,27 @@
+.Button button {
+    color: var(--color-white);
+    background-color: var(--color-dark);
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px 30px;
+    border: none;
+    transition: all 0.3s ease 0s;
+    outline:none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.Button button.roundEdge {
+    border-radius: 25px;
+}
+
+.Button button.onHoverHighLight3:hover:enabled,
+.Button button.onHoverHighLight3:focus:enabled {
+    background-color: var(--color-highlight-3);
+    color: var(--color-white);
+}
+
+.Button button:disabled {
+    background-color: var(--color-light);
+    color: var(--color-white);
+}

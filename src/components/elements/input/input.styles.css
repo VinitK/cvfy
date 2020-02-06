@@ -1,0 +1,26 @@
+.Input {
+    position: relative;
+    padding-top: 30px;
+}
+
+.Input input {
+    width: 100%;
+    font-size: 16px;
+}
+
+.Input .float-label {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    cursor: text;
+    transition: all 200ms;
+    opacity: 0.5;
+}
+
+input:focus + .float-label ,
+input:not(:placeholder-shown) + .float-label {
+    color: var(--color-light);
+    font-size: 70%;
+    transform: translate3d(0, -130%, 0);
+    opacity: 1;
+}

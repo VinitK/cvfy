@@ -1,0 +1,14 @@
+.Logo {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    transition: all 0.3s ease 0s;
+}
+
+.website {
+    font-size: 30px;
+    color: var(--color-light);
+}
+
+.onHoverHighLight3:hover {
+    color: var(--color-highlight-3);
+}
