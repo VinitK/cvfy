@@ -58,6 +58,7 @@ const EditContactComp = () => { // COMPONENT
     return (
         <div className="Edit-contact">
             <div className="area">
+                {loggedIn}
                 <div className="card">
                     <div className="card-header">
                         <h4>Contact Details</h4>
