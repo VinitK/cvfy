@@ -10,9 +10,7 @@ function NavbarComp() {
             <div className="sticky">
                 <div className="content">
                     <div className="logo">
-                        <a href="/">
-                            <LogoComp customClass='onHoverHighLight3 website' />
-                        </a>
+                        <LogoComp className='onHoverHighLight3 light-logo h3' />
                     </div>
                     <div className="nav">
                         <NavComp />

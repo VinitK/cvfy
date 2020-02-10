@@ -10,7 +10,7 @@ import firebase from '../../../../firebase/auth.util';
 const EditContactComp = () => { // COMPONENT
     const [loading, setLoading] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
-    const [state, setState] = useState(
+    const [user, setUser] = useState(
         {
             displayName: "",
             primaryContactEmail: "",
@@ -24,7 +24,7 @@ const EditContactComp = () => { // COMPONENT
     const submitHandler = (e) => {
         e.preventDefault();
         setLoading(true);
-        setState(
+        setUser(
             {
                 displayName: e.target.editContactName.value,
                 primaryContactEmail: e.target.editContactEmail.value,
@@ -41,7 +41,7 @@ const EditContactComp = () => { // COMPONENT
         } else {
             firebase
                 .auth()
-                .createUserWithEmailAndPassword(state.primaryContactEmail, state.password)
+                .createUserWithEmailAndPassword(user.primaryContactEmail, user.password)
                 .then(res => {
                     if (res.user) {
                         setLoggedIn(true);
@@ -53,7 +53,7 @@ const EditContactComp = () => { // COMPONENT
                     setLoading(false);
                 });
         }
-    }, [state]);
+    }, [user]);
 
     return (
         <div className="Edit-contact">
@@ -73,7 +73,7 @@ const EditContactComp = () => { // COMPONENT
                                     <InputComp type="url" id="editLinkedinUrl">Linkedin Profile URL</InputComp>
                                     <InputComp type="password" id="editPassword">Password</InputComp>
                                     <InputComp type="password" id="editConfirmPassword">Confirm Password</InputComp>
-                                    <ButtonComp type="submit" customClass='onHoverHighLight3 mtxl' loading={loading}>SAVE</ButtonComp>
+                                    <ButtonComp type="submit" loading={loading} className="char-space bold h6 mtxl">SAVE</ButtonComp>
                                 </form>
                             </div>
                             <div className="image col">

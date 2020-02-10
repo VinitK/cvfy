@@ -1,21 +1,7 @@
-.Header {
-    height: 450px;
-    text-align: center;
-}
-
-.Header .content {
-    margin: auto;
+.Header > .content {
     width: 80%;
 }
 
-.Header .content .image {
-    width: 40%;
-    padding-right: 20px;
-}
-
-.Header .content .text {
-    width: 60%;
-    padding-left: 20px;
-    justify-content: center;
-    text-align: left;
+.Header > .content > .text {
+    width: 70%;
 }

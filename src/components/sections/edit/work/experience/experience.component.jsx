@@ -2,12 +2,12 @@ import React from 'react';
 
 import InputComp from '../../../../elements/input/input.component';
 
-const ExpComp = (props) => {
+const ExpComp = ({ count, ...rest }) => {
     return (
         <div>
-            <InputComp type="text" id={`editExpCompany${props.count}`}>Company Name</InputComp>
-            <InputComp type="text" id={`editExpDesignation${props.count}`}>Designation</InputComp>
-            <InputComp type="text" id={`editExpDescription${props.count}`}>Key Activities Carried Out</InputComp>
+            <InputComp type="text" id={`editExpCompany${count}`} {...rest}>Company Name</InputComp>
+            <InputComp type="text" id={`editExpDesignation${count}`} {...rest}>Designation</InputComp>
+            <InputComp type="text" id={`editExpDescription${count}`} {...rest}>Key Activities Carried Out</InputComp>
         </div>
     );
 };

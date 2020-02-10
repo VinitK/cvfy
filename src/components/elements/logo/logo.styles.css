@@ -2,13 +2,15 @@
     font-family: 'Libre Baskerville', serif;
     font-style: italic;
     transition: all 0.3s ease 0s;
+    text-decoration: none;
+    color: var(--color-dark);
 }
 
-.website {
-    font-size: 30px;
-    color: var(--color-light);
-}
-
-.onHoverHighLight3:hover {
+.Logo:hover {
     color: var(--color-highlight-3);
+}
+
+/* for dark background */
+.light-logo {
+    color: var(--color-light);
 }

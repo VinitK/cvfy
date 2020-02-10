@@ -2,10 +2,10 @@ import React from 'react';
 
 import './button.styles.css';
 
-const ButtonComp = ({ type, customClass, loading, children, ...restProps }) => {
+const ButtonComp = ({ type, className, loading, children, ...rest }) => {
     return (
         <div className='Button'>
-            <button type={type} className={`${customClass}`} disabled={loading}>{children}</button>
+            <button type={type} disabled={loading} className={`${className}`} {...rest}>{children}</button>
         </div >
     );
 };

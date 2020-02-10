@@ -2,10 +2,10 @@ import React from 'react';
 
 import './button-link.styles.css';
 
-const ButtonLinkComp = (props) => {
+const ButtonLinkComp = ({ href, className, children, ...rest }) => {
     return (
         <div className='ButtonLink'>
-            <a href={props.href} className={`${props.customClass}`}>{props.children}</a>
+            <a href={href} className={`${className}`} {...rest}>{children}</a>
         </div >
     );
 };

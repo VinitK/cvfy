@@ -15,7 +15,7 @@ const EditWorkComp = () => {
                     </div>
                     <div className="card-body">
                         <ExpComp count="1" />
-                        <ButtonComp href='/edit' type="submit" customClass='onHoverHighLight3 mtxl'>SAVE</ButtonComp>
+                        <ButtonComp href='/edit' type="submit" className='char-space bold h6 mtxl'>SAVE</ButtonComp>
                     </div>
                 </div>
             </div>

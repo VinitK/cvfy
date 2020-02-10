@@ -2,13 +2,12 @@ import React from 'react';
 
 import './input.styles.css';
 
-const InputComp = (props) => {
+const InputComp = ({ type, className, id, children, ...rest }) => {
     return (
         <div className="Input">
-            <input type={props.type} className={props.customClass} id={props.id} placeholder=" " />
-            <label htmlFor={props.id} className={`float-label ${props.customClass}`}>{props.children}</label>
+            <input type={type} className={className} id={id} placeholder=" " {...rest} />
+            <label htmlFor={id} className="float-label">{children}</label>
         </div>
-
     );
 };
 

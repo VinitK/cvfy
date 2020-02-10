@@ -2,9 +2,9 @@ import React from 'react';
 
 import './logo.styles.css';
 
-const LogoComp = (props) => {
+const LogoComp = ({ className, ...rest }) => {
     return (
-        <span className={`Logo ${props.customClass}`}>cvfy</span>
+        <a href="/" className={`Logo ${className}`} {...rest}>cvfy</a>
     );
 };
 
