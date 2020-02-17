@@ -1,27 +1,28 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import './header.styles.css';
 
-import H1Comp from '../../elements/h1/h1.component';
-import H4Comp from '../../elements/h4/h4.component';
 import LogoComp from '../../elements/logo/logo.component';
-import ResumeIcon from '../../../assets/landing/landingresume.svg';
-import ButtonLinkComp from '../../elements/button-link/button-link.component';
+import { ReactComponent as ResumeIcon } from '../../../assets/landing/landingresume.svg';
+import ButtonComp from '../../elements/button/button.component';
 
 const HeaderComp = () => {
+    const history = useHistory();
+
     return (
         <div className="Header">
-            <div className="content row">
-                <div className="image col">
-                    <img src={ResumeIcon} alt="resume icon" className="col" />
+            <div className="content">
+                <div className="image">
+                    <ResumeIcon className="resume-icon" />
                 </div>
-                <div className='text col'>
-                    <H1Comp className='bold ch3'>Global Standard Resume</H1Comp>
-                    <H4Comp>Google, Facebook, Apple, Amazon, Netflix, Uber, and every other Fortune 500 company accepts <LogoComp>cvfy</LogoComp> resume</H4Comp>
-                    <ButtonLinkComp href="/edit-contact" className='standard-button char-space bold'>CVFY MY RESUME</ButtonLinkComp>
+                <div className="text">
+                    <h1 className="title b ch3">Global Standard Resume</h1>
+                    <h4 className="sub-title">Google, Facebook, Apple, Amazon, Netflix, Uber, and every other Fortune 500 company accepts <LogoComp>cvfy</LogoComp> resume</h4>
+                    <ButtonComp className="stdButton mtm bgch3" onClick={() => history.push("edit/contact")}>CVFY MY RESUME</ButtonComp>
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 

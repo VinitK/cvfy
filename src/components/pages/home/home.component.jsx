@@ -1,24 +1,28 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React, { Suspense, lazy } from 'react';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
-import NavbarComp from '../../sections/navbar/navbar.component';
-import HeaderComp from '../../sections/header/header.component';
-import EditContactComp from '../../sections/edit/contact/edit.contact.component';
-import EditWorkComp from '../../sections/edit/work/edit.work.component';
-import NotFoundPage from '../notfound/notfound.component';
 import LoadingComp from '../../sections/loading/loading.component';
+import NavbarComp from '../../sections/navbar/navbar.component';
 
-const HomePage = ({ match }) => {
+const AuthComp = lazy(() => import('../../sections/auth/auth.component'));
+const HeaderComp = lazy(() => import('../../sections/header/header.component'));
+const NotFoundPage = lazy(() => import('../notfound/notfound.component'));
+const EditResumeComp = lazy(() => import('../../sections/edit/edit-resume.component'));
+
+const HomePage = () => {
+    const match = useRouteMatch()
     return (
-        <div className="Home">
+        <div className="HomePage">
             <NavbarComp />
-            <Switch>
-                <Route exact path={`${match.url}`} component={HeaderComp} />
-                <Route exact path={`${match.url}edit-contact`} component={EditContactComp} />
-                <Route exact path={`${match.url}edit-work`} component={EditWorkComp} />
-                <Route exact path={`${match.url}loading`} component={LoadingComp} />
-                <Route component={NotFoundPage} />
-            </Switch>
+            <Suspense fallback={<LoadingComp />}>
+                <Switch>
+                    <Route path={`${match.url}edit`} component={EditResumeComp} />
+                    <Route path={`${match.url}loading`} component={LoadingComp} />
+                    <Route path={`${match.url}auth`} component={AuthComp} />
+                    <Route exact path={`${match.url}`} component={HeaderComp} />
+                    <Route component={NotFoundPage} />
+                </Switch>
+            </Suspense>
         </div>
     );
 };

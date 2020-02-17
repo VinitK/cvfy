@@ -4,7 +4,7 @@ import './logo.styles.css';
 
 const LogoComp = ({ className, ...rest }) => {
     return (
-        <a href="/" className={`Logo ${className}`} {...rest}>cvfy</a>
+        <a href="/" className={`Logo ${className ? className : ""}`} {...rest}>cvfy</a>
     );
 };
 

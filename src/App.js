@@ -1,22 +1,22 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import './App.css';
-import LoadingComp from './components/sections/loading/loading.component';
 import FooterComp from './components/sections/footer/footer.component';
-
-const HomePage = lazy(() => import('./components/pages/home/home.component.jsx'));
-const CvPage = lazy(() => import('./components/pages/cv/cv.component'));
+import HomePage from './components/pages/home/home.component.jsx';
+import CvPage from './components/pages/cv/cv.component';
 
 function App() {
   return (
     <div className="App">
-      <Suspense fallback={<LoadingComp />}>
-        <Switch>
-          <Route path='/cv' component={CvPage} />
-          <Route path='/' component={HomePage} />
-        </Switch>
-      </Suspense>
+      <Switch>
+        <Route path='/cv'>
+          <CvPage />
+        </Route>
+        <Route path='/'>
+          <HomePage />
+        </Route>
+      </Switch>
       <FooterComp />
     </div>
   );

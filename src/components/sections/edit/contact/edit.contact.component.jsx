@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import './edit.contact.styles.css';
+import { ReactComponent as ContactIcon } from '../../../../assets/resume-form/contact.svg';
+import firebase from '../../../../firebase/auth.util';
 
 import InputComp from '../../../elements/input/input.component';
 import ButtonComp from '../../../elements/button/button.component';
-import ContactIcon from '../../../../assets/resume-form/contact.svg';
-import firebase from '../../../../firebase/auth.util';
+
 
 const EditContactComp = () => { // COMPONENT
     const [loading, setLoading] = useState(false);
@@ -56,31 +57,24 @@ const EditContactComp = () => { // COMPONENT
     }, [user]);
 
     return (
-        <div className="Edit-contact">
-            <div className="area">
-                {loggedIn}
-                <div className="card">
-                    <div className="card-header">
-                        <h4>Contact Details</h4>
-                    </div>
-                    <div className="card-body">
-                        <div className="content row">
-                            <div className="text col">
-                                <form onSubmit={submitHandler}>
-                                    <InputComp type="text" id="editContactName">Display Name</InputComp>
-                                    <InputComp type="email" id="editContactEmail">Contact Email</InputComp>
-                                    <InputComp type="tel" id="editContactPhone">Contact Phone</InputComp>
-                                    <InputComp type="url" id="editLinkedinUrl">Linkedin Profile URL</InputComp>
-                                    <InputComp type="password" id="editPassword">Password</InputComp>
-                                    <InputComp type="password" id="editConfirmPassword">Confirm Password</InputComp>
-                                    <ButtonComp type="submit" loading={loading} className="char-space bold h6 mtxl">SAVE</ButtonComp>
-                                </form>
-                            </div>
-                            <div className="image col">
-                                <img src={ContactIcon} alt="contact icon" />
-                            </div>
-                        </div>
-                    </div>
+        <div className="Edit-contact card">
+            <div className="card-header">
+                <h4>Contact Details</h4>
+            </div>
+            <div className="card-body">
+                <div className="text">
+                    <form onSubmit={submitHandler}>
+                        <InputComp type="text" id="editContactName">Display Name</InputComp>
+                        <InputComp type="email" id="editContactEmail">Contact Email</InputComp>
+                        <InputComp type="tel" id="editContactPhone">Contact Phone</InputComp>
+                        <InputComp type="url" id="editLinkedinUrl">Linkedin Profile URL</InputComp>
+                        <InputComp type="password" id="editPassword">Password</InputComp>
+                        <InputComp type="password" id="editConfirmPassword">Confirm Password</InputComp>
+                        <ButtonComp type="submit" loading={loading} className="stdButton mtl">SAVE</ButtonComp>
+                    </form>
+                </div>
+                <div className="image">
+                    <ContactIcon className="contact-icon" />
                 </div>
             </div>
         </div>

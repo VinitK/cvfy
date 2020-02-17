@@ -1,0 +1,9 @@
+.Work-experience > .content > .designation-duration {
+    justify-content: space-between;
+    color: var(--color-highlight-3);
+    padding: 5px 0;
+}
+
+.Work-experience > .content {
+    padding: 20px;
+}

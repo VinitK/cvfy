@@ -1,0 +1,12 @@
+.Auth-login {
+    width: 500px;
+    align-items: center;
+}
+
+.Auth-login > .card {
+    width: 400px;
+}
+
+.Auth-login > .card > .card-body > .login-form {
+    padding: 10px;
+}

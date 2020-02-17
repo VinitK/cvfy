@@ -2,18 +2,13 @@ import React from 'react';
 
 import './button.styles.css';
 
-const ButtonComp = ({ type, className, loading, children, ...rest }) => {
+import { ReactComponent as GoogleIcon } from '../../../assets/social/google.svg';
+
+const ButtonComp = ({ type, className, loading, children, googleSignIn, ...rest }) => {
+    console.log(children)
     return (
-        <div className='Button'>
-            <button type={type} disabled={loading} className={`${className}`} {...rest}>{children}</button>
-        </div >
+        <button type={type} disabled={loading} className={`${className}`} {...rest}>{googleSignIn ? <div className="frow"><GoogleIcon className="google-icon" /><div>{children}</div></div> : children}</button>
     );
 };
 
 export default ButtonComp;
-
-// Creates a button
-// If prop customClass is passed with value as follows:
-// onHoverHighLight3: on Hover changes color to Highlight 3
-// Prop href for href of anchor tag
-// Prop children for text of button

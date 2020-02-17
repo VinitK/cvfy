@@ -9,15 +9,23 @@ const STORE_DATA = {
         profilePhotoUrl: "https://media-exp1.licdn.com/dms/image/C4E03AQFRraKpmA7m9w/profile-displayphoto-shrink_200_200/0?e=1586390400&v=beta&t=qHRLGQ0KKQmuJ0GMGc_2PXmjZeYMbrh4Ob_PqN0rzGg"
     },
     work: {
-        isCurrentlyWorking: false,
+        isCurrentlyWorking: true,
         experiences: [
             {
-                company: {
-                    name: "CVFY",
-                    address: "Baner"
-                },
-                designation: "Founder",
-                startDate: new Date()
+                id: 2,
+                companyName: "CVFY",
+                designation: "Co-founder",
+                startDate: new Date(2016, 11),
+                endDate: null,
+                workDescription: "Something I did again."
+            },
+            {
+                id: 1,
+                companyName: "Cutshort",
+                designation: "Core team member",
+                startDate: new Date(2015, 8),
+                endDate: new Date(2016, 10),
+                workDescription: "Something I did"
             }
         ]
     }

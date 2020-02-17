@@ -1,7 +1,50 @@
+.Header {
+    display: flex;
+    justify-content: center;
+}
+
 .Header > .content {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
     width: 80%;
 }
 
+.Header > .content > .image {
+    align-items: flex-end;
+    padding: 0 10px;
+    margin: auto;
+}
+
+.Header > .content > .image > .resume-icon {
+    width: 300px;
+}
+
 .Header > .content > .text {
-    width: 70%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 10px;
+}
+
+.Header > .content > .text > title {
+    margin: 5px 0;
+}
+
+.Header > .content > .text > .sub-title {
+    margin: 10px 0;
+}
+
+.Header > .content > .text > .btn {
+    margin: 10px 0;
+}
+
+@media only screen and (max-width: 800px) {
+    .Header > .content {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+    }
 }

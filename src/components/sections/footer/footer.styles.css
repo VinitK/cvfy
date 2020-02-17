@@ -3,23 +3,20 @@
     display: block;
 }
 
-.Footer > .box {
+.Footer > .area {
     background-color: var(--color-light);
-    /* vertically middle start */
+}
+
+.Footer > .area > .content {
+    width: 80%;
+    height: 150px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Footer > .area > .content > .credit {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* vertically middle end */
-    height: 200px;
-}
-
-.Footer > .box > .content {
-    color: var(--color-dark);
-    width: 80%;
-    margin: auto;
-}
-
-.Footer > .box > .content > .credit {
-    margin: auto;
-    height: 120px;
 }

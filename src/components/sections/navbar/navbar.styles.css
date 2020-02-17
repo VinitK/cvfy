@@ -1,8 +1,9 @@
-.Navbar .non-sticky {
+/*  */
+.Navbar > .non-sticky {
     height: 60px;
 }
 
-.Navbar .sticky {
+.Navbar > .sticky {
     background-color: var(--color-dark);
     width: 100%;
     height: 60px;
@@ -10,7 +11,7 @@
     z-index: 1;
 }
 
-.Navbar .sticky .content {
+.Navbar > .sticky > .content {
     width: 80%;
     margin: auto;
     height: 100%;
@@ -18,14 +19,38 @@
     justify-content: space-between;
 }
 
-.Navbar .sticky .content .logo {
-    padding-top: 10px;
+.Navbar > .sticky > .content > .logo {
+    display: flex;
+    align-items: center;
 }
 
-.Navbar .sticky .content .logo a {
+.Navbar > .sticky > .content > .nav {
+    display: flex;
+    height: 80%;
+    align-self: flex-end;
+    flex-wrap: wrap;
+    background-color: var(--color-dark);
+}
+
+.Navbar > .sticky > .content > .nav > .nav-element {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
     text-decoration: none;
+    color: var(--color-light);
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 5px 5px 0 0;
 }
 
-.Navbar .sticky .content .nav {
-    padding-top: 20px;
+@media only screen and (max-width: 700px) {
+    .Navbar .sticky .content .nav {
+        display: none;
+    }
+    
+    .Navbar .sticky .content .nav a {
+        flex: 1 1 100%;
+    }
 }

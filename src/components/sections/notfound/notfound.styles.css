@@ -1,20 +1,42 @@
-.Header {
-    height: 450px;
-    text-align: center;
-}
-
-.Header .content {
-    margin: auto;
-    width: 80%;
-}
-
-.Header .content .image {
-    width: 50%;
-    padding-right: 20px;
-}
-
-.Header .content .text {
-    padding-left: 20px;
+.Notfound {
+    display: flex;
     justify-content: center;
-    text-align: left;
+}
+
+.Notfound > .content {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    flex-wrap: wrap;
+}
+
+.Notfound > .content > .image {
+    align-items: flex-end;
+    padding: 0 10px;
+}
+
+.Notfound > .content > .image > img {
+    width: 300px;
+}
+
+.Notfound > .content > .text {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 10px;
+}
+
+.Notfound > .content > .text > title {
+    margin: 5px 0;
+}
+
+.Notfound > .content > .text > .sub-title {
+    margin: 10px 0;
+}
+
+.Notfound > .content > .text > .btn {
+    margin: 10px 0;
 }
