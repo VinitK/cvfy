@@ -6,7 +6,8 @@
     color: var(--color-dark);
 }
 
-.Logo:hover {
+.Logo:hover,
+.Logo:focus {
     color: var(--color-highlight-3);
 }
 

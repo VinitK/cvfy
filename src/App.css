@@ -13,8 +13,6 @@
 /* card */
 .card {
   border-radius: 10px;
-  box-shadow: 5px 5px 10px var(--color-light), 
-              -5px -5px 10px var(--color-superlight);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -29,15 +27,6 @@
 .card-body {
   display: flex;
   flex-direction: column;
-}
-
-/* input */
-input {
-  border: none;
-  border-bottom: 1px solid var(--color-light);
-  background-color: transparent;
-  outline: none;
-  height: 30px;
 }
 
 /* logo font */
@@ -60,14 +49,29 @@ input {
   text-transform: uppercase;
 }
 
-.stdButton:hover:enabled {
-  background-color: var(--color-highlight-3);
-  color: var(--color-superlight);
+.stdButton:hover:enabled,
+.stdButton:focus:enabled {
+  filter: brightness(120%);
 }
 
 .stdButton:disabled {
   background-color: var(--color-light);
   color: var(--color-superlight);
+}
+
+.neu-up {
+  box-shadow: 5px 5px 10px var(--color-light), 
+              -5px -5px 10px var(--color-superlight);
+}
+
+.neu-dn {
+  box-shadow: inset 5px 5px 10px var(--color-light), 
+              inset -5px -5px 10px var(--color-superlight);
+}
+
+.onHover-bright:hover,
+.onHover-bright:focus {
+  filter: brightness(110%);
 }
 
 /* font colors */
@@ -105,22 +109,9 @@ input {
   color: var(--color-ultralight);
 }
 
-.bgcd:hover,
-.bgcd:focus {
-  background-color: var(--color-dark) !important;
-  filter: brightness(120%);
-}
-
 .bgcl {
   background-color: var(--color-light);
   color: var(--color-dark);
-}
-
-.bgcl:hover,
-.bgcl:focus {
-  background-color: var(--color-light) !important;
-  color: var(--color-dark) !important;
-  filter: brightness(120%);
 }
 
 .bgcul {
@@ -128,22 +119,9 @@ input {
   color: var(--color-dark);
 }
 
-.bgcul:hover,
-.bgcul:focus {
-  background-color: var(--color-ultralight) !important;
-  color: var(--color-dark) !important;
-  filter: brightness(120%);
-}
-
 .bgch1 {
   background-color: var(--color-highlight-1);
   color: var(--color-ultralight);
-}
-
-.bgch1:hover,
-.bgch1:focus {
-  background-color: var(--color-highlight-1) !important;
-  filter: brightness(120%);
 }
 
 .bgch2 {
@@ -151,32 +129,14 @@ input {
   color: var(--color-ultralight);
 }
 
-.bgch2:hover,
-.bgch2:focus {
-  background-color: var(--color-highlight-2) !important;
-  filter: brightness(120%);
-}
-
 .bgch3 {
   background-color: var(--color-highlight-3);
   color: var(--color-ultralight);
 }
 
-.bgch3:hover,
-.bgch3:focus {
-  background-color: var(--color-highlight-3) !important;
-  filter: brightness(120%);
-}
-
 .bgch4 {
   background-color: var(--color-highlight-4);
   color: var(--color-ultralight);
-}
-
-.bgch4:hover,
-.bgch4:focus {
-  background-color: var(--color-highlight-4) !important;
-  filter: brightness(120%);
 }
 
 /* padding */
@@ -276,7 +236,7 @@ h5 {
 
 h6 {
   font-weight: normal;
-  font-size: 18px;
+  font-size: 16px;
 }
 /* font-size */
 .h1 {
@@ -338,7 +298,8 @@ h6 {
   transition: all 0.3s ease 0s;
 }
 
-.onHoverHighLight3:hover {
+.onHoverHighLight3:hover,
+.onHoverHighLight3:focus {
   color: var(--color-highlight-3);
 }
 

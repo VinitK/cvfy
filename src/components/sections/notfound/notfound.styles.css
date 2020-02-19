@@ -8,20 +8,20 @@
     display: flex;
     justify-content: center;
     width: 80%;
-    flex-wrap: wrap;
 }
 
 .Notfound > .content > .image {
     align-items: flex-end;
     padding: 0 10px;
+    margin: auto;
 }
 
-.Notfound > .content > .image > img {
+.Notfound > .content > .image > .resume-icon {
     width: 300px;
 }
 
 .Notfound > .content > .text {
-    width: 600px;
+    max-width: 600px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -39,4 +39,12 @@
 
 .Notfound > .content > .text > .btn {
     margin: 10px 0;
+}
+
+@media only screen and (max-width: 800px) {
+    .Notfound > .content {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+    }
 }

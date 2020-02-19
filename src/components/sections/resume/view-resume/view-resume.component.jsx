@@ -1,14 +1,14 @@
 import React from 'react';
 
 import ResumeContactComp from '../contact/resume.contact.component';
-import USER_DATA from '../../../../redux/store';
+import STORE_DATA from '../../../../redux/data';
 
 import './view-resume.styles.css';
 import ResumeWorkComp from '../work/resume.work.component';
 
 const ViewResumeComp = () => { // COMPONENT
 
-    const { contact, work } = USER_DATA;
+    const { contact, work } = STORE_DATA;
 
     return (
         <div className="View-resume">

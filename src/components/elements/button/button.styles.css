@@ -1,5 +1,5 @@
 .google-signin-btn {
-    background-color: var(--color-white);
+    background-color: var(--color-superlight);
     color: var(--color-dark);
     border: thin solid var(--color-light);
     border-radius: 3px;
@@ -7,13 +7,20 @@
     padding: 5px 15px 5px 10px;
     font-family: 'Roboto', sans-serif;
     font-size: large;
+    transition: 0.8s;
 }
 
 .google-signin-btn:hover {
     cursor: pointer;
     box-shadow: none;
     box-shadow: 1px 1px 1px var(--color-light);
-    transform: translate(-1px, -1px);
+    background: var(--color-white) radial-gradient(circle, transparent 1%, var(--color-white) 1%) center/15000%;
+}
+
+.google-signin-btn:active {
+    background-color: var(--color-light);
+    background-size: 100%;
+    transition: background 0s;
 }
 
 .google-signin-btn > .frow {

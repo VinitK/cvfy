@@ -6,7 +6,7 @@ import ResumeWorkExperienceComp from './experience/resume.work-experience.compon
 
 const ResumeWorkComp = ({ experiences }) => { // COMPONENT
     return (
-        <div className="Work card">
+        <div className="Work card neu-up">
             <div className="card-header">
                 <h5>Work Experience</h5>
             </div>

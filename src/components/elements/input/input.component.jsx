@@ -4,8 +4,8 @@ import './input.styles.css';
 
 const InputComp = ({ type, className, id, children, ...rest }) => {
     return (
-        <div className="Input">
-            <input type={type} className={className} id={id} placeholder=" " {...rest} />
+        <div className={`Input ${className}`}>
+            <input type={type} id={id} placeholder=" " {...rest} />
             <label htmlFor={id} className="float-label">{children}</label>
         </div>
     );

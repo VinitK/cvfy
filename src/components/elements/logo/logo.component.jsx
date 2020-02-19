@@ -1,10 +1,11 @@
 import React from 'react';
 
 import './logo.styles.css';
+import { Link } from 'react-router-dom';
 
 const LogoComp = ({ className, ...rest }) => {
     return (
-        <a href="/" className={`Logo ${className ? className : ""}`} {...rest}>cvfy</a>
+        <Link to="/" className={`Logo ${className ? className : ""}`} {...rest}>cvfy</Link>
     );
 };
 

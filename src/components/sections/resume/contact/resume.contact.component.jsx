@@ -9,7 +9,7 @@ import './resume.contact.styles.css';
 const ResumeContactComp = ({ contact, ...rest }) => { // COMPONENT
     const { displayName, bio, primaryContactEmail, primaryContactPhone, linkedinProfileUrl, profilePhotoUrl } = contact;
     return (
-        <div className="Resume-contact card">
+        <div className="Resume-contact card neu-up">
             <div className="card-body">
                 <div className="image">
                     <img src={profilePhotoUrl} alt={displayName} className="profile-pic" />

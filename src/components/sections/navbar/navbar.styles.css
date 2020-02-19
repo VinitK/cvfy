@@ -1,14 +1,19 @@
-/*  */
+.Navbar {
+    display: flex;
+    justify-content: center;
+}
+
 .Navbar > .non-sticky {
     height: 60px;
 }
 
 .Navbar > .sticky {
-    background-color: var(--color-dark);
-    width: 100%;
+    margin-top: 10px;
+    width: 98%;
     height: 60px;
     position: fixed;
     z-index: 1;
+    background-color: var(--color-light);
 }
 
 .Navbar > .sticky > .content {
@@ -26,10 +31,7 @@
 
 .Navbar > .sticky > .content > .nav {
     display: flex;
-    height: 80%;
-    align-self: flex-end;
     flex-wrap: wrap;
-    background-color: var(--color-dark);
 }
 
 .Navbar > .sticky > .content > .nav > .nav-element {
@@ -38,11 +40,12 @@
     align-items: center;
     padding: 10px 20px;
     text-decoration: none;
-    color: var(--color-light);
     border: none;
     text-transform: uppercase;
     letter-spacing: 1px;
-    border-radius: 5px 5px 0 0;
+    color: var(--color-dark);
+    background-color: var(--color-light);
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 700px) {

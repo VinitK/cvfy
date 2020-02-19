@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from 'react';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Route, Switch, useRouteMatch, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import LoadingComp from '../../sections/loading/loading.component';
 import NavbarComp from '../../sections/navbar/navbar.component';
@@ -9,22 +10,50 @@ const HeaderComp = lazy(() => import('../../sections/header/header.component'));
 const NotFoundPage = lazy(() => import('../notfound/notfound.component'));
 const EditResumeComp = lazy(() => import('../../sections/edit/edit-resume.component'));
 
-const HomePage = () => {
-    const match = useRouteMatch()
+const HomePage = ({ currentUser }) => {
+    const match = useRouteMatch();
     return (
         <div className="HomePage">
             <NavbarComp />
             <Suspense fallback={<LoadingComp />}>
                 <Switch>
-                    <Route path={`${match.url}edit`} component={EditResumeComp} />
-                    <Route path={`${match.url}loading`} component={LoadingComp} />
-                    <Route path={`${match.url}auth`} component={AuthComp} />
-                    <Route exact path={`${match.url}`} component={HeaderComp} />
-                    <Route component={NotFoundPage} />
+                    <Route path={`${match.url}edit`}>
+                        <EditResumeComp />
+                    </Route>
+                    <Route path={`${match.url}loading`}>
+                        <LoadingComp />
+                    </Route>
+                    <Route path={`${match.url}auth`}>
+                        {
+                            currentUser
+                                ?
+                                <Redirect to={`${match.url}`} />
+                                :
+                                <AuthComp />
+                        }
+                    </Route>
+                    <Route exact path={`${match.url}`}>
+                        {
+                            currentUser
+                                ?
+                                <Redirect to={`${match.url}edit`} />
+                                :
+                                <HeaderComp />
+                        }
+                    </Route>
+                    <Route>
+                        <NotFoundPage />
+                    </Route>
                 </Switch>
             </Suspense>
         </div>
     );
 };
 
-export default HomePage;
+const mapStateToProps = ({ user }) => (
+    {
+        currentUser: user.currentUser
+    }
+);
+
+export default connect(mapStateToProps)(HomePage);

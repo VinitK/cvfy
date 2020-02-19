@@ -8,7 +8,7 @@ import EditWorkExpComp from './experience/edit.work.experience.component';
 
 const EditWorkComp = () => {
     return (
-        <div className="Edit-work card">
+        <div className="Edit-work card neu-up">
             <div className="card-header">
                 <h4>Work Experience</h4>
             </div>
