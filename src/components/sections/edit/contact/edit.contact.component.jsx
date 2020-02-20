@@ -7,14 +7,14 @@ import InputComp from '../../../elements/input/input.component';
 import ButtonComp from '../../../elements/button/button.component';
 
 
-const EditContactComp = () => { // COMPONENT
+const EditContactComp = ({ id }) => { // COMPONENT
 
     const submitHandler = (e) => {
         e.preventDefault();
     }
 
     return (
-        <div className="Edit-contact card neu-up">
+        <div className="Edit-contact card neu-up" id={id}>
             <div className="card-header">
                 <h4>Contact</h4>
             </div>
@@ -26,7 +26,6 @@ const EditContactComp = () => { // COMPONENT
                         <InputComp type="email" id="editContactEmail">Contact Email</InputComp>
                         <InputComp type="tel" id="editContactPhone">Contact Phone</InputComp>
                         <InputComp type="url" id="editLinkedinUrl">Linkedin Profile URL</InputComp>
-                        <ButtonComp type="submit" className="stdButton mtl bgcd">SAVE</ButtonComp>
                     </form>
                 </div>
                 <div className="image">

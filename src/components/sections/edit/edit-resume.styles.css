@@ -5,31 +5,45 @@
     justify-content: space-between;
 }
 
+.Edit-resume > .sidebar > .options {
+    position: fixed;
+    width: 16%;
+}
+
 .Edit-resume > .sidebar {
     margin-top: 70px;
     width: 20%;
 }
 
-.Edit-resume > .sidebar > .option {
+.Edit-resume > .midbody {
+    width: 78%;
+}
+
+.Edit-resume > .sidebar > .options > .selected {
+    background-color: var(--color-superlight) !important;
+}
+
+.Edit-resume > .sidebar > .options > .option {
     margin-bottom: 5px;
     padding: 10px;
     border-bottom: 2px solid var(--color-light);
     border-right: 2px solid var(--color-light);
     border-radius: 5px;
     align-items: center;
+    color: var(--color-highlight-4);
 }
 
-.Edit-resume > .sidebar > .option:hover,
-.Edit-resume > .sidebar > .option:focus {
+.Edit-resume > .sidebar > .options > .option:hover,
+.Edit-resume > .sidebar > .options > .option:focus {
     background-color: var(--color-light);
 }
 
-.Edit-resume > .sidebar > .option > .icon {
+.Edit-resume > .sidebar > .options > .option > .icon {
     height: 20px;
     margin-right: 15px;
 }
 
-.Edit-resume > .sidebar > .option > .text {
+.Edit-resume > .sidebar > .options > .option > .text {
     height: 20px;
     margin-left: 15px;
 }

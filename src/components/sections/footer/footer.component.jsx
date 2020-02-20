@@ -13,10 +13,7 @@ const FooterComp = () => {
                 <div className="content">
                     <div className="credit">
                         <span><LogoComp className="h3" /></span>
-                        <h5>Project developed by</h5>
-                        <a className="unlink onHoverHighLight3" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/khandelwalvinit/">
-                            <h3 className="bold">Vinit Khandelwal</h3>
-                        </a>
+                        <h5>Project developed by <a className="unlink onHoverHighLight3" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/khandelwalvinit/">Vinit Khandelwal</a></h5>
                     </div>
                 </div>
             </div>

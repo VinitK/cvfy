@@ -15,7 +15,7 @@ const EditWorkComp = () => {
             <div className="card-body">
                 <div className="text">
                     <EditWorkExpComp count="1" />
-                    <ButtonComp href='/edit' type="submit" className='stdButton mtl'>SAVE</ButtonComp>
+                    <ButtonComp href='/edit' type="submit" className='stdButton bgch4 mtl'>ADD ANOTHER</ButtonComp>
                 </div>
                 <div className="image">
                     <WorkIcon className="work-icon" />

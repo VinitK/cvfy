@@ -40,10 +40,8 @@
     align-items: center;
     padding: 10px 20px;
     text-decoration: none;
-    border: none;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--color-dark);
+    color: var(--color-highlight-2);
     background-color: var(--color-light);
     cursor: pointer;
 }

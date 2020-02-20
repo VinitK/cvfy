@@ -18,7 +18,13 @@ const HomePage = ({ currentUser }) => {
             <Suspense fallback={<LoadingComp />}>
                 <Switch>
                     <Route path={`${match.url}edit`}>
-                        <EditResumeComp />
+                        {
+                            currentUser
+                                ?
+                                <EditResumeComp />
+                                :
+                                <Redirect to={`${match.url}`} />
+                        }
                     </Route>
                     <Route path={`${match.url}loading`}>
                         <LoadingComp />
