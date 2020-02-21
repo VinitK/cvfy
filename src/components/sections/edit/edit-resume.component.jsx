@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-
-import { getResume } from '../../../redux/resume/resume.actions';
 
 import { ReactComponent as ContactIcon } from '../../../assets/resume-tab/contact.svg';
 import { ReactComponent as WorkIcon } from '../../../assets/resume-tab/work.svg';
@@ -14,11 +12,14 @@ import './edit-resume.styles.css';
 import EditContactComp from './contact/edit.contact.component';
 import EditWorkComp from './work/edit.work.component';
 
-const EditResumeComp = () => {
+const EditResumeComp = ({ currentUser }) => {
 
-    const [tabSelected, setTabSelected] = useState("Contact");
+    const [state, setState] = useState(currentUser);
+    console.log(state)
+    console.log(currentUser)
 
-    const handleSelect = ({ target }) => {
+    const [tabSelected, setTabSelected] = useState("Contact"); // defining variables to highlight the tab selected
+    const handleSelect = ({ target }) => { // action to highlight tab selected
         setTabSelected(target.value);
     }
 
@@ -26,26 +27,26 @@ const EditResumeComp = () => {
         <div className="Edit-resume frow">
             <div className="sidebar">
                 <div className="options card fcol">
-                    <button className={tabSelected === "Contact" ? "selected option frow h6" : "option frow h6"} onClick={handleSelect} value="Contact" ><ContactIcon className="icon" />Contact</button>
-                    <button className={tabSelected === "Work" ? "selected option frow h6" : "option frow h6"} onClick={handleSelect} value="Work"><WorkIcon className="icon" />Work</button>
-                    <button className={tabSelected === "Certifications" ? "selected option frow h6" : "option frow h6"}><CertificateIcon className="icon" />Certifications</button>
-                    <button className={tabSelected === "Qualifications" ? "selected option frow h6" : "option frow h6"}><QualificationIcon className="icon" />Qualifications</button>
-                    <button className={tabSelected === "Skills" ? "selected option frow h6" : "option frow h6"}><SkillIcon className="icon" />Skills</button>
-                    <button className={tabSelected === "Projects" ? "selected option frow h6" : "option frow h6"}><ProjectIcon className="icon" />Projects</button>
+                    <a href="#Edit-contact__id"><button className={tabSelected === "Contact" ? "selected option frow h6" : "option frow h6"} onClick={handleSelect} value="Contact" ><ContactIcon className="icon" />Contact</button></a> {/* added value property to set selected button's background*/}
+                    <a href="#Edit-work__id"><button className={tabSelected === "Work" ? "selected option frow h6" : "option frow h6"} onClick={handleSelect} value="Work"><WorkIcon className="icon" />Work</button></a>
+                    <a href="#Edit-certifications__id"><button className={tabSelected === "Certifications" ? "selected option frow h6" : "option frow h6"}><CertificateIcon className="icon" />Certifications</button></a>
+                    <a href="#Edit-qualifications__id"><button className={tabSelected === "Qualifications" ? "selected option frow h6" : "option frow h6"}><QualificationIcon className="icon" />Qualifications</button></a>
+                    <a href="#Edit-skills__id"><button className={tabSelected === "Skills" ? "selected option frow h6" : "option frow h6"}><SkillIcon className="icon" />Skills</button></a>
+                    <a href="#Edit-projects__id"><button className={tabSelected === "Projects" ? "selected option frow h6" : "option frow h6"}><ProjectIcon className="icon" />Projects</button></a >
                 </div>
             </div>
             <div className="midbody fcol">
-                <EditContactComp />
+                <EditContactComp state={state} setState={setState} />
                 <EditWorkComp />
             </div>
-        </div>
+        </div >
     );
 };
 
-const mapDispatchToProps = dispatch => (
+const mapStateToProps = ({ user: { currentUser } }) => (
     {
-        getResume: () => dispatch(getResume())
+        currentUser
     }
 );
 
-export default connect(null, mapDispatchToProps)(EditResumeComp);
+export default connect(mapStateToProps)(EditResumeComp);

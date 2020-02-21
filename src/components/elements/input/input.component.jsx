@@ -2,10 +2,10 @@ import React from 'react';
 
 import './input.styles.css';
 
-const InputComp = ({ type, className, id, children, ...rest }) => {
+const InputComp = ({ type, className, id, children, value, ...rest }) => {
     return (
         <div className={`Input ${className}`}>
-            <input type={type} id={id} placeholder=" " {...rest} />
+            <input type={type} id={id} placeholder=" " value={value} {...rest} />
             <label htmlFor={id} className="float-label">{children}</label>
         </div>
     );

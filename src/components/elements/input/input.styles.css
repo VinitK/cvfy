@@ -18,13 +18,12 @@
     left: 0;
     cursor: text;
     transition: all 200ms;
-    color: var(--color-dark)
+    opacity: 0.5;
 }
 
 input:focus + .float-label ,
 input:not(:placeholder-shown) + .float-label {
     font-size: 12px;
     transform: translate3d(0, -130%, 0);
-    opacity: 0.5;
     color: var(--color-highlight-3);
 }
