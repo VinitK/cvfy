@@ -21,8 +21,7 @@ function App({ setCurrentUser }) {
           setCurrentUser({
             id: userSnap.id,
             ...userSnap.data()
-          }
-          );
+          });
         });
       } else {
         setCurrentUser(userAuth)

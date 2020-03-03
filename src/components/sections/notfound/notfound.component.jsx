@@ -19,7 +19,7 @@ const NotfoundSectionComp = () => {
                 <div className="text">
                     <h1 className="title b ch3">404 Page Not Found</h1>
                     <h4 className="sub-title">This page does not exist. To browse <LogoComp>cvfy</LogoComp> go to Home page</h4>
-                    <ButtonComp className="stdButton mtm bgch3" onClick={() => history.push("/")}>Home</ButtonComp>
+                    <ButtonComp className="button bgch3 pm mtm" onClick={() => history.push("/")}>Home</ButtonComp>
                 </div>
             </div>
         </div>

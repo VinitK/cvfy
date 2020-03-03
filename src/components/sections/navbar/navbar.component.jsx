@@ -18,15 +18,14 @@ function NavbarComp({ currentUser }) {
                     </div>
                     <nav className="nav">
                         <Link to="/" className="nav-element onHover-bright">Home</Link>
-                        <Link to="/loading" className="nav-element onHover-bright">Loading</Link>
                         <Link to="/resumes" className="nav-element onHover-bright">Resumes</Link>
-                        <Link to="/cv/vinit" className="nav-element onHover-bright">My CV</Link>
                         {
                             currentUser
-                                ?
+                            &&
+                            <>
+                                <Link to={`/cv/${currentUser.id}`} className="nav-element onHover-bright">My CV</Link>
                                 <div onClick={() => auth.signOut()} className="nav-element onHover-bright">Sign out</div>
-                                :
-                                null
+                            </>
                         }
                     </nav>
                 </div>

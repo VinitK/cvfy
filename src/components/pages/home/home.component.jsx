@@ -9,6 +9,7 @@ const AuthComp = lazy(() => import('../../sections/auth/auth.component'));
 const HeaderComp = lazy(() => import('../../sections/header/header.component'));
 const NotFoundPage = lazy(() => import('../notfound/notfound.component'));
 const EditResumeComp = lazy(() => import('../../sections/edit/edit-resume.component'));
+const ResumesComp = lazy(() => import('../../sections/resumes/resumes.component'));
 
 const HomePage = ({ currentUser }) => {
     const match = useRouteMatch();
@@ -28,6 +29,9 @@ const HomePage = ({ currentUser }) => {
                     </Route>
                     <Route path={`${match.url}loading`}>
                         <LoadingComp />
+                    </Route>
+                    <Route path={`${match.url}resumes`}>
+                        <ResumesComp />
                     </Route>
                     <Route path={`${match.url}auth`}>
                         {

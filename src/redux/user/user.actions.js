@@ -6,3 +6,10 @@ export const setCurrentUser = user => (
         payload: user
     }
 );
+
+export const updateCurrentUser = user => (
+    {
+        type: UserActionTypes.UPDATE_USER,
+        payload: user
+    }
+);

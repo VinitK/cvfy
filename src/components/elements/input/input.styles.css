@@ -3,14 +3,22 @@
     padding-top: 30px;
 }
 
-.Input > input {
+.Input > .style {
     width: 100%;
     font-size: 16px;
     border: none;
     border-bottom: 1px solid var(--color-light);
     background-color: transparent;
+}
+.Input > .input {
     height: 30px;
 }
+
+.Input > .textarea {
+    font-family: Arial, Helvetica, sans-serif;
+    resize: none;
+}
+
 
 .Input > .float-label {
     position: absolute;
@@ -21,8 +29,10 @@
     opacity: 0.5;
 }
 
-input:focus + .float-label ,
-input:not(:placeholder-shown) + .float-label {
+.input:focus + .float-label ,
+.input:not(:placeholder-shown) + .float-label,
+.textarea:focus + .float-label ,
+.textarea:not(:placeholder-shown) + .float-label {
     font-size: 12px;
     transform: translate3d(0, -130%, 0);
     color: var(--color-highlight-3);

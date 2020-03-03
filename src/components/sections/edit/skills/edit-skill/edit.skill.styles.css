@@ -1,0 +1,20 @@
+.Edit-skill {
+    width: 100%;
+}
+
+.Edit-skill > .form > .skill {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Edit-skill > .form > .skill > .skill-name {
+    width: 100%;
+}
+
+.Edit-skill > .form > .skill > .stars > .rate {
+    align-items: center;
+}
+
+.Edit-skill > .form > .skill > .stars > .rate > label {
+    padding: 10px;
+}

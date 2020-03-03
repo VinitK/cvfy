@@ -6,6 +6,8 @@ import ResumeWorkExperienceComp from './experience/resume.work-experience.compon
 
 const ResumeWorkComp = ({ experiences }) => { // COMPONENT
     return (
+
+        experiences.length > 0 &&
         <div className="Work card neu-up">
             <div className="card-header">
                 <h5>Work Experience</h5>
@@ -14,6 +16,7 @@ const ResumeWorkComp = ({ experiences }) => { // COMPONENT
                 {experiences.map(experience => <ResumeWorkExperienceComp key={experience.id} experience={experience} />)}
             </div>
         </div>
+
     );
 };
 

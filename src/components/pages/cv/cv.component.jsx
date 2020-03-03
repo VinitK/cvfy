@@ -2,16 +2,16 @@ import React, { Suspense, lazy } from 'react';
 import { Route, Switch, useRouteMatch, Redirect } from 'react-router-dom';
 
 import LoadingComp from '../../sections/loading/loading.component';
-const ViewResumeComp = lazy(() => import('../../sections/resume/view-resume/view-resume.component'));
+const ViewResumeComp = lazy(() => import('../../sections/resume/view-resume.component'));
 const NotFoundPage = lazy(() => import('../notfound/notfound.component'));
 
 const CvPage = () => {
     const match = useRouteMatch();
     return (
-        <div className="CvPage">
+        <div className="CvPage bgch4">
             <Suspense fallback={<LoadingComp />}>
                 <Switch>
-                    <Route path={`${match.url}/:id`}>
+                    <Route path={`${match.url}/:userId`}>
                         <ViewResumeComp />
                     </Route>
                     <Route exact path={`${match.url}`}>
@@ -22,7 +22,7 @@ const CvPage = () => {
                     </Route>
                 </Switch>
             </Suspense>
-        </div>
+        </div >
     );
 }
 

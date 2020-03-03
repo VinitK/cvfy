@@ -5,10 +5,12 @@
 .Resume-contact > .card-body {
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .Resume-contact > .card-body > .image {
-    width: 200px;
+    width: 100px;
+    height: 100px;
     display: flex;
     margin: 10px;
     border-radius: 5px;
@@ -22,7 +24,7 @@
 }
 
 .Resume-contact > .card-body > .text {
-    width: 450px;
+    width: 300px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -30,7 +32,7 @@
 }
 
 .Resume-contact > .card-body > .contact {
-    width: 350px;
+    width: 200px;
     height: 140px;
     padding: 10px;
     align-self: center;

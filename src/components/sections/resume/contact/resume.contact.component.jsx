@@ -1,38 +1,48 @@
 import React from 'react';
 
+import './resume.contact.styles.css';
 import EmailSvg from '../../../../assets/cv/email.svg';
 import PhoneSvg from '../../../../assets/cv/phone.svg';
 import LinkedinSvg from '../../../../assets/cv/linkedin.svg';
+import LoadingComp from '../../loading/loading.component';
 
-import './resume.contact.styles.css';
 
-const ResumeContactComp = ({ contact, ...rest }) => { // COMPONENT
-    const { displayName, bio, primaryContactEmail, primaryContactPhone, linkedinProfileUrl, profilePhotoUrl } = contact;
+const ResumeContactComp = ({ contact }) => { // COMPONENT
+
     return (
-        <div className="Resume-contact card neu-up">
-            <div className="card-body">
-                <div className="image">
-                    <img src={profilePhotoUrl} alt={displayName} className="profile-pic" />
-                </div>
-                <div className="text">
-                    <h2>{displayName}</h2>
-                    <h6>{bio}</h6>
-                </div>
-                <div className="contact">
-                    <div className="cell">
-                        <img src={EmailSvg} alt="email icon" className="icon" />
-                        <p>{primaryContactEmail}</p>
+        <div className="Resume-contact card neu-up bgcul">
+            {
+                contact.displayName
+                    ?
+                    <div className="card-body">
+                        {
+                            contact.phone &&
+                            <div className="image">
+                                <img src={contact.photo} alt={contact.displayName} className="profile-pic" />
+                            </div>
+                        }
+                        <div className="text">
+                            <h3>{contact.displayName}</h3>
+                            <h6>{contact.introduction}</h6>
+                        </div>
+                        <div className="contact">
+                            <div className="cell">
+                                <img src={EmailSvg} alt="email icon" className="icon" />
+                                <p>{contact.email}</p>
+                            </div>
+                            <div className="cell">
+                                <img src={PhoneSvg} alt="email icon" className="icon" />
+                                <p>{contact.phone}</p>
+                            </div>
+                            <div className="cell">
+                                <img src={LinkedinSvg} alt="email icon" className="icon" />
+                                <p>{contact.linkedin}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div className="cell">
-                        <img src={PhoneSvg} alt="email icon" className="icon" />
-                        <p>{primaryContactPhone}</p>
-                    </div>
-                    <div className="cell">
-                        <img src={LinkedinSvg} alt="email icon" className="icon" />
-                        <p>{linkedinProfileUrl}</p>
-                    </div>
-                </div>
-            </div>
+                    :
+                    <LoadingComp />
+            }
         </div>
     );
 };

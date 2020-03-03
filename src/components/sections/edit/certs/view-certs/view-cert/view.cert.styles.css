@@ -1,0 +1,17 @@
+.View-cert > .frow {
+    justify-content: space-between;
+}
+
+.View-cert > .frow > .update-delete {
+    justify-content: space-between;
+}
+
+.View-cert > .frow > .update-delete > .delete-icon:hover > svg > g > g,
+.View-cert > .frow > .update-delete > .delete-icon:focus > svg > g > g {
+    fill: #c13526;
+}
+
+.View-cert > .frow > .update-delete > .edit-icon:hover > svg > g > g,
+.View-cert > .frow > .update-delete > .edit-icon:focus > svg > g > g {
+    fill: #007e58;
+}

@@ -1,0 +1,27 @@
+.View-skill > .frow {
+    justify-content: space-between;
+}
+
+.View-skill > .frow > .info {
+    width: 80%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.View-skill > .frow > .update-delete {
+    justify-content: space-between;
+}
+
+.View-skill > .frow > .fcol > .issue-valid-date-group {
+    justify-content: space-between;
+}
+
+.View-skill > .frow > .update-delete > .delete-icon:hover > svg > g > g,
+.View-skill > .frow > .update-delete > .delete-icon:focus > svg > g > g {
+    fill: #c13526;
+}
+
+.View-skill > .frow > .update-delete > .edit-icon:hover > svg > g > g,
+.View-skill > .frow > .update-delete > .edit-icon:focus > svg > g > g {
+    fill: #007e58;
+}

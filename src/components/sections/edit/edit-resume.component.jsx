@@ -1,52 +1,45 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 
 import { ReactComponent as ContactIcon } from '../../../assets/resume-tab/contact.svg';
 import { ReactComponent as WorkIcon } from '../../../assets/resume-tab/work.svg';
-import { ReactComponent as CertificateIcon } from '../../../assets/resume-tab/certificate.svg';
+import { ReactComponent as CertificationsIcon } from '../../../assets/resume-tab/certificate.svg';
 import { ReactComponent as QualificationIcon } from '../../../assets/resume-tab/qualification.svg';
-import { ReactComponent as SkillIcon } from '../../../assets/resume-tab/skill.svg';
-import { ReactComponent as ProjectIcon } from '../../../assets/resume-tab/project.svg';
+import { ReactComponent as SkillsIcon } from '../../../assets/resume-tab/skill.svg';
+// import { ReactComponent as ProjectsIcon } from '../../../assets/resume-tab/project.svg';
 import './edit-resume.styles.css';
 
 import EditContactComp from './contact/edit.contact.component';
 import EditWorkComp from './work/edit.work.component';
+import CertsComp from './certs/certs.component';
+import QualsComp from './quals/quals.component';
+import SkillsComp from './skills/skills.component';
 
-const EditResumeComp = ({ currentUser }) => {
+const EditResumeComp = () => {
 
-    const [state, setState] = useState(currentUser);
-    console.log(state)
-    console.log(currentUser)
-
-    const [tabSelected, setTabSelected] = useState("Contact"); // defining variables to highlight the tab selected
-    const handleSelect = ({ target }) => { // action to highlight tab selected
-        setTabSelected(target.value);
-    }
+    const tabs = [
+        { name: <div className="mls">Contact</div>, icon: <ContactIcon className="icon" />, id: "#Edit-Contact__id", },
+        { name: <div className="mls">Work</div>, icon: <WorkIcon className="icon" />, id: "#Edit-Work__id", },
+        { name: <div className="mls">Certifications</div>, icon: <CertificationsIcon className="icon" />, id: "#Edit-Certs__id", },
+        { name: <div className="mls">Qualification</div>, icon: <QualificationIcon className="icon" />, id: "#Edit-Quals__id", },
+        { name: <div className="mls">Skills</div>, icon: <SkillsIcon className="icon" />, id: "#Edit-Skills__id", }];
+    // { name: <div className="mls">Projects</div>, icon: <ProjectsIcon className="icon" />, id: "#EditProjects__id" }];
 
     return (
         <div className="Edit-resume frow">
             <div className="sidebar">
-                <div className="options card fcol">
-                    <a href="#Edit-contact__id"><button className={tabSelected === "Contact" ? "selected option frow h6" : "option frow h6"} onClick={handleSelect} value="Contact" ><ContactIcon className="icon" />Contact</button></a> {/* added value property to set selected button's background*/}
-                    <a href="#Edit-work__id"><button className={tabSelected === "Work" ? "selected option frow h6" : "option frow h6"} onClick={handleSelect} value="Work"><WorkIcon className="icon" />Work</button></a>
-                    <a href="#Edit-certifications__id"><button className={tabSelected === "Certifications" ? "selected option frow h6" : "option frow h6"}><CertificateIcon className="icon" />Certifications</button></a>
-                    <a href="#Edit-qualifications__id"><button className={tabSelected === "Qualifications" ? "selected option frow h6" : "option frow h6"}><QualificationIcon className="icon" />Qualifications</button></a>
-                    <a href="#Edit-skills__id"><button className={tabSelected === "Skills" ? "selected option frow h6" : "option frow h6"}><SkillIcon className="icon" />Skills</button></a>
-                    <a href="#Edit-projects__id"><button className={tabSelected === "Projects" ? "selected option frow h6" : "option frow h6"}><ProjectIcon className="icon" />Projects</button></a >
+                <div className="options fcol">
+                    {tabs.map((tab, i) => <a href={tab.id} className="frow h6 button option" key={i}>{tab.icon}{tab.name}</a>)}
                 </div>
             </div>
             <div className="midbody fcol">
-                <EditContactComp state={state} setState={setState} />
+                <EditContactComp />
                 <EditWorkComp />
+                <CertsComp />
+                <QualsComp />
+                <SkillsComp />
             </div>
         </div >
     );
 };
 
-const mapStateToProps = ({ user: { currentUser } }) => (
-    {
-        currentUser
-    }
-);
-
-export default connect(mapStateToProps)(EditResumeComp);
+export default EditResumeComp;
