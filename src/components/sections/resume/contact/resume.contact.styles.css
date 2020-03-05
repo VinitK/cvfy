@@ -60,6 +60,7 @@
 
     .Resume-contact > .card-body > .text {
         width: 100%;
+        align-items: center;
     }
 
     .Resume-contact > .card-body > .contact {
