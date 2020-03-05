@@ -16,7 +16,8 @@
 }
 
 .Footer > .area > .content > .card {
-    width: 400px;
+    max-width: 400px;
+    width: 100%;
 }
 
 .Footer > .area > .content > .card > .card-body {

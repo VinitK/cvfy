@@ -4,7 +4,7 @@
 }
 
 .Header > .content {
-    margin: 20px 0;
+    margin: 50px 0;
     display: flex;
     justify-content: center;
     width: 80%;
@@ -30,15 +30,15 @@
 }
 
 .Header > .content > .text > title {
-    margin: 5px 0;
+    margin: 15px 0;
 }
 
 .Header > .content > .text > .sub-title {
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 .Header > .content > .text > .btn {
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 @media only screen and (max-width: 800px) {
