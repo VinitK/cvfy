@@ -1,3 +1,26 @@
+
+.Edit-cert > .form > .issue-valid-date-group {
+    justify-content: space-between;
+}
+
+.Edit-cert > .form > .issue-valid-date-group > .issue-date-group {
+    width: 100%;
+}
+
+.Edit-cert > .form > .issue-valid-date-group > .valid-date-group {
+    width: 100%;
+}
+
 .Edit-cert > .form > .issue-valid-date-group > .valid-date-group > .no-expiry-group {
     align-items: center;
+}
+
+@media only screen and (max-width: 500px) {
+    .Edit-cert > .form > .issue-valid-date-group {
+        flex-direction: column;
+    }
+
+    .Edit-cert > .form > .issue-valid-date-group > .valid-date-group {
+        margin-top: 15px;
+    }
 }

@@ -4,13 +4,12 @@
 }
 
 .Navbar > .non-sticky {
-    height: 60px;
+    height: 50px;
 }
 
 .Navbar > .sticky {
-    margin-top: 10px;
-    width: 98%;
-    height: 60px;
+    width: 100%;
+    height: 50px;
     position: fixed;
     z-index: 1;
     background-color: var(--color-light);
@@ -31,14 +30,13 @@
 
 .Navbar > .sticky > .content > .nav {
     display: flex;
-    flex-wrap: wrap;
 }
 
 .Navbar > .sticky > .content > .nav > .nav-element {
-    height: 100%;
     display: flex;
     align-items: center;
-    padding: 10px 20px;
+    height: 100%;
+    padding: 0 10px;
     text-decoration: none;
     text-transform: uppercase;
     color: var(--color-highlight-2);
@@ -47,11 +45,7 @@
 }
 
 @media only screen and (max-width: 700px) {
-    .Navbar .sticky .content .nav {
+    .Navbar > .sticky > .content > .nav > .home {
         display: none;
-    }
-    
-    .Navbar .sticky .content .nav a {
-        flex: 1 1 100%;
     }
 }

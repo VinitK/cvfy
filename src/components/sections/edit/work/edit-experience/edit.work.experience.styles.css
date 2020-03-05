@@ -1,3 +1,25 @@
+.Edit-work-exp > .form > .start-end-date-group {
+    justify-content: space-between;
+}
+
+.Edit-work-exp > .form > .start-end-date-group > .start-date-group {
+    width: 100%;
+}
+
+.Edit-work-exp > .form > .start-end-date-group > .end-date-group {
+    width: 100%;
+}
+
 .Edit-work-exp > .form > .start-end-date-group > .end-date-group > .currently-working-group {
     align-items: center;
+}
+
+@media only screen and (max-width: 500px) {
+    .Edit-work-exp > .form > .start-end-date-group {
+        flex-direction: column;
+    }
+
+    .Edit-work-exp > .form > .start-end-date-group > .end-date-group {
+        margin-top: 15px;
+    }
 }

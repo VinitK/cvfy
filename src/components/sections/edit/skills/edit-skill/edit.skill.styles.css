@@ -2,19 +2,15 @@
     width: 100%;
 }
 
-.Edit-skill > .form > .skill {
+.Edit-skill > .form > .stars {
     justify-content: space-between;
     align-items: center;
 }
 
-.Edit-skill > .form > .skill > .skill-name {
-    width: 100%;
-}
-
-.Edit-skill > .form > .skill > .stars > .rate {
+.Edit-skill > .form > .stars > .rate {
     align-items: center;
 }
 
-.Edit-skill > .form > .skill > .stars > .rate > label {
-    padding: 10px;
+.Edit-skill > .form  > .stars > .rate > .checkbox {
+    margin: 10px;
 }

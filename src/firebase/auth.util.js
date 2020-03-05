@@ -43,8 +43,23 @@ export const createUserProfileDoc = async (userAuth, restData) => {
     return userRef;
 }
 
+export const sendMessage = async (contact, message) => {
+    const msgRef = firestore.collection("messages").doc();
+    try {
+        const createdAt = new Date();
+        await msgRef.set({
+            contact,
+            message,
+            createdAt
+        });
+    } catch (err) {
+        console.error("Error sending message to Vinit:", err.message);
+    }
+    return msgRef.id;
+}
+
 export const getUsers = async () => {
-    return firestore.collection(`users`);
+    return firestore.collection("users");
 }
 
 export const getUserContact = (userId) => {

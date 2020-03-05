@@ -68,7 +68,7 @@ const EditCertComp = ({ userId, addCert }) => {
                             showMonthYearPicker
                         />
                     </div>
-                    <div className="valid-date-group fcol mll">
+                    <div className="valid-date-group fcol">
                         <ReactDatePicker
                             selected={state.validDate}
                             name="validDate"

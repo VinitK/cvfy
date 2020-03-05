@@ -58,8 +58,8 @@ const EditWorkExpComp = ({ userId, addExperience }) => {
     return (
         <div className="Edit-work-exp neu-dn card mtm pm">
             <form onSubmit={handleSubmit} className="form">
-                <div className="frow start-end-date-group">
-                    <div className="start-date-group fcol">
+                <div className="start-end-date-group frow">
+                    <div className="start-date-group">
                         <ReactDatePicker
                             selected={state.startDate}
                             name="startDate"
@@ -71,7 +71,7 @@ const EditWorkExpComp = ({ userId, addExperience }) => {
                             showMonthYearPicker
                         />
                     </div>
-                    <div className="end-date-group fcol mll">
+                    <div className="end-date-group fcol">
                         <ReactDatePicker
                             selected={state.endDate}
                             name="endDate"

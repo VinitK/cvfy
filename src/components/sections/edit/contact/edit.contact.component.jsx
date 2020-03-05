@@ -21,7 +21,28 @@ const EditContactComp = ({ currentUser, updateCurrentUser }) => {
 
     const handleChange = e => {
         const { value, name } = e.target;
-        setState({ ...state, [name]: value });
+        let maxLength = undefined;
+        switch (name) {
+            case "displayName":
+                maxLength = 50;
+                break;
+            case "introduction":
+                maxLength = 250;
+                break;
+            case "email":
+                maxLength = 50;
+                break;
+            case "phone":
+                maxLength = 13;
+                break;
+            case "linkedin":
+                maxLength = 100;
+                break;
+            default:
+                maxLength = undefined;
+                break;
+        }
+        setState({ ...state, [name]: value.substr(0, maxLength) })
     }
 
     return (

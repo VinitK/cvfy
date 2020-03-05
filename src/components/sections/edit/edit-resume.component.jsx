@@ -28,7 +28,7 @@ const EditResumeComp = () => {
         <div className="Edit-resume frow">
             <div className="sidebar">
                 <div className="options fcol">
-                    {tabs.map((tab, i) => <a href={tab.id} className="frow h6 button option" key={i}>{tab.icon}{tab.name}</a>)}
+                    {tabs.map((tab, i) => <a href={tab.id} className="frow h6 option button neu-up mts" key={i}>{tab.icon}{tab.name}</a>)}
                 </div>
             </div>
             <div className="midbody fcol">

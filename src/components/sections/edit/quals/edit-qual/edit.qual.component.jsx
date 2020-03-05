@@ -75,7 +75,7 @@ const EditQualComp = ({ userId, addQual }) => {
                             showMonthYearPicker
                         />
                     </div>
-                    <div className="end-date-group fcol mll">
+                    <div className="end-date-group fcol">
                         <ReactDatePicker
                             selected={state.endDate}
                             name="endDate"

@@ -26,7 +26,6 @@
     left: 0;
     cursor: text;
     transition: all 200ms;
-    opacity: 0.5;
 }
 
 .input:focus + .float-label ,

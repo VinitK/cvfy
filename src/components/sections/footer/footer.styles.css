@@ -9,14 +9,26 @@
 
 .Footer > .area > .content {
     width: 80%;
-    height: 120px;
     margin: auto;
     display: flex;
     justify-content: space-between;
+    padding: 20px 0;
 }
 
-.Footer > .area > .content > .credit {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.Footer > .area > .content > .card {
+    width: 400px;
+}
+
+.Footer > .area > .content > .card > .card-body {
+    margin: 10px 20px;
+}
+
+@media only screen and (max-width: 800px) {
+    .Footer > .area > .content {
+        flex-direction: column;
+    }
+
+    .Footer > .area > .content > .card {
+        margin-top: 20px;
+    }
 }

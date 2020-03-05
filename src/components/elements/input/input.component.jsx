@@ -13,7 +13,7 @@ const InputComp = ({ type, className, id, children, value, ...rest }) => {
                     <input type={type} id={id} placeholder=" " value={value} {...rest} className="style input" />
 
             }
-            <label htmlFor={id} className="float-label">{children}</label>
+            <label htmlFor={id} className="float-label opacity-half">{children}</label>
         </div>
     );
 };

@@ -17,6 +17,9 @@
 
     .Edit-contact > .card-body {
         display: flex;
+    }
+
+    .Edit-contact > .card-body > .frow {
         flex-direction: column-reverse;
     }
 

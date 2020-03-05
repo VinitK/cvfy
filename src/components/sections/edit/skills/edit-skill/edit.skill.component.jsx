@@ -42,65 +42,66 @@ const EditSkillComp = ({ userId, addSkill }) => {
     return (
         <div className="Edit-skill neu-dn card mtm pm">
             <form onSubmit={handleSubmit} className="form">
-                <div className="skill frow">
-                    <InputComp className="skill-name" type="text" id="editSkillCourse" name="skillName" value={state.course} onChange={handleChange}>Skill</InputComp>
-                    <div className="stars frow mlm">
-                        <div className="rate fcol">
-                            <label htmlFor="rating-1">1</label>
-                            <input
-                                type="radio"
-                                className="checkbox"
-                                onChange={handleChange}
-                                id="star-1"
-                                name="stars"
-                                value="1"
-                            />
-                        </div>
-                        <div className="rate fcol">
-                            <label htmlFor="rating-2">2</label>
-                            <input
-                                type="radio"
-                                className="checkbox"
-                                onChange={handleChange}
-                                id="star-2"
-                                name="stars"
-                                value="2"
-                            />
-                        </div>
-                        <div className="rate fcol">
-                            <label htmlFor="rating-3">3</label>
-                            <input
-                                type="radio"
-                                className="checkbox"
-                                onChange={handleChange}
-                                id="star-3"
-                                name="stars"
-                                value="3"
-                            />
-                        </div>
-                        <div className="rate fcol">
-                            <label htmlFor="rating-4">4</label>
-                            <input
-                                type="radio"
-                                className="checkbox"
-                                onChange={handleChange}
-                                id="star-4"
-                                name="stars"
-                                value="4"
-                            />
-                        </div>
-                        <div className="rate fcol">
-                            <label htmlFor="rating-5">5</label>
-                            <input
-                                type="radio"
-                                className="checkbox"
-                                onChange={handleChange}
-                                id="star-5"
-                                name="stars"
-                                value="5"
-                            />
-                        </div>
+                <InputComp className="skill-name" type="text" id="editSkillCourse" name="skillName" value={state.course} onChange={handleChange}>Skill</InputComp>
+                <h6 className="proficiency opacity-half mtm">Proficiency Level</h6>
+                <div className="stars frow mtm">
+                    <label>Amateur</label>
+                    <div className="rate fcol">
+                        <label htmlFor="rating-1">1</label>
+                        <input
+                            type="radio"
+                            className="checkbox"
+                            onChange={handleChange}
+                            id="rating-1"
+                            name="stars"
+                            value="1"
+                        />
                     </div>
+                    <div className="rate fcol">
+                        <label htmlFor="rating-2">2</label>
+                        <input
+                            type="radio"
+                            className="checkbox"
+                            onChange={handleChange}
+                            id="rating-2"
+                            name="stars"
+                            value="2"
+                        />
+                    </div>
+                    <div className="rate fcol">
+                        <label htmlFor="rating-3">3</label>
+                        <input
+                            type="radio"
+                            className="checkbox"
+                            onChange={handleChange}
+                            id="rating-3"
+                            name="stars"
+                            value="3"
+                        />
+                    </div>
+                    <div className="rate fcol">
+                        <label htmlFor="rating-4">4</label>
+                        <input
+                            type="radio"
+                            className="checkbox"
+                            onChange={handleChange}
+                            id="rating-4"
+                            name="stars"
+                            value="4"
+                        />
+                    </div>
+                    <div className="rate fcol">
+                        <label htmlFor="rating-5">5</label>
+                        <input
+                            type="radio"
+                            className="checkbox"
+                            onChange={handleChange}
+                            id="rating-5"
+                            name="stars"
+                            value="5"
+                        />
+                    </div>
+                    <label>Expert</label>
                 </div>
                 <ButtonComp btnType="SAVE_FORM" className="button mtm">Save</ButtonComp>
             </form >
