@@ -9,6 +9,7 @@ import { addQual } from '../../../../../redux/quals/quals.actions';
 import ReactDatePicker from 'react-datepicker';
 import InputComp from '../../../../elements/input/input.component';
 import ButtonComp from '../../../../elements/button/button.component';
+import SpinnerComp from '../../../../elements/spinner/spinner.component';
 
 
 const EditQualComp = ({ userId, addQual }) => {
@@ -24,6 +25,8 @@ const EditQualComp = ({ userId, addQual }) => {
             pursuing: false
         }
     );
+
+    const [loading, setLoading] = useState(false);
 
     const resetState = () => {
         setState({
@@ -50,9 +53,11 @@ const EditQualComp = ({ userId, addQual }) => {
 
     const handleSubmit = async e => {
         e.preventDefault();
+        setLoading(true);
         const qualId = await addUserQual(userId, state); // db
         addQual({ ...state, id: qualId }); // redux
         resetState();
+        setLoading(false);
     }
 
     return (
@@ -101,7 +106,10 @@ const EditQualComp = ({ userId, addQual }) => {
                         </div>
                     </div>
                 </div>
-                <ButtonComp btnType="SAVE_FORM" className="button mtm">Save</ButtonComp>
+                <div className="frow-mid mtm">
+                    <ButtonComp btnType="SAVE_FORM" className="button">Add</ButtonComp>
+                    {loading && <SpinnerComp className="mlm" />}
+                </div>
             </form>
         </div>
     );

@@ -7,15 +7,19 @@ import { updateUser } from '../../../../firebase/auth.util';
 
 import InputComp from '../../../elements/input/input.component';
 import ButtonComp from '../../../elements/button/button.component';
+import SpinnerComp from '../../../elements/spinner/spinner.component';
 
 
 const EditContactComp = ({ currentUser, updateCurrentUser }) => {
 
     const [state, setState] = useState(currentUser);
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async e => {
         e.preventDefault();
+        setLoading(true);
         await updateUser(state.id, state); // db
+        setLoading(false);
         // no need for redux update, since its getting updated by invocation of SET_CURRENT_USER
     }
 
@@ -47,6 +51,7 @@ const EditContactComp = ({ currentUser, updateCurrentUser }) => {
 
     return (
         <div className="Edit-contact card neu-up" id="Edit-Contact__id">
+
             <div className="card-header">
                 <h5>Contact</h5>
             </div>
@@ -60,16 +65,19 @@ const EditContactComp = ({ currentUser, updateCurrentUser }) => {
                                 <InputComp type="email" id="editContactEmail" name="email" value={state.email} onChange={handleChange}>Contact Email *</InputComp>
                                 <InputComp type="tel" id="editContactPhone" name="phone" value={state.phone} onChange={handleChange}>Contact Phone</InputComp>
                                 <InputComp type="url" id="editLinkedinUrl" name="linkedin" value={state.linkedin} onChange={handleChange}>Linkedin Profile URL</InputComp>
-                                <ButtonComp btnType="SAVE_FORM" className="button mtm">Save</ButtonComp>
-                            </form>
-                        </div>
-                    </div>
+                                <div className="frow-mid mtm">
+                                    <ButtonComp btnType="SAVE_FORM" className="button">Save</ButtonComp>
+                                    {loading && <SpinnerComp className="mlm" />}
+                                </div>
+                            </form >
+                        </div >
+                    </div >
                     <div className="image">
                         <ContactIcon className="contact-icon" />
                     </div>
-                </div>
-            </div>
-        </div>
+                </div >
+            </div >
+        </div >
     );
 };
 

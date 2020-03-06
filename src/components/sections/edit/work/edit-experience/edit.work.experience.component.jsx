@@ -10,6 +10,7 @@ import { addExperience } from '../../../../../redux/work/work.actions';
 import InputComp from '../../../../elements/input/input.component';
 import ReactDatePicker from 'react-datepicker';
 import ButtonComp from '../../../../elements/button/button.component';
+import SpinnerComp from '../../../../elements/spinner/spinner.component';
 
 
 const EditWorkExpComp = ({ userId, addExperience }) => {
@@ -24,6 +25,7 @@ const EditWorkExpComp = ({ userId, addExperience }) => {
             currentlyWorking: false
         }
     );
+    const [loading, setLoading] = useState(false);
 
     const resetState = () => {
         setState({
@@ -50,9 +52,11 @@ const EditWorkExpComp = ({ userId, addExperience }) => {
 
     const handleSubmit = async e => {
         e.preventDefault();
+        setLoading(true);
         const expId = await addUserWork(userId, state); // db
         addExperience({ ...state, id: expId }); // redux
         resetState();
+        setLoading(false);
     }
 
     return (
@@ -100,7 +104,12 @@ const EditWorkExpComp = ({ userId, addExperience }) => {
                 <InputComp type="text" id="editExpCompany" name="company" value={state.company} onChange={handleChange}>Company Name</InputComp>
                 <InputComp type="text" id="editExpDesignation" name="designation" value={state.designation} onChange={handleChange}>Designation</InputComp>
                 <InputComp type="textarea" id="editExpDescription" rows="4" name="description" value={state.description} onChange={handleChange} >Key Activities Carried Out</InputComp>
-                <ButtonComp btnType="SAVE_FORM" className="button mtm">Save</ButtonComp>
+
+
+                <div className="frow-mid mtm">
+                    <ButtonComp btnType="SAVE_FORM" className="button">Add</ButtonComp>
+                    {loading && <SpinnerComp className="mlm" />}
+                </div>
             </form>
         </div>
     );

@@ -9,6 +9,7 @@ import { addCert } from '../../../../../redux/certs/certs.actions';
 import ReactDatePicker from 'react-datepicker';
 import InputComp from '../../../../elements/input/input.component';
 import ButtonComp from '../../../../elements/button/button.component';
+import SpinnerComp from '../../../../elements/spinner/spinner.component';
 
 
 const EditCertComp = ({ userId, addCert }) => {
@@ -22,6 +23,8 @@ const EditCertComp = ({ userId, addCert }) => {
             noExpiry: true
         }
     );
+
+    const [loading, setLoading] = useState(false);
 
     const resetState = () => {
         setState({
@@ -47,9 +50,11 @@ const EditCertComp = ({ userId, addCert }) => {
 
     const handleSubmit = async e => {
         e.preventDefault();
+        setLoading(true);
         const certId = await addUserCert(userId, state); // db
         addCert({ ...state, id: certId }); // redux
         resetState();
+        setLoading(false);
     }
 
     return (
@@ -95,7 +100,10 @@ const EditCertComp = ({ userId, addCert }) => {
                 </div>
                 <InputComp type="text" id="editCertTitle" name="title" value={state.title} onChange={handleChange}>Title</InputComp>
                 <InputComp type="text" id="editCertIssuedBy" name="issuedBy" value={state.issuedBy} onChange={handleChange}>Issued By</InputComp>
-                <ButtonComp btnType="SAVE_FORM" className="button mtm">Save</ButtonComp>
+                <div className="frow-mid mtm">
+                    <ButtonComp btnType="SAVE_FORM" className="button">Add</ButtonComp>
+                    {loading && <SpinnerComp className="mlm" />}
+                </div>
             </form>
         </div>
     );

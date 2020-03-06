@@ -370,6 +370,11 @@ h6 {
   display: flex;
 }
 
+.frow-mid {
+  display: flex;
+  align-items: center;
+}
+
 .self-mid {
   align-self: center;
 }

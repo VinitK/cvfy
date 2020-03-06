@@ -8,6 +8,7 @@ import { addSkill } from '../../../../../redux/skills/skills.actions';
 
 import InputComp from '../../../../elements/input/input.component';
 import ButtonComp from '../../../../elements/button/button.component';
+import SpinnerComp from '../../../../elements/spinner/spinner.component';
 
 
 const EditSkillComp = ({ userId, addSkill }) => {
@@ -15,15 +16,17 @@ const EditSkillComp = ({ userId, addSkill }) => {
     const [state, setState] = useState(
         {
             skilName: "",
-            stars: 0
+            stars: 1,
+
         }
     );
+    const [loading, setLoading] = useState(false);
 
     const resetState = () => {
         setState({
             ...state,
-            skill: "",
-            stars: 0
+            skillName: "",
+            stars: 1
         });
     }
 
@@ -34,9 +37,11 @@ const EditSkillComp = ({ userId, addSkill }) => {
 
     const handleSubmit = async e => {
         e.preventDefault();
+        setLoading(true);
         const skillId = await addUserSkill(userId, state); // db
         addSkill({ ...state, id: skillId }); // redux
         resetState();
+        setLoading(false);
     }
 
     return (
@@ -55,6 +60,7 @@ const EditSkillComp = ({ userId, addSkill }) => {
                             id="rating-1"
                             name="stars"
                             value="1"
+                            checked={state.stars === 1}
                         />
                     </div>
                     <div className="rate fcol">
@@ -103,7 +109,10 @@ const EditSkillComp = ({ userId, addSkill }) => {
                     </div>
                     <label>Expert</label>
                 </div>
-                <ButtonComp btnType="SAVE_FORM" className="button mtm">Save</ButtonComp>
+                <div className="frow-mid mtm">
+                    <ButtonComp btnType="SAVE_FORM" className="button">Add</ButtonComp>
+                    {loading && <SpinnerComp className="mlm" />}
+                </div>
             </form >
         </div >
     );
