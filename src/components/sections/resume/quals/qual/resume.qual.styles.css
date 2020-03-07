@@ -1,4 +1,10 @@
 .Qual > .content {
     justify-content: space-between;
-    padding: 20px;
+    margin: 10px 20px;
+}
+
+@media only screen and (max-width: 500px) {
+    .Qual > .content {
+        flex-direction: column;
+    }
 }

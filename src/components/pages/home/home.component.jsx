@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import LoadingComp from '../../sections/loading/loading.component';
 import NavbarComp from '../../sections/navbar/navbar.component';
+import ErrorComp from '../../sections/error/error.component';
 
 const AuthComp = lazy(() => import('../../sections/auth/auth.component'));
 const HeaderComp = lazy(() => import('../../sections/header/header.component'));

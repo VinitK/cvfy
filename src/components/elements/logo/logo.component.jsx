@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const LogoComp = ({ className, ...rest }) => {
     return (
-        <Link to="/" className={`Logo ${className ? className : ""}`} {...rest}>cvfy</Link>
+        <Link to="/" className={`Logo ${className ? className : ""}`} {...rest}>cvfy.in</Link>
     );
 };
 

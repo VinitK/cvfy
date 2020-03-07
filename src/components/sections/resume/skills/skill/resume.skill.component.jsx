@@ -8,7 +8,7 @@ const ResumeSkillComp = (skill) => {
         <div className="Skill card-row">
             <div className="content frow">
                 <div className="fcol">
-                    <h5 className="ch3">{skillName}</h5>
+                    <h6 className="ch3">{skillName}</h6>
                 </div>
                 <div className="fcol">
                     <p>{[...Array(Number(stars))].map((e, i) => <span key={i} role="img" aria-label="star">⭐</span>)}</p>

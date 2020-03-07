@@ -1,6 +1,5 @@
 .Footer > svg {
-    /* To remove space below svg */
-    display: block;
+    display: block; /* To remove space below svg */
 }
 
 .Footer > .area {

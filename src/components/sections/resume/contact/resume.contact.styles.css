@@ -24,7 +24,7 @@
 }
 
 .Resume-contact > .card-body > .text {
-    padding: 10px;
+    padding: 10px 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;

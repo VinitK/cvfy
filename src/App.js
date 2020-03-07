@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -8,8 +8,10 @@ import { auth, createUserProfileDoc } from './firebase/auth.util';
 import { setCurrentUser } from './redux/user/user.actions';
 
 import FooterComp from './components/sections/footer/footer.component';
-import HomePage from './components/pages/home/home.component.jsx';
-import CvPage from './components/pages/cv/cv.component';
+import LoadingComp from './components/sections/loading/loading.component';
+import ErrorComp from './components/sections/error/error.component';
+const HomePage = lazy(() => import('./components/pages/home/home.component.jsx'));
+const CvPage = lazy(() => import('./components/pages/cv/cv.component'));
 
 function App({ setCurrentUser }) {
 
@@ -32,14 +34,18 @@ function App({ setCurrentUser }) {
 
   return (
     <div className="App">
-      <Switch>
-        <Route path='/cv'>
-          <CvPage />
-        </Route>
-        <Route path='/'>
-          <HomePage />
-        </Route>
-      </Switch>
+      <ErrorComp>
+        <Suspense fallback={<LoadingComp />}>
+          <Switch>
+            <Route path='/cv'>
+              <CvPage />
+            </Route>
+            <Route path='/'>
+              <HomePage />
+            </Route>
+          </Switch>
+        </Suspense>
+      </ErrorComp>
       <FooterComp />
     </div>
   );

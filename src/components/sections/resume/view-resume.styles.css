@@ -1,12 +1,10 @@
 .View-resume {
-    padding: 20px;
     width: 850px;
-    margin: auto;
+    margin: 20px auto;
 }
 
 @media only screen and (max-width: 1100px) {
     .View-resume {
         width: 100%;
-        padding: 10px;
     }
 }

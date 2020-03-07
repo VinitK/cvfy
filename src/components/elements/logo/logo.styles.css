@@ -16,3 +16,7 @@
 .light-logo {
     color: var(--color-light);
 }
+
+.logo-hover-light:hover {
+    color: var(--color-light);
+}

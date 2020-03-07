@@ -1,11 +1,10 @@
 import React from 'react';
-
-import './notfound.styles.css';
 import { useHistory } from 'react-router-dom';
 
-import LogoComp from '../../elements/logo/logo.component';
+import './notfound.styles.css';
 
 import { ReactComponent as NotfoundIcon } from '../../../assets/landing/notfound.svg';
+import LogoComp from '../../elements/logo/logo.component';
 import ButtonComp from '../../elements/button/button.component';
 
 const NotfoundSectionComp = () => {

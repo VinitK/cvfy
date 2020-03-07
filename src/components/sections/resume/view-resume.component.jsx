@@ -106,8 +106,7 @@ const ViewResumeComp = () => { // COMPONENT
     }, [userId, setContact, setWork, setCerts, setQuals, setSkills]);
 
     return (
-        <div className="View-resume bgcul">
-            <LogoComp className='logo h3 fcol' />
+        <div className="View-resume bgcul pm">
             <ResumeContactComp contact={contact} />
             <ResumeWorkComp experiences={work} />
             <ResumeCertsComp certs={certs} />

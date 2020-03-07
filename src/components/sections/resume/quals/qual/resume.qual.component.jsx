@@ -8,13 +8,13 @@ const ResumeQualComp = (qual) => { // COMPONENT
         <div className="Qual card-row">
             <div className="content frow">
                 <div className="fcol">
-                    <h5 className="ch3">{course}</h5>
-                    <p className="mts">{institute}</p>
-                    <p className="mts">{university}</p>
+                    <p className="ch3">{course}</p>
+                    <p className="mtxs">{institute}</p>
+                    <p className="mtxs">{university}</p>
                 </div>
                 <div className="fcol">
-                    <p>{startDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'short' })} - {pursuing ? "Pursuing" : endDate && endDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'short' })}</p>
-                    <h5 className="mts ch3">{score}</h5>
+                    <p className="mtxs">{startDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'short' })} - {pursuing ? "Pursuing" : endDate && endDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'short' })}</p>
+                    <p className="mtxs ch3">{score}</p>
                 </div>
             </div>
         </div>

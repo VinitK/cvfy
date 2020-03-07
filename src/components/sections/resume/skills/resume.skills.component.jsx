@@ -7,7 +7,7 @@ import ResumeSkillComp from './skill/resume.skill.component';
 const ResumeSkillsComp = ({ skills }) => { // COMPONENT
     return (
         skills.length > 0 &&
-        <div className="Skills card neu-up">
+        <div className="Skills card neu-up mts">
             <div className="card-header">
                 <h5>Skills</h5>
             </div>

@@ -12,8 +12,8 @@ const ResumeCertComp = (cert) => { // COMPONENT
                     <p className="mts">Issued by {issuedBy}</p>
                 </div>
                 <div className="fcol">
-                    <p>Completed on {issueDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'short' })}</p>
-                    <p className="mtm">{noExpiry ? "No expiry" : `Valid till ${validDate && validDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'short' })}`}</p>
+                    <p className="mts">Completed on {issueDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'short' })}</p>
+                    <p className="mts">{noExpiry ? "No expiry" : `Valid till ${validDate && validDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'short' })}`}</p>
                 </div>
             </div>
         </div>

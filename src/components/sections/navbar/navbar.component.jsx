@@ -14,7 +14,7 @@ function NavbarComp({ currentUser }) {
             <div className="sticky">
                 <div className="content">
                     <div className="logo">
-                        <LogoComp className='logo h3' />
+                        <LogoComp className='logo h4' />
                     </div>
                     <nav className="nav">
                         <Link to="/" className="nav-element onHover-bright home">Home</Link>
