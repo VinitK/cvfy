@@ -42,13 +42,17 @@ const FooterComp = () => {
             </svg>
             <div className="area">
                 <div className="content">
-                    <div className="credit fcol">
-                        <span><LogoComp className="h3" /></span>
-                        <h5 className="mtm">Project developed by <a className="unlink onHoverHighLight3" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/khandelwalvinit/">Vinit Khandelwal</a></h5>
-                        <Link to="/" className="mtm">Home</Link>
-                        <Link to="/resumes" className="mtm">Resumes</Link>
-                        <Link to="/jobs" className="mtm">Jobs</Link>
-                        <Link to="/terms" className="mtm">Terms and Conditions</Link>
+                    <div className="left-col fcol">
+                        <div className="foot-nav fcol">
+                            <Link to="/" className="mtm">Home</Link>
+                            <Link to="/resumes" className="mtm">Resumes</Link>
+                            <Link to="/jobs" className="mtm">Jobs</Link>
+                            <Link to="/terms" className="mtm">Terms and Conditions</Link>
+                        </div>
+                        <div className="credit mtm">
+                            <span><LogoComp className="h3" /></span>
+                            <h5 className="mtm">Project developed by <a className="unlink onHoverHighLight3" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/khandelwalvinit/">Vinit Khandelwal</a></h5>
+                        </div>
                     </div>
                     <div className="card bgcul">
                         <div className="body-header bgch4">

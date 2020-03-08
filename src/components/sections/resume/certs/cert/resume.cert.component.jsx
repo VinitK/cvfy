@@ -8,7 +8,7 @@ const ResumeCertComp = (cert) => { // COMPONENT
         <div className="Cert card-row">
             <div className="content frow">
                 <div className="fcol">
-                    <h5 className="ch3">{title}</h5>
+                    <p className="ch3">{title}</p>
                     <p className="mts">Issued by {issuedBy}</p>
                 </div>
                 <div className="fcol">

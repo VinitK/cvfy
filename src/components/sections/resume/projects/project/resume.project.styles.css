@@ -1,0 +1,9 @@
+
+.Resume-Project > .content {
+    padding: 10px 20px;
+}
+
+.Resume-Project > .content > .title {
+    
+    color: var(--color-highlight-3);
+}

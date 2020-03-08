@@ -27,12 +27,14 @@ export const createUserProfileDoc = async (userAuth, restData) => {
     const userRef = getUserContact(userAuth.uid);
     const userSnap = await userRef.get();
     if (!userSnap.exists) { // if user not saved to database
-        const { displayName, email } = userAuth;
+        const { displayName, email, photoURL, emailVerified } = userAuth;
         const createdAt = new Date();
         try {
             await userRef.set({
                 displayName,
                 email,
+                photoURL,
+                emailVerified,
                 createdAt,
                 ...restData
             });
@@ -216,6 +218,49 @@ export const deleteUserQual = async (userId, qualId) => {
         console.error("Error deleting qualification from database:", err.message);
     }
     return qualRef.id;
+}
+
+// PROJECTS
+
+export const getUserProjects = async (userId) => {
+    if (!userId) return;
+    return firestore.collection(`users/${userId}/projects`);
+}
+
+export const addUserProject = async (userId, state, restData) => {
+
+    if (!userId) return;
+
+    const projectRef = firestore.collection(`users/${userId}/projects`).doc();
+
+    try {
+        const { title, company, description } = state;
+        const createdAt = new Date();
+
+        await projectRef.set(
+            {
+                title,
+                company,
+                description,
+                createdAt,
+                ...restData
+            }
+        );
+    } catch (err) {
+        console.error("Error saving project to database:", err.message);
+    }
+    return projectRef.id;
+}
+
+export const deleteUserProject = async (userId, projectId) => {
+    if (!userId) return;
+    const projectRef = firestore.collection(`users/${userId}/projects`).doc(projectId);
+    try {
+        await projectRef.delete();
+    } catch (err) {
+        console.error("Error deleting project from database:", err.message);
+    }
+    return projectRef.id;
 }
 
 // SKILLS

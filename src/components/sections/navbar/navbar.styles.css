@@ -48,4 +48,8 @@
     .Navbar > .sticky > .content > .nav > .home {
         display: none;
     }
+
+    .Navbar > .sticky > .content > .nav > .nav-element {
+        padding: 0 5px;
+    }
 }

@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import './view-resume.styles.css';
-import { getUserContact, getUserWork, getUserCerts, getUserQuals, getUserSkills } from '../../../firebase/auth.util';
+import { getUserContact, getUserWork, getUserCerts, getUserQuals, getUserSkills, getUserProjects } from '../../../firebase/auth.util';
 
 import ResumeContactComp from './contact/resume.contact.component';
 import ResumeWorkComp from './work/resume.work.component';
-import LogoComp from '../../elements/logo/logo.component';
 import ResumeCertsComp from './certs/resume.certs.component';
 import ResumeQualsComp from './quals/resume.quals.component';
 import ResumeSkillsComp from './skills/resume.skills.component';
+import ResumeProjectsComp from './projects/resume.projects.component';
 
 const ViewResumeComp = () => { // COMPONENT
 
@@ -18,13 +18,13 @@ const ViewResumeComp = () => { // COMPONENT
     const [work, setWork] = useState([]);
     const [certs, setCerts] = useState([]);
     const [quals, setQuals] = useState([]);
+    const [projects, setProjects] = useState([]);
     const [skills, setSkills] = useState([]);
 
     useEffect(() => {
 
         (async function asyncFunction() {
             const userRef = getUserContact(userId);
-            console.log("USERREF", userRef)
             userRef.get().then(userSnap => setContact(
                 {
                     ...userSnap.data()
@@ -88,6 +88,22 @@ const ViewResumeComp = () => { // COMPONENT
                 setQuals(qualifications);
             });
 
+            // PROJECTS
+            const projectsRef = await getUserProjects(userId);
+            console.log("PROJECTREF", qualsRef);
+            projectsRef.get().then(projects => {
+                const projectWorks = projects.docs.map(projectWorkSnap => {
+                    const projectWork = projectWorkSnap.data();
+                    return {
+                        id: projectWorkSnap.id,
+                        title: projectWork.title,
+                        company: projectWork.company,
+                        description: projectWork.description
+                    }
+                });
+                setProjects(projectWorks);
+            });
+
             // SKILLS
             const skillsRef = await getUserSkills(userId);
             console.log("SKILLREF", skillsRef);
@@ -111,6 +127,7 @@ const ViewResumeComp = () => { // COMPONENT
             <ResumeWorkComp experiences={work} />
             <ResumeCertsComp certs={certs} />
             <ResumeQualsComp quals={quals} />
+            <ResumeProjectsComp projects={projects} />
             <ResumeSkillsComp skills={skills} />
         </div>
     );

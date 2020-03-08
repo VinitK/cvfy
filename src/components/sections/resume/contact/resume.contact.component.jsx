@@ -14,42 +14,45 @@ const ResumeContactComp = ({ contact }) => { // COMPONENT
             {
                 contact.displayName
                     ?
-                    <div className="card-body">
-                        {
-                            contact.photo &&
-                            <div className="image">
-                                <img src={contact.photo} alt={contact.displayName} className="profile-pic" />
+                    <div className="card-body fcol">
+                        <div className="intro frow">
+                            {
+                                contact.photoURL &&
+                                <div className="image ms">
+                                    <img src={contact.photoURL} alt={contact.displayName} className="profile-pic" />
+                                </div>
+                            }
+                            <div className="text fcol ps">
+                                <h3>{contact.displayName}</h3>
+                                <h6>{contact.introduction}</h6>
                             </div>
-                        }
-                        <div className="text">
-                            <h3>{contact.displayName}</h3>
-                            <h6>{contact.introduction}</h6>
                         </div>
-                        <div className="contact">
+
+                        <div className="contact frow ps">
                             {
                                 contact.email &&
                                 (
-                                    <div className="cell">
+                                    <div className="cell frow">
                                         <img src={EmailSvg} alt="email icon" className="icon" />
                                         <p>{contact.email}</p>
                                     </div>
                                 )
                             }
                             {
-                                contact.phone &&
+                                contact.linkedin &&
                                 (
-                                    <div className="cell">
-                                        <img src={PhoneSvg} alt="email icon" className="icon" />
-                                        <p>{contact.phone}</p>
+                                    <div className="cell frow">
+                                        <img src={LinkedinSvg} alt="email icon" className="icon" />
+                                        <p>{contact.linkedin}</p>
                                     </div>
                                 )
                             }
                             {
-                                contact.linkedin &&
+                                contact.phone &&
                                 (
-                                    <div className="cell">
-                                        <img src={LinkedinSvg} alt="email icon" className="icon" />
-                                        <p>{contact.linkedin}</p>
+                                    <div className="cell frow">
+                                        <img src={PhoneSvg} alt="email icon" className="icon" />
+                                        <p>{contact.phone}</p>
                                     </div>
                                 )
                             }

@@ -47,7 +47,7 @@ const EditSkillComp = ({ userId, addSkill }) => {
     return (
         <div className="Edit-skill neu-dn card mtm pm">
             <form onSubmit={handleSubmit} className="form">
-                <InputComp className="skill-name" type="text" id="editSkillCourse" name="skillName" value={state.course} onChange={handleChange}>Skill</InputComp>
+                <InputComp className="skill-name" type="text" id="editSkillCourse" name="skillName" value={state.skillName} onChange={handleChange}>Skill</InputComp>
                 <h6 className="proficiency opacity-half mtm">Proficiency Level</h6>
                 <div className="stars frow mtm">
                     <label>Amateur</label>
@@ -110,7 +110,7 @@ const EditSkillComp = ({ userId, addSkill }) => {
                     <label>Expert</label>
                 </div>
                 <div className="frow-mid mtm">
-                    <ButtonComp btnType="SAVE_FORM" className="button">Add</ButtonComp>
+                    <ButtonComp btnType="SAVE_FORM" className="button" loading={loading}>Add</ButtonComp>
                     {loading && <SpinnerComp className="mlm" />}
                 </div>
             </form >

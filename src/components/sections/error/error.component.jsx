@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './error.styles.css';
 import { ReactComponent as ErrorIcon } from '../../../assets/landing/error.svg';

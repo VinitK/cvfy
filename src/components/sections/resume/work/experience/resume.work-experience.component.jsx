@@ -7,7 +7,7 @@ const ResumeWorkExperienceComp = (experience) => { // COMPONENT
     return (
         <div className="Work-experience card-row">
             <div className="content fcol">
-                <h5 className="company-name">{company}</h5>
+                <p className="company-name">{company}</p>
                 <div className="designation-duration frow">
                     <p className="mtxs">{designation}</p>
                     <p className="mtxs">{startDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'short' })} to {endDate ? endDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'short' }) : "Present"}</p>

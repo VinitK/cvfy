@@ -1,27 +1,17 @@
-.View-skill > .frow {
-    justify-content: space-between;
-}
-
-.View-skill > .frow > .info {
-    width: 80%;
+.View-skill > .content {
     justify-content: space-between;
     align-items: center;
 }
 
-.View-skill > .frow > .update-delete {
-    justify-content: space-between;
+.View-skill > .content > .star-delete {
+    align-items: center;
 }
 
-.View-skill > .frow > .fcol > .issue-valid-date-group {
-    justify-content: space-between;
+.View-skill > .content > .star-delete > .stars {
+    margin: 0 10px
 }
 
-.View-skill > .frow > .update-delete > .delete-icon:hover > svg > g > g,
-.View-skill > .frow > .update-delete > .delete-icon:focus > svg > g > g {
+.View-skill > .content > .star-delete > .delete-icon:hover > svg > g > g,
+.View-skill > .content > .star-delete > .delete-icon:focus > svg > g > g {
     fill: #c13526;
-}
-
-.View-skill > .frow > .update-delete > .edit-icon:hover > svg > g > g,
-.View-skill > .frow > .update-delete > .edit-icon:focus > svg > g > g {
-    fill: #007e58;
 }

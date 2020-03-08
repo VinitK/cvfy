@@ -20,16 +20,15 @@ const ViewSkillComp = ({ userId, skills, addSkills, skill, ...rest }) => {
     };
 
     return (
-        <div className="View-skill neu-up card mtm pm">
-            <div className="frow">
-                <div className="info frow">
+        <div className="View-skill neu-up card mtm pxs">
+            <div className="content frow">
+                <div className="info">
                     <h5 className="ch4">{skillName}</h5>
-                    <div className="frow">
+                </div>
+                <div className="frow star-delete">
+                    <div className="stars frow">
                         {[...Array(Number(stars))].map((e, i) => <span key={i} role="img" aria-label="sheep">⭐</span>)}
                     </div>
-                </div>
-                <div className="fcol update-delete">
-                    {/* <ButtonComp className="button-icon edit-icon"><EditComp className="icon" /></ButtonComp> */}
                     <ButtonComp onClick={() => deleteSkill(skills, skill, userId)} className="button-icon delete-icon"><DeleteComp className="icon" /></ButtonComp>
                 </div>
             </div>

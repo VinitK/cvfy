@@ -4,6 +4,7 @@ import './header.styles.css';
 
 import LogoComp from '../../elements/logo/logo.component';
 import { ReactComponent as ResumeIcon } from '../../../assets/landing/landingresume.svg';
+import { ReactComponent as LogoIcon } from '../../../assets/logo.svg';
 import ButtonComp from '../../elements/button/button.component';
 import { signInWithGoogle } from '../../../firebase/auth.util';
 
@@ -12,7 +13,7 @@ const HeaderComp = () => {
         <div className="Header">
             <div className="content">
                 <div className="image">
-                    <ResumeIcon className="resume-icon" />
+                    <LogoIcon className="resume-icon" />
                 </div>
                 <div className="text">
                     <h1 className="title b ch3">Global Standard Resume</h1>

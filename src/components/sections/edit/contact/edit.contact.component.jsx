@@ -62,11 +62,11 @@ const EditContactComp = ({ currentUser, updateCurrentUser }) => {
                             <form onSubmit={handleSubmit}>
                                 <InputComp type="text" id="editContactName" name="displayName" value={state.displayName} onChange={handleChange}>Display Name *</InputComp>
                                 <InputComp type="text" id="editIntro" name="introduction" value={state.introduction} onChange={handleChange}>One Line Introduction</InputComp>
-                                <InputComp type="email" id="editContactEmail" name="email" value={state.email} onChange={handleChange}>Contact Email *</InputComp>
+                                <InputComp disabled type="email" id="editContactEmail" name="email" value={state.email} onChange={handleChange}>Contact Email *</InputComp>
                                 <InputComp type="tel" id="editContactPhone" name="phone" value={state.phone} onChange={handleChange}>Contact Phone</InputComp>
                                 <InputComp type="url" id="editLinkedinUrl" name="linkedin" value={state.linkedin} onChange={handleChange}>Linkedin Profile URL</InputComp>
                                 <div className="frow-mid mtm">
-                                    <ButtonComp btnType="SAVE_FORM" className="button">Save</ButtonComp>
+                                    <ButtonComp btnType="SAVE_FORM" className="button" loading={loading}>Save</ButtonComp>
                                     {loading && <SpinnerComp className="mlm" />}
                                 </div>
                             </form >

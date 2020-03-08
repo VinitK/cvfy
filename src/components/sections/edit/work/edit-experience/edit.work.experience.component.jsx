@@ -104,10 +104,8 @@ const EditWorkExpComp = ({ userId, addExperience }) => {
                 <InputComp type="text" id="editExpCompany" name="company" value={state.company} onChange={handleChange}>Company Name</InputComp>
                 <InputComp type="text" id="editExpDesignation" name="designation" value={state.designation} onChange={handleChange}>Designation</InputComp>
                 <InputComp type="textarea" id="editExpDescription" rows="4" name="description" value={state.description} onChange={handleChange} >Key Activities Carried Out</InputComp>
-
-
                 <div className="frow-mid mtm">
-                    <ButtonComp btnType="SAVE_FORM" className="button">Add</ButtonComp>
+                    <ButtonComp btnType="SAVE_FORM" className="button" loading={loading}>Add</ButtonComp>
                     {loading && <SpinnerComp className="mlm" />}
                 </div>
             </form>

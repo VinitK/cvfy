@@ -14,6 +14,10 @@
     padding: 20px 0;
 }
 
+.Footer > .area > .content > .left-col {
+    justify-content: space-between;
+}
+
 .Footer > .area > .content > .card {
     max-width: 400px;
     width: 100%;
@@ -26,6 +30,14 @@
 @media only screen and (max-width: 800px) {
     .Footer > .area > .content {
         flex-direction: column;
+    }
+
+    .Footer > .area > .content > .left-col {
+        text-align: center;
+    }
+
+    .Footer > .area > .content > .left-col > .credit {
+        text-align: center;
     }
 
     .Footer > .area > .content > .card {

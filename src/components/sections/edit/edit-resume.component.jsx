@@ -5,13 +5,14 @@ import { ReactComponent as WorkIcon } from '../../../assets/resume-tab/work.svg'
 import { ReactComponent as CertificationsIcon } from '../../../assets/resume-tab/certificate.svg';
 import { ReactComponent as QualificationIcon } from '../../../assets/resume-tab/qualification.svg';
 import { ReactComponent as SkillsIcon } from '../../../assets/resume-tab/skill.svg';
-// import { ReactComponent as ProjectsIcon } from '../../../assets/resume-tab/project.svg';
+import { ReactComponent as ProjectsIcon } from '../../../assets/resume-tab/project.svg';
 import './edit-resume.styles.css';
 
 import EditContactComp from './contact/edit.contact.component';
 import EditWorkComp from './work/edit.work.component';
 import CertsComp from './certs/certs.component';
 import QualsComp from './quals/quals.component';
+import ProjectsComp from './projects/projects.component';
 import SkillsComp from './skills/skills.component';
 
 const EditResumeComp = () => {
@@ -21,8 +22,8 @@ const EditResumeComp = () => {
         { name: <div className="mls">Work</div>, icon: <WorkIcon className="icon" />, id: "#Edit-Work__id", },
         { name: <div className="mls">Certifications</div>, icon: <CertificationsIcon className="icon" />, id: "#Edit-Certs__id", },
         { name: <div className="mls">Qualification</div>, icon: <QualificationIcon className="icon" />, id: "#Edit-Quals__id", },
+        { name: <div className="mls">Projects</div>, icon: <ProjectsIcon className="icon" />, id: "#Edit-Projects__id" },
         { name: <div className="mls">Skills</div>, icon: <SkillsIcon className="icon" />, id: "#Edit-Skills__id", }];
-    // { name: <div className="mls">Projects</div>, icon: <ProjectsIcon className="icon" />, id: "#EditProjects__id" }];
 
     return (
         <div className="Edit-resume frow">
@@ -36,6 +37,7 @@ const EditResumeComp = () => {
                 <EditWorkComp />
                 <CertsComp />
                 <QualsComp />
+                <ProjectsComp></ProjectsComp>
                 <SkillsComp />
             </div>
         </div >

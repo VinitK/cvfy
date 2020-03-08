@@ -85,7 +85,7 @@ const EditQualComp = ({ userId, addQual }) => {
                             selected={state.endDate}
                             name="endDate"
                             onChange={date => setState({ ...state, endDate: date })}
-                            minDate={state.endDate}
+                            minDate={state.startDate}
                             maxDate={new Date()}
                             dateFormat="MMM yyyy"
                             placeholderText="To"
@@ -107,7 +107,7 @@ const EditQualComp = ({ userId, addQual }) => {
                     </div>
                 </div>
                 <div className="frow-mid mtm">
-                    <ButtonComp btnType="SAVE_FORM" className="button">Add</ButtonComp>
+                    <ButtonComp btnType="SAVE_FORM" className="button" loading={loading}>Add</ButtonComp>
                     {loading && <SpinnerComp className="mlm" />}
                 </div>
             </form>

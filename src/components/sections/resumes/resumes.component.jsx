@@ -36,8 +36,8 @@ const ResumesComp = () => {
                     users.length > 0 && users.map(user => (
                         <a href={`/cv/${user.id}`} key={user.id}>
                             <div className="card neu-up mtm pm">
-                                <h4 className="ch3">{user.displayName}</h4>
-                                <h5 className="mts">{user.introduction}</h5>
+                                <h5 className="ch3">{user.displayName}</h5>
+                                <p className="mts">{user.introduction}</p>
                             </div>
                         </a>
                     ))

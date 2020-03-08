@@ -4,6 +4,7 @@ import userReducer from './user/user.reducer';
 import workReducer from './work/work.reducer';
 import certsReducer from './certs/certs.reducer';
 import qualsReducer from './quals/quals.reducer';
+import projectsReducer from './projects/projects.reducer';
 import skillsReducer from './skills/skills.reducer';
 
 export default combineReducers(
@@ -12,6 +13,7 @@ export default combineReducers(
         work: workReducer,
         certs: certsReducer,
         quals: qualsReducer,
+        projects: projectsReducer,
         skills: skillsReducer
     }
 )

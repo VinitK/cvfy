@@ -8,7 +8,7 @@ const ButtonComp = ({ type, className, loading, children, btnType, ...rest }) =>
     switch (btnType) {
         case 'GOOGLE_SIGN_IN':
             return (
-                <button className={className ? `google-signin-btn ${className}` : "google-signin-btn"} {...rest} >
+                <button className={className ? `google-signin-btn ${className}` : "google-signin-btn"} disabled={loading} {...rest} >
                     <div className="frow">
                         <GoogleIcon className="google-icon" />
                         {children}
@@ -17,13 +17,13 @@ const ButtonComp = ({ type, className, loading, children, btnType, ...rest }) =>
             );
         case 'SAVE_FORM':
             return (
-                <button className={className ? `save-form-btn ${className}` : "save-form-btn"} {...rest} >
+                <button className={className ? `save-form-btn ${className}` : "save-form-btn"} disabled={loading} {...rest} >
                     {children}
                 </button>
             );
         case 'ADD_FORM':
             return (
-                <button className={className ? `add-form-btn ${className}` : "add-form-btn"} {...rest} >
+                <button className={className ? `add-form-btn ${className}` : "add-form-btn"} disabled={loading} {...rest} >
                     {children}
                 </button>
             )

@@ -15,7 +15,6 @@ const CvPage = () => {
         <div className="CvPage bgch4 pm">
             <div className="breadcrump frow">
                 <LogoComp className='logo-hover-light onHover-brighter h4 fcol' />
-                <span className="h5 cd mlxs">{location.pathname}</span>
             </div>
             <Suspense fallback={<LoadingComp />}>
                 <Switch>

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import LoadingComp from '../../sections/loading/loading.component';
 import NavbarComp from '../../sections/navbar/navbar.component';
-import ErrorComp from '../../sections/error/error.component';
+import FooterComp from '../../sections/footer/footer.component';
 
 const AuthComp = lazy(() => import('../../sections/auth/auth.component'));
 const HeaderComp = lazy(() => import('../../sections/header/header.component'));
@@ -57,6 +57,7 @@ const HomePage = ({ currentUser }) => {
                     </Route>
                 </Switch>
             </Suspense>
+            <FooterComp />
         </div>
     );
 };

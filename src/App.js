@@ -7,7 +7,6 @@ import './App.css';
 import { auth, createUserProfileDoc } from './firebase/auth.util';
 import { setCurrentUser } from './redux/user/user.actions';
 
-import FooterComp from './components/sections/footer/footer.component';
 import LoadingComp from './components/sections/loading/loading.component';
 import ErrorComp from './components/sections/error/error.component';
 const HomePage = lazy(() => import('./components/pages/home/home.component.jsx'));
@@ -18,6 +17,7 @@ function App({ setCurrentUser }) {
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
+        console.log("USER AUTH", userAuth)
         const userRef = await createUserProfileDoc(userAuth);
         userRef.onSnapshot(userSnap => {
           setCurrentUser({
@@ -46,7 +46,6 @@ function App({ setCurrentUser }) {
           </Switch>
         </Suspense>
       </ErrorComp>
-      <FooterComp />
     </div>
   );
 }
