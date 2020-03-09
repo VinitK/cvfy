@@ -9,7 +9,7 @@ const ResumeQualsComp = ({ quals }) => { // COMPONENT
         quals.length > 0 &&
         < div className="Quals card neu-up" >
             <div className="card-header">
-                <h5>Qualification</h5>
+                <h6>Qualification</h6>
             </div>
             <div className="card-body">
                 {quals.map(qual => <ResumeQualComp key={qual.id} qual={qual} />)}

@@ -10,7 +10,7 @@ const ResumeWorkExperienceComp = (experience) => { // COMPONENT
                 <p className="company-name">{company}</p>
                 <div className="designation-duration frow">
                     <p className="mtxs">{designation}</p>
-                    <p className="mtxs">{startDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'short' })} to {endDate ? endDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'short' }) : "Present"}</p>
+                    <p className="mtxs">{startDate && startDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'short' })} to {endDate && endDate ? endDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'short' }) : "Present"}</p>
                 </div>
                 <p className="description mtxs">{description}</p>
             </div>

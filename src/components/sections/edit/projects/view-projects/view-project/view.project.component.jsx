@@ -22,10 +22,10 @@ const ViewProjectComp = ({ userId, projects, addProjects, project, ...rest }) =>
     return (
         <div className="View-project neu-up card mtm pm">
             <div className="frow">
-                <div className="fcol">
-                    <h5 className="ch4">{title}</h5>
-                    <p className="mts">Company: {company}</p>
-                    <p className="mts">Description: {description}</p>
+                <div className="content fcol">
+                    <h5 className="title ch4">{title}</h5>
+                    <p className="company mts">Company: {company}</p>
+                    <p className="description mts">Description: {description}</p>
                 </div>
                 <div className="fcol update-delete">
                     {/* <ButtonComp className="button-icon edit-icon"><EditComp className="icon" /></ButtonComp> */}

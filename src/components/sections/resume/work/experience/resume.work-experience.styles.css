@@ -12,6 +12,10 @@
     justify-content: space-between;
 }
 
+.Work-experience > .content > .description {
+    white-space: pre-wrap;
+}
+
 @media only screen and (max-width: 500px) {
     .Work-experience > .content > .designation-duration {
         flex-direction: column;

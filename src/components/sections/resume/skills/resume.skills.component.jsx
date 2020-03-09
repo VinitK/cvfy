@@ -9,7 +9,7 @@ const ResumeSkillsComp = ({ skills }) => { // COMPONENT
         skills.length > 0 &&
         <div className="Skills card neu-up mts">
             <div className="card-header">
-                <h5>Skills</h5>
+                <h6>Skills</h6>
             </div>
             <div className="card-body">
                 {skills.map(skill => <ResumeSkillComp key={skill.id} skill={skill} />)}

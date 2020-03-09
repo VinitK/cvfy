@@ -10,7 +10,7 @@ const ResumeWorkComp = ({ experiences }) => { // COMPONENT
         experiences.length > 0 &&
         <div className="Work card neu-up mts">
             <div className="card-header">
-                <h5>Work Experience</h5>
+                <h6>Work Experience</h6>
             </div>
             <div className="card-body">
                 {experiences.map(experience => <ResumeWorkExperienceComp key={experience.id} experience={experience} />)}

@@ -3,6 +3,7 @@ import React from 'react';
 import './resume.contact.styles.css';
 import EmailSvg from '../../../../assets/cv/email.svg';
 import PhoneSvg from '../../../../assets/cv/phone.svg';
+import WebSvg from '../../../../assets/cv/web.svg';
 import LinkedinSvg from '../../../../assets/cv/linkedin.svg';
 import LoadingComp from '../../loading/loading.component';
 
@@ -34,7 +35,7 @@ const ResumeContactComp = ({ contact }) => { // COMPONENT
                                 (
                                     <div className="cell frow">
                                         <img src={EmailSvg} alt="email icon" className="icon" />
-                                        <p>{contact.email}</p>
+                                        <a href={`mailto:${contact.email}`}>{contact.email}</a>
                                     </div>
                                 )
                             }
@@ -42,8 +43,8 @@ const ResumeContactComp = ({ contact }) => { // COMPONENT
                                 contact.linkedin &&
                                 (
                                     <div className="cell frow">
-                                        <img src={LinkedinSvg} alt="email icon" className="icon" />
-                                        <p>{contact.linkedin}</p>
+                                        <img src={LinkedinSvg} alt="linkedin icon" className="icon" />
+                                        <a href={contact.linkedin}>{contact.linkedin}</a>
                                     </div>
                                 )
                             }
@@ -51,8 +52,17 @@ const ResumeContactComp = ({ contact }) => { // COMPONENT
                                 contact.phone &&
                                 (
                                     <div className="cell frow">
-                                        <img src={PhoneSvg} alt="email icon" className="icon" />
-                                        <p>{contact.phone}</p>
+                                        <img src={PhoneSvg} alt="phone icon" className="icon" />
+                                        <a href={`tel:${contact.phone}`}>{contact.phone}</a>
+                                    </div>
+                                )
+                            }
+                            {
+                                contact.website &&
+                                (
+                                    <div className="cell frow">
+                                        <img src={WebSvg} alt="website icon" className="icon" />
+                                        <a href={contact.website}>{contact.website}</a>
                                     </div>
                                 )
                             }

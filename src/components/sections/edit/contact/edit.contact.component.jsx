@@ -42,6 +42,9 @@ const EditContactComp = ({ currentUser, updateCurrentUser }) => {
             case "linkedin":
                 maxLength = 100;
                 break;
+            case "website":
+                maxLength = 100;
+                break;
             default:
                 maxLength = undefined;
                 break;
@@ -65,6 +68,7 @@ const EditContactComp = ({ currentUser, updateCurrentUser }) => {
                                 <InputComp disabled type="email" id="editContactEmail" name="email" value={state.email} onChange={handleChange}>Contact Email *</InputComp>
                                 <InputComp type="tel" id="editContactPhone" name="phone" value={state.phone} onChange={handleChange}>Contact Phone</InputComp>
                                 <InputComp type="url" id="editLinkedinUrl" name="linkedin" value={state.linkedin} onChange={handleChange}>Linkedin Profile URL</InputComp>
+                                <InputComp type="url" id="editWebsiteUrl" name="website" value={state.website} onChange={handleChange}>Website</InputComp>
                                 <div className="frow-mid mtm">
                                     <ButtonComp btnType="SAVE_FORM" className="button" loading={loading}>Save</ButtonComp>
                                     {loading && <SpinnerComp className="mlm" />}

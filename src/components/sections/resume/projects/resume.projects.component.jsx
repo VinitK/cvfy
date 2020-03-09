@@ -10,7 +10,7 @@ const ResumeProjectsComp = ({ projects }) => { // COMPONENT
         projects.length > 0 &&
         <div className="Projects card neu-up mts">
             <div className="card-header">
-                <h5>Projects</h5>
+                <h6>Projects</h6>
             </div>
             <div className="card-body">
                 {projects.map(project => <ResumeProjectComp key={project.id} project={project} />)}

@@ -23,14 +23,14 @@ const ViewWorkExpComp = ({ userId, work, addWork, experience, ...rest }) => {
     return (
         <div className="View-work-exp neu-up card mtm pm">
             <div className="frow">
-                <div className="fcol">
+                <div className="content fcol">
                     <div className="frow">
                         <h5><span className="ch4">{designation}</span> at <span className="ch3">{company}</span></h5>
                     </div>
                     <div className="frow start-end-date-group mts">
                         <h6><span className="ch2">{startDate}</span> to <span className="ch2">{currentlyWorking ? "Present" : endDate}</span></h6>
                     </div>
-                    <p className="mts">{description}</p>
+                    <p className="description mts">{description}</p>
                 </div>
                 <div className="fcol update-delete">
                     {/* <ButtonComp className="button-icon edit-icon"><EditComp className="icon" /></ButtonComp> */}

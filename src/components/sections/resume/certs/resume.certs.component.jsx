@@ -9,7 +9,7 @@ const ResumeCertsComp = ({ certs }) => { // COMPONENT
         certs.length > 0 &&
         <div className="Certs card neu-up">
             <div className="card-header">
-                <h5>Certificates</h5>
+                <h6>Certificates</h6>
             </div>
             <div className="card-body">
                 {certs.map(cert => <ResumeCertComp key={cert.id} cert={cert} />)}

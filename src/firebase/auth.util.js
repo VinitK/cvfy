@@ -60,6 +60,28 @@ export const sendMessage = async (contact, message) => {
     return msgRef.id;
 }
 
+export const updateUser = async (userId, contactData, restData) => {
+    const { displayName, email, phone, introduction, linkedin, website } = contactData;
+    if (!userId) return;
+    const userRef = firestore.collection("users").doc(userId);
+    try {
+        await userRef.update(
+            {
+                displayName,
+                email,
+                phone,
+                introduction,
+                linkedin,
+                website,
+                ...restData
+            }
+        );
+    } catch (error) {
+        console.error(error);
+    }
+    return userRef.id
+}
+
 export const getUsers = async () => {
     return firestore.collection("users");
 }
@@ -111,26 +133,6 @@ export const deleteUserWork = async (userId, workId) => {
     return expRef.id;
 }
 
-export const updateUser = async (userId, contactData, restData) => {
-    const { displayName, email, phone, introduction, linkedin } = contactData;
-    if (!userId) return;
-    const userRef = firestore.collection("users").doc(userId);
-    try {
-        await userRef.update(
-            {
-                displayName: displayName,
-                email: email,
-                phone: phone,
-                introduction: introduction,
-                linkedin: linkedin,
-                ...restData
-            }
-        );
-    } catch (error) {
-        console.error(error);
-    }
-    return userRef.id
-}
 
 // CERTIFICATIONS
 

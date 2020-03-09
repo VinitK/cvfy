@@ -1,9 +1,13 @@
 
-.Resume-Project > .content {
+.Resume-project > .content {
     padding: 10px 20px;
 }
 
-.Resume-Project > .content > .title {
+.Resume-project > .content > .title {
     
     color: var(--color-highlight-3);
+}
+
+.Resume-project > .content > .description {
+    white-space: pre-wrap;
 }

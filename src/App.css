@@ -36,9 +36,11 @@
 }
 
 .card-header {
+  display: flex;
+  justify-content: center;
   padding: 10px 20px;
-  background-color: var(--color-highlight-4);
-  color: var(--color-light);
+  background-color: var(--color-light);
+  color: var(--color-dark);
 }
 
 .card-body {
