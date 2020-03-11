@@ -1,6 +1,6 @@
 .Resume-contact > .card-body > .intro > .image {
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     border-radius: 5px;
     overflow: hidden;
 }
@@ -11,6 +11,7 @@
 
 .Resume-contact > .card-body > .intro > .text {
     justify-content: center;
+    align-items: flex-start;
 }
 
 .Resume-contact > .card-body > .contact {

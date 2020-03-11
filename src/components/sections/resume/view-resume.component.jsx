@@ -34,7 +34,7 @@ const ViewResumeComp = () => { // COMPONENT
             // WORK
             const workRef = await getUserWork(userId);
             console.log("WORKREF", workRef)
-            workRef.get().then(work => {
+            workRef.orderBy('startDate', 'desc').get().then(work => {
                 const experiences = work.docs.map(experienceSnap => {
                     const experience = experienceSnap.data();
                     return {
@@ -53,7 +53,7 @@ const ViewResumeComp = () => { // COMPONENT
             // CERTS
             const certsRef = await getUserCerts(userId);
             console.log("CERTREF", certsRef);
-            certsRef.get().then(certs => {
+            certsRef.orderBy('issueDate', 'desc').get().then(certs => {
                 const certificates = certs.docs.map(certificateSnap => {
                     const certificate = certificateSnap.data();
                     return {
@@ -71,7 +71,7 @@ const ViewResumeComp = () => { // COMPONENT
             // QUALS
             const qualsRef = await getUserQuals(userId);
             console.log("QUALREF", qualsRef);
-            qualsRef.get().then(quals => {
+            qualsRef.orderBy('startDate', 'desc').get().then(quals => {
                 const qualifications = quals.docs.map(qualificationSnap => {
                     const qualification = qualificationSnap.data();
                     return {
@@ -107,7 +107,7 @@ const ViewResumeComp = () => { // COMPONENT
             // SKILLS
             const skillsRef = await getUserSkills(userId);
             console.log("SKILLREF", skillsRef);
-            skillsRef.get().then(skills => {
+            skillsRef.orderBy('stars', 'desc').get().then(skills => {
                 const skillset = skills.docs.map(skillSnap => {
                     const skill = skillSnap.data();
                     return {
@@ -122,7 +122,7 @@ const ViewResumeComp = () => { // COMPONENT
     }, [userId, setContact, setWork, setCerts, setQuals, setSkills]);
 
     return (
-        <div className="View-resume bgcul pm">
+        <div className="View-resume bgcul pxl">
             <ResumeContactComp contact={contact} />
             <ResumeWorkComp experiences={work} />
             <ResumeCertsComp certs={certs} />

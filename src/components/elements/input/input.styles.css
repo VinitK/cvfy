@@ -1,6 +1,5 @@
 .Input {
     position: relative;
-    padding-top: 30px;
 }
 
 .Input > .style {
@@ -12,6 +11,20 @@
 }
 .Input > .input {
     height: 30px;
+}
+
+.Input > .inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.Input > .inputfile:focus + label,
+.Input > .inputfile + label:hover {
+    filter: brightness(120%);
 }
 
 .Input > .textarea {

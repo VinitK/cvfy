@@ -1,3 +1,10 @@
+.CvPage {
+    padding: 5px 0;
+}
 .CvPage > .breadcrump {
+    justify-content: center;
+}
+
+.CvPage > .signinTestimonial {
     justify-content: center;
 }

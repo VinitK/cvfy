@@ -4,12 +4,12 @@
 }
 
 .Work-experience > .content > .company-name {
-    
-    color: var(--color-highlight-3);
+    font-weight: bold;
 }
 
 .Work-experience > .content > .designation-duration {
     justify-content: space-between;
+    color: var(--color-highlight-3);
 }
 
 .Work-experience > .content > .description {

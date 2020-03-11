@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'; // import firebase
 import 'firebase/firestore'; // import firestore
 import 'firebase/auth'; // import auth
+import 'firebase/storage';
 
 var firebaseConfig = { // create config variable
     apiKey: "AIzaSyBikvoT34rNM3DlrxyhkWAwPdPU1l_dqbU",
@@ -15,9 +16,12 @@ var firebaseConfig = { // create config variable
 firebase.initializeApp(firebaseConfig); // initialize firebase
 export const auth = firebase.auth(); // initiatize auth
 export const firestore = firebase.firestore(); // initiatize firestore
+export const storage = firebase.storage(); // initiatize storage
 
 const provider = new firebase.auth.GoogleAuthProvider(); // initialize provider for Google Auth
 provider.setCustomParameters({ prompt: "select_account" }); // google sign in pop up
+
+const storageRef = storage.ref(); // Create a storage reference from our storage service
 
 // custom functions
 export const signInWithGoogle = () => auth.signInWithPopup(provider) // function to create sign in pop up with Google provider
@@ -60,11 +64,18 @@ export const sendMessage = async (contact, message) => {
     return msgRef.id;
 }
 
-export const updateUser = async (userId, contactData, restData) => {
-    const { displayName, email, phone, introduction, linkedin, website } = contactData;
+export const updateUser = async (userId, state, restData) => {
+    let { displayName, email, phone, introduction, linkedin, website, resumeUrl } = state;
     if (!userId) return;
     const userRef = firestore.collection("users").doc(userId);
+    const resumeStorageRef = storageRef.child(`${userId}/resume`);
     try {
+        console.log(state);
+        if (state.resume) {
+            await resumeStorageRef.put(state.resume);
+            resumeUrl = await resumeStorageRef.getDownloadURL();
+        }
+        console.log(resumeUrl);
         await userRef.update(
             {
                 displayName,
@@ -73,6 +84,7 @@ export const updateUser = async (userId, contactData, restData) => {
                 introduction,
                 linkedin,
                 website,
+                resumeUrl,
                 ...restData
             }
         );

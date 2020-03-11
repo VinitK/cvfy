@@ -25,7 +25,11 @@ const ResumeContactComp = ({ contact }) => { // COMPONENT
                             }
                             <div className="text fcol ps">
                                 <h3>{contact.displayName}</h3>
-                                <h6>{contact.introduction}</h6>
+                                <p className="mts">{contact.introduction}</p>
+                                {
+                                    contact.resumeUrl && <a href={contact.resumeUrl} target="_blank" rel="noopener noreferrer" className="button bgch3 mts ps">Download Resume</a>
+                                }
+
                             </div>
                         </div>
 

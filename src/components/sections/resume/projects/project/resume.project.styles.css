@@ -4,7 +4,10 @@
 }
 
 .Resume-project > .content > .title {
-    
+    font-weight: bold;
+}
+
+.Resume-project > .content > .company {
     color: var(--color-highlight-3);
 }
 
