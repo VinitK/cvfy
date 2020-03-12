@@ -14,12 +14,11 @@
 }
 
 .Footer > .area > .content > .column {
-    justify-content: space-between;
     width: 33%;
 }
 
 .Footer > .area > .content > .column > .card {
-    width: 100%;
+    width: 90%;
 }
 
 .Footer > .area > .content > .column > .card > .card-body {
@@ -44,6 +43,10 @@
         text-align: center;
     }
 
+    .Footer > .area > .content > .column > .card {
+        margin: auto;
+    }
+    
     .Footer > .area > .content > .column > .foot-nav > .option {
         width: 100%;
     }

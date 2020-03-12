@@ -43,11 +43,12 @@ const FooterComp = () => {
             <div className="area">
                 <div className="content frow">
                     <div className="column fcol">
-                        <div className="foot-nav fcol">
-                            <Link to="/" className="option button bgcl">Home</Link>
-                            <Link to="/resumes" className="option button bgcl">Resumes</Link>
-                            <Link to="/jobs" className="option button bgcl">Jobs</Link>
-                            <Link to="/terms" className="option button bgcl">Terms and Conditions</Link>
+                        <h5 className="mxs">Quick Links</h5>
+                        <div className="foot-nav fcol pxs">
+                            <Link to="/" className="option button bgcul">Home</Link>
+                            <Link to="/resumes" className="option button mtxs bgcul">Resumes</Link>
+                            <Link to="/jobs" className="option button mtxs bgcul">Jobs</Link>
+                            <Link to="/terms" className="option button mtxs bgcul">Terms and Conditions</Link>
                         </div>
                         <div className="credit mm">
                             <span><LogoComp className="h3" /></span>
@@ -59,7 +60,7 @@ const FooterComp = () => {
                     </div>
                     <div className="column fcol">
                         <div className="card bgcul">
-                            <div className="body-header bgch4">
+                            <div className="body-header bgcd">
                                 <h5 className="pm">Contact Vinit</h5>
                             </div>
                             <div className="card-body">
