@@ -68,6 +68,7 @@
   border: none;
   border-radius: 5px;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 .button:hover:enabled {
@@ -188,6 +189,11 @@
 
 .bgcul {
   background-color: var(--color-ultralight);
+  color: var(--color-dark);
+}
+
+.bgcsl {
+  background-color: var(--color-superlight);
   color: var(--color-dark);
 }
 
@@ -460,6 +466,9 @@ h6 {
   font-size: 16px;
 }
 
+.fos {
+  font-family: 'Open Sans', sans-serif;
+}
 
 /* font weight */
 .b {

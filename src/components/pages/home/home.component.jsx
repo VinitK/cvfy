@@ -2,12 +2,13 @@ import React, { Suspense, lazy } from 'react';
 import { Route, Switch, useRouteMatch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import './home.styles.css';
 import LoadingComp from '../../sections/loading/loading.component';
 import NavbarComp from '../../sections/navbar/navbar.component';
 import FooterComp from '../../sections/footer/footer.component';
 
 const AuthComp = lazy(() => import('../../sections/auth/auth.component'));
-const HeaderComp = lazy(() => import('../../sections/header/header.component'));
+const HomeLandComp = lazy(() => import('../../sections/home-land/home-land.component'));
 const NotFoundPage = lazy(() => import('../notfound/notfound.component'));
 const EditResumeComp = lazy(() => import('../../sections/edit/edit-resume.component'));
 const ResumesComp = lazy(() => import('../../sections/resumes/resumes.component'));
@@ -49,7 +50,7 @@ const HomePage = ({ currentUser }) => {
                                 ?
                                 <Redirect to={`${match.url}edit`} />
                                 :
-                                <HeaderComp />
+                                <HomeLandComp />
                         }
                     </Route>
                     <Route>

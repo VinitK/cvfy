@@ -5,8 +5,6 @@ import './cv.styles.css';
 
 import LoadingComp from '../../sections/loading/loading.component';
 import LogoComp from '../../elements/logo/logo.component';
-import ButtonComp from '../../elements/button/button.component';
-import { signInWithGoogle } from '../../../firebase/auth.util';
 const ViewResumeComp = lazy(() => import('../../sections/resume/view-resume.component'));
 const NotFoundPage = lazy(() => import('../notfound/notfound.component'));
 
@@ -15,7 +13,7 @@ const CvPage = () => {
     return (
         <div className="CvPage bgcd">
             <div className="breadcrump frow pbs">
-                <LogoComp className='logo-hover-light onHover-brighter h4 fcol' />
+                <LogoComp className='logo-light onHoverHighLight3 h4 fcol' />
             </div>
             <Suspense fallback={<LoadingComp />}>
                 <Switch>

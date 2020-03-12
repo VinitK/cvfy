@@ -9,22 +9,24 @@
 .Footer > .area > .content {
     width: 80%;
     margin: auto;
-    display: flex;
     justify-content: space-between;
     padding: 20px 0;
 }
 
-.Footer > .area > .content > .left-col {
+.Footer > .area > .content > .column {
     justify-content: space-between;
+    width: 33%;
 }
 
-.Footer > .area > .content > .card {
-    max-width: 400px;
+.Footer > .area > .content > .column > .card {
     width: 100%;
 }
 
-.Footer > .area > .content > .card > .card-body {
+.Footer > .area > .content > .column > .card > .card-body {
     margin: 10px 20px;
+}
+.Footer > .area > .content > .column > .foot-nav > .option {
+    padding: 10px;
 }
 
 @media only screen and (max-width: 800px) {
@@ -32,15 +34,21 @@
         flex-direction: column;
     }
 
-    .Footer > .area > .content > .left-col {
+    .Footer > .area > .content > .column {
+        text-align: center;
+        align-content: center;
+        width: 100%;
+    }
+
+    .Footer > .area > .content > .column > .credit {
         text-align: center;
     }
 
-    .Footer > .area > .content > .left-col > .credit {
-        text-align: center;
+    .Footer > .area > .content > .column > .foot-nav > .option {
+        width: 100%;
     }
 
-    .Footer > .area > .content > .card {
-        margin-top: 20px;
+    .Footer > .area > .content {
+        width: 100%;
     }
 }

@@ -1,0 +1,33 @@
+.ThreeCard {
+
+    /* background: url(../../../assets/landing/bgred.svg);
+    background-size: cover; */
+    /* background: rgba(215,134,255,1); */
+    /* background: linear-gradient(135deg, rgba(241,255,157,1) 0%, rgba(215,134,255,1) 100%); */
+}
+
+.ThreeCard > .content {
+    margin: 50px auto;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-evenly;
+    width: 80%;
+}
+
+.ThreeCard > .content > .card {
+    width: 300px;
+}
+
+.ThreeCard > .content > .card > .image {
+    padding: 10px 80px;
+}
+
+.ThreeCard > .content > .card > .text > .card > .sub-title {
+    /* font-weight: lighter; */
+}
+
+@media only screen and (max-width: 800px) {
+    .ThreeCard > .content {
+        width: 100%;
+    }
+}
