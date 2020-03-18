@@ -14,24 +14,27 @@ import { useEffect } from 'react';
 const EditContactComp = ({ currentUser }) => {
     const [state, setState] = useState(
         {
+            id: null,
             displayName: "",
             introduction: "",
             email: "",
             phone: "",
             linkedin: "",
             website: "",
-            resumeUrl: ""
+            resumeUrl: null,
+            photoURL: null
         }
     );
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setState({ ...state, ...currentUser });
+        setState(prevState => ({ ...prevState, ...currentUser }));
     }, [currentUser]);
 
     const handleSubmit = async e => {
         e.preventDefault();
         setLoading(true);
+        console.log("STATE", state);
         await updateUser(state.id, state); // db
         setLoading(false);
     }
@@ -42,7 +45,7 @@ const EditContactComp = ({ currentUser }) => {
     }
 
     const handleChange = e => {
-        const { value, name } = e.target;
+        const { name, value } = e.target;
         let maxLength = undefined;
         switch (name) {
             case "displayName":
@@ -72,7 +75,7 @@ const EditContactComp = ({ currentUser }) => {
 
     return (
         <div className="Edit-contact card neu-up" id="Edit-Contact__id">
-            <div className="card-header">
+            <div className="card-header bgch4">
                 <h5>Contact</h5>
             </div>
             <div className="card-body">
@@ -86,9 +89,9 @@ const EditContactComp = ({ currentUser }) => {
                                 <InputComp type="tel" id="editContactPhone" name="phone" value={state.phone} onChange={handleChange}>Contact Phone</InputComp>
                                 <InputComp type="url" id="editLinkedinUrl" name="linkedin" value={state.linkedin} onChange={handleChange}>Linkedin Profile URL</InputComp>
                                 <InputComp type="url" id="editWebsiteUrl" name="website" value={state.website} onChange={handleChange}>Website</InputComp>
-                                <InputComp type="file" id="editResumeUpload" name="resume" accept=".pdf,.doc,.docx" onChange={handleFileInputChange} resumeUrl={state.resumeUrl}>{state.resume ? "Update Resume" : "Upload Resume"}</InputComp>
-                                <div className="frow-mid mtm">
-                                    <ButtonComp btnType="SAVE_FORM" className="button" loading={loading}>Save</ButtonComp>
+                                <InputComp type="file" id="editResumeUpload" name="resume" accept=".pdf,.doc,.docx" onChange={handleFileInputChange} resumeUrl={state.resumeUrl}>{state.resume ? state.resume.name.slice(0, 20) : "Upload Resume"}</InputComp>
+                                <div className="frow facc mtm">
+                                    <ButtonComp btnType="ADD_FORM" className="button" loading={loading}>Save</ButtonComp>
                                     {loading && <SpinnerComp className="mlm" />}
                                 </div>
                             </form >

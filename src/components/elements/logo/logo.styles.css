@@ -14,7 +14,7 @@
 
 /* for dark background */
 .logo-light {
-    color: var(--color-light);
+    color: var(--color-superlight);
 }
 
 .logo-hover-light:hover {

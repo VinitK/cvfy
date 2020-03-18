@@ -37,7 +37,7 @@ const QualsComp = ({ userId, addQuals }) => {
 
     return (
         <div className="Quals card neu-up" id="Edit-Quals__id">
-            <div className="card-header">
+            <div className="card-header bgch4">
                 <h5>Qualifications</h5>
             </div>
             <div className="card-body">

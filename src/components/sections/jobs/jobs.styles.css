@@ -1,0 +1,12 @@
+.Jobs {
+    padding: 10px 0;
+    width: 80%;
+    margin: auto;
+}
+
+@media only screen and (max-width: 800px) {
+    .Jobs {
+        width: 96%;
+    }
+    
+}

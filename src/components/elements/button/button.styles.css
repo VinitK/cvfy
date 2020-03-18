@@ -26,3 +26,9 @@
     color: var(--color-light);
     padding: 15px;
 }
+
+.cancel-form-btn {
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    padding: 15px;
+}

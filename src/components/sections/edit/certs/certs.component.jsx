@@ -34,7 +34,7 @@ const CertsComp = ({ userId, addCerts }) => {
 
     return (
         <div className="Certs card neu-up" id="Edit-Certs__id">
-            <div className="card-header">
+            <div className="card-header bgch4">
                 <h5>Certificates</h5>
             </div>
             <div className="card-body">

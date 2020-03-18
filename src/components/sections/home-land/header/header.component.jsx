@@ -9,7 +9,7 @@ import { signInWithGoogle } from '../../../../firebase/auth.util';
 
 const HeaderComp = () => {
     return (
-        <div className="Header">
+        <div className="Header" id="Header">
             <div className="content">
                 <div className="image">
                     <LogoIcon className="resume-icon" />

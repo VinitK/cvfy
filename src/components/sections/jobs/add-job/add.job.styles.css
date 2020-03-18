@@ -1,0 +1,29 @@
+.AddJob {
+    width: 100%;
+}
+
+.AddJob > .card {
+    width: 50%;
+}
+
+.AddJob > .preview {
+    width: 50%;
+}
+
+.AddJob > .preview > .card-body > p > .icon {
+    height: 25px;
+}
+
+@media only screen and (max-width: 800px) {
+    .AddJob {
+        flex-direction: column;
+    }
+
+    .AddJob > .card {
+        width: 100%;
+    }
+    
+    .AddJob > .preview {
+        width: 100%;
+    }
+}

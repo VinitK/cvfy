@@ -32,7 +32,7 @@ const ProjectsComp = ({ userId, addProjects }) => {
 
     return (
         <div className="Projects card neu-up" id="Edit-Projects__id">
-            <div className="card-header">
+            <div className="card-header bgch4">
                 <h5>Projects</h5>
             </div>
             <div className="card-body">

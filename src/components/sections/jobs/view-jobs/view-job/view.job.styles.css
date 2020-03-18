@@ -1,0 +1,18 @@
+.ViewJob {
+    width: 100%;
+}
+
+.ViewJob > .content > .text > p > .icon {
+    height: 25px;
+}
+
+@media only screen and (max-width: 800px) {
+    .ViewJob > .content {
+        flex-direction: column;
+    }
+
+    .ViewJob > .content > .update-delete {
+        flex-direction: row;
+        margin-top: 10px;
+    }
+}

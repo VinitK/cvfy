@@ -16,6 +16,8 @@ const FooterComp = () => {
         }
     );
 
+    const [messageId, setMessageId] = useState(null);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         console.log(name, value)
@@ -31,7 +33,7 @@ const FooterComp = () => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        const messageId = await sendMessage(state.contact, state.message); // db
+        setMessageId(await sendMessage(state.contact, state.message)); // db
         resetState();
     }
 
@@ -46,12 +48,12 @@ const FooterComp = () => {
                         <h5 className="mxs">Quick Links</h5>
                         <div className="foot-nav fcol pxs">
                             <Link to="/" className="option button bgcul">Home</Link>
-                            <Link to="/resumes" className="option button mtxs bgcul">Resumes</Link>
-                            <Link to="/jobs" className="option button mtxs bgcul">Jobs</Link>
-                            <Link to="/terms" className="option button mtxs bgcul">Terms and Conditions</Link>
+                            <Link to="/resumes" className="option button mts bgcul">Resumes</Link>
+                            <Link to="/jobs" className="option button mts bgcul">Jobs</Link>
+                            <Link to="/terms" className="option button mts bgcul">Terms and Conditions</Link>
                         </div>
                         <div className="credit mm">
-                            <span><LogoComp className="h3" /></span>
+                            <span><LogoComp className="h4">cvfy.in</LogoComp></span>
                             <h5 className="mtm">Project developed by <a className="unlink onHoverHighLight3" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/khandelwalvinit/">Vinit Khandelwal</a></h5>
                         </div>
                     </div>
@@ -67,7 +69,12 @@ const FooterComp = () => {
                                 <form onSubmit={handleSubmit}>
                                     <InputComp className="contact" type="text" id="contact" name="contact" value={state.contact} onChange={handleChange}>Your Contact Email/Phone</InputComp>
                                     <InputComp className="message" type="textarea" id="message" rows="4" name="message" value={state.message} onChange={handleChange}>Message for Vinit</InputComp>
-                                    <ButtonComp btnType="SAVE_FORM" className="button mts">Send</ButtonComp>
+                                    <div className="frow facc mts">
+                                        <ButtonComp btnType="SAVE_FORM" className="button">Send</ButtonComp>
+                                        {
+                                            messageId && <p className="success-msg pxs mls brs">Message Sent!</p>
+                                        }
+                                    </div>
                                 </form>
                             </div>
                         </div>

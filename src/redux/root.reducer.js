@@ -6,6 +6,7 @@ import certsReducer from './certs/certs.reducer';
 import qualsReducer from './quals/quals.reducer';
 import projectsReducer from './projects/projects.reducer';
 import skillsReducer from './skills/skills.reducer';
+import jobsReducer from './jobs/jobs.reducer';
 
 export default combineReducers(
     {
@@ -14,6 +15,7 @@ export default combineReducers(
         certs: certsReducer,
         quals: qualsReducer,
         projects: projectsReducer,
-        skills: skillsReducer
+        skills: skillsReducer,
+        jobs: jobsReducer
     }
 )

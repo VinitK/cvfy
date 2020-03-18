@@ -8,7 +8,6 @@ const workReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case WorkActionTypes.ADD_WORK:
             return {
-                ...state,
                 work: action.payload
             }
         case WorkActionTypes.ADD_EXPERIENCE:

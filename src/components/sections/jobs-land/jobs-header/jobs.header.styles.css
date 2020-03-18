@@ -1,0 +1,58 @@
+.JobsHeader {
+    display: flex;
+    justify-content: center;
+    /* background: url(../../../assets/landing/bgred.svg); */
+    /* background: rgba(215,134,255,1); */
+    /* background: linear-gradient(135deg, rgba(241,255,157,1) 0%, rgba(215,134,255,1) 100%); */
+}
+
+.JobsHeader > .content {
+    margin: 50px 0;
+    display: flex;
+    justify-content: center;
+    width: 80%;
+}
+
+.JobsHeader > .content > .image {
+    align-items: flex-end;
+    padding: 0 10px;
+    margin: auto;
+}
+
+.JobsHeader > .content > .image > .resume-icon {
+    width: 300px;
+}
+
+.JobsHeader > .content > .text {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 10px;
+}
+
+.JobsHeader > .content > .text > title {
+    margin: 15px 0;
+}
+
+.JobsHeader > .content > .text > .sub-title {
+    margin: 20px 0;
+}
+
+.JobsHeader > .content > .text > .btn {
+    margin: 20px 0;
+}
+
+@media only screen and (max-width: 800px) {
+    .JobsHeader > .content {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        width: 100%;
+    }
+
+    .JobsHeader > .content > .image {
+        display: none;
+    }
+}

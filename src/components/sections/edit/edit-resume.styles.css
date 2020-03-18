@@ -5,18 +5,14 @@
     justify-content: space-between;
 }
 
-.Edit-resume > .sidebar > .options {
-    top: 80px;
-    position: fixed;
-    width: 16%;
-}
-
 .Edit-resume > .sidebar {
     width: 20%;
 }
 
-.Edit-resume > .midbody {
-    width: 78%;
+.Edit-resume > .sidebar > .options {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 50px;
 }
 
 .Edit-resume > .sidebar > .options > .option {
@@ -25,6 +21,11 @@
     align-items: center;
     color: var(--color-highlight-4);
 }
+
+.Edit-resume > .midbody {
+    width: 78%;
+}
+
 
 @media only screen and (max-width: 1100px) {
     .Edit-resume {

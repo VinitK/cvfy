@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import './view-resume.styles.css';
 import { getUserContact, getUserWork, getUserCerts, getUserQuals, getUserSkills, getUserProjects } from '../../../firebase/auth.util';
@@ -13,7 +14,7 @@ import ResumeProjectsComp from './projects/resume.projects.component';
 
 const ViewResumeComp = () => { // COMPONENT
 
-    const { userId } = useParams();
+    const { userId } = useParams(); // from url
     const [contact, setContact] = useState({});
     const [work, setWork] = useState([]);
     const [certs, setCerts] = useState([]);
@@ -33,7 +34,6 @@ const ViewResumeComp = () => { // COMPONENT
 
             // WORK
             const workRef = await getUserWork(userId);
-            console.log("WORKREF", workRef)
             workRef.orderBy('startDate', 'desc').get().then(work => {
                 const experiences = work.docs.map(experienceSnap => {
                     const experience = experienceSnap.data();
@@ -52,7 +52,6 @@ const ViewResumeComp = () => { // COMPONENT
 
             // CERTS
             const certsRef = await getUserCerts(userId);
-            console.log("CERTREF", certsRef);
             certsRef.orderBy('issueDate', 'desc').get().then(certs => {
                 const certificates = certs.docs.map(certificateSnap => {
                     const certificate = certificateSnap.data();
@@ -70,7 +69,6 @@ const ViewResumeComp = () => { // COMPONENT
 
             // QUALS
             const qualsRef = await getUserQuals(userId);
-            console.log("QUALREF", qualsRef);
             qualsRef.orderBy('startDate', 'desc').get().then(quals => {
                 const qualifications = quals.docs.map(qualificationSnap => {
                     const qualification = qualificationSnap.data();
@@ -90,7 +88,6 @@ const ViewResumeComp = () => { // COMPONENT
 
             // PROJECTS
             const projectsRef = await getUserProjects(userId);
-            console.log("PROJECTREF", qualsRef);
             projectsRef.get().then(projects => {
                 const projectWorks = projects.docs.map(projectWorkSnap => {
                     const projectWork = projectWorkSnap.data();
@@ -106,7 +103,6 @@ const ViewResumeComp = () => { // COMPONENT
 
             // SKILLS
             const skillsRef = await getUserSkills(userId);
-            console.log("SKILLREF", skillsRef);
             skillsRef.orderBy('stars', 'desc').get().then(skills => {
                 const skillset = skills.docs.map(skillSnap => {
                     const skill = skillSnap.data();
@@ -119,10 +115,35 @@ const ViewResumeComp = () => { // COMPONENT
                 setSkills(skillset);
             });
         })(); // IIFE
-    }, [userId, setContact, setWork, setCerts, setQuals, setSkills]);
+    }, [userId, setContact, setWork, setCerts, setQuals, setProjects, setSkills]);
 
+    console.log('rendering');
     return (
         <div className="View-resume bgcul pxl">
+            {
+                contact.displayName &&
+                <Helmet>
+                    <title>{`${contact.displayName} Resume`}</title>
+                    <meta name="title" content={`${contact.displayName} Resume`} />
+                    <meta name="description" content={`${contact.displayName}'s cvfy resume has details of work experience, certifications, qualifications, projects and skills. With cvfy, you get access to updated resume of ${contact.displayName} at all times.`} />
+
+                    <meta property="og:title" content={`${contact.displayName} Resume`} />
+                    <meta property="og:url" content={`https://cvfy.in/cv/${userId}`} />
+                    <meta property="og:description" content={`${contact.displayName}'s cvfy resume has details of work experience, certifications, qualifications, projects and skills. With cvfy, you get access to updated resume of ${contact.displayName} at all times.`} />
+                    <meta property="og:image" content={contact.photoURL} />
+                    <meta property="og:type" content="WebPage" />
+
+                    <meta name="twitter:card" content="summary_large_image" />
+                    <meta name="twitter:title" content={`${contact.displayName} Resume`} />
+                    <meta name="twitter:url" content={`https://cvfy.in/cv/${userId}`} />
+                    <meta name="twitter:description" content={`${contact.displayName}'s cvfy resume has details of work experience, certifications, qualifications, projects and skills. With cvfy, you get access to updated resume of ${contact.displayName} at all times.`} />
+                    <meta name="twitter:image" content={contact.photoURL} />
+
+                    <meta itemprop="name" content={`${contact.displayName} Resume`} />
+                    <meta itemprop="description" content={`${contact.displayName}'s cvfy resume has details of work experience, certifications, qualifications, projects and skills. With cvfy, you get access to updated resume of ${contact.displayName} at all times.`} />
+                    <meta itemprop="image" content={contact.photoURL} />
+                </Helmet>
+            }
             <ResumeContactComp contact={contact} />
             <ResumeWorkComp experiences={work} />
             <ResumeCertsComp certs={certs} />

@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { Route, Switch, useRouteMatch, Redirect, useLocation } from 'react-router-dom';
+import { Route, Switch, useRouteMatch, Redirect } from 'react-router-dom';
 
 import './cv.styles.css';
 
@@ -13,7 +13,7 @@ const CvPage = () => {
     return (
         <div className="CvPage bgcd">
             <div className="breadcrump frow pbs">
-                <LogoComp className='logo-light onHoverHighLight3 h4 fcol' />
+                <LogoComp className='logo-light onHoverHighLight3 h4 fcol'>cvfy.in</LogoComp>
             </div>
             <Suspense fallback={<LoadingComp />}>
                 <Switch>

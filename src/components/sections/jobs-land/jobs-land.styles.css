@@ -1,0 +1,6 @@
+.HomeLand {
+    background: url(../../../assets/landing/bgred.svg);
+    background-size: cover;
+    /* background: rgba(215,134,255,1);
+    background: linear-gradient(135deg, rgba(241,255,157,1) 0%, rgba(215,134,255,1) 100%); */
+}

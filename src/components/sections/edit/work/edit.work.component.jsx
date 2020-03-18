@@ -27,8 +27,7 @@ const EditWorkComp = ({ userId, addWork }) => {
                         currentlyWorking: experience.currentlyWorking
                     }
                 });
-                addWork(experiences);
-                console.log("DB");
+                addWork(experiences); // redux
             });
         })();
     }, [addWork, userId]);
@@ -36,7 +35,7 @@ const EditWorkComp = ({ userId, addWork }) => {
 
     return (
         <div className="Edit-work card neu-up" id="Edit-Work__id">
-            <div className="card-header">
+            <div className="card-header bgch4">
                 <h5>Work Experience</h5>
             </div>
             <div className="card-body">

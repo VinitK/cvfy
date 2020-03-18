@@ -21,11 +21,17 @@
     width: 90%;
 }
 
+.Footer > .area > .content > .column > .foot-nav {
+    width: 90%;
+}
+
 .Footer > .area > .content > .column > .card > .card-body {
     margin: 10px 20px;
 }
+
 .Footer > .area > .content > .column > .foot-nav > .option {
     padding: 10px;
+    text-decoration: none;
 }
 
 @media only screen and (max-width: 800px) {
@@ -47,8 +53,8 @@
         margin: auto;
     }
     
-    .Footer > .area > .content > .column > .foot-nav > .option {
-        width: 100%;
+    .Footer > .area > .content > .column > .foot-nav {
+       margin: auto;
     }
 
     .Footer > .area > .content {

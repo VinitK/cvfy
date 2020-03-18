@@ -4,7 +4,7 @@ import './button.styles.css';
 
 import { ReactComponent as GoogleIcon } from '../../../assets/social/google.svg';
 
-const ButtonComp = ({ type, className, loading, children, btnType, ...rest }) => {
+const ButtonComp = ({ type, className, loading, disabled, children, btnType, ...rest }) => {
     switch (btnType) {
         case 'GOOGLE_SIGN_IN':
             return (
@@ -17,18 +17,28 @@ const ButtonComp = ({ type, className, loading, children, btnType, ...rest }) =>
             );
         case 'SAVE_FORM':
             return (
-                <button className={className ? `save-form-btn ${className}` : "save-form-btn"} disabled={loading} {...rest} >
+                <button type={type} className={`save-form-btn ${className}`} disabled={loading || disabled} {...rest} >
                     {children}
                 </button>
             );
         case 'ADD_FORM':
             return (
-                <button className={className ? `add-form-btn ${className}` : "add-form-btn"} disabled={loading} {...rest} >
+                <button type={type} className={`add-form-btn ${className}`} disabled={loading || disabled} {...rest} >
+                    {children}
+                </button>
+            )
+        case 'CANCEL_FORM':
+            return (
+                <button type={type} className={`cancel-form-btn ${className}`} disabled={loading || disabled} {...rest} >
                     {children}
                 </button>
             )
         default:
-            return (<button type={type} disabled={loading} className={className} {...rest}>{children}</button>)
+            return (
+                <button type={type} disabled={loading || disabled} className={className} {...rest}>
+                    {children}
+                </button>
+            )
     }
 };
 

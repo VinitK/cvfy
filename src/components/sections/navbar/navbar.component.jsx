@@ -14,11 +14,12 @@ function NavbarComp({ currentUser }) {
             <div className="sticky">
                 <div className="content">
                     <div className="logo">
-                        <LogoComp className='logo h4' />
+                        <LogoComp className='logo h4'>cvfy.in</LogoComp>
                     </div>
                     <nav className="nav">
                         <Link to="/" className="nav-element onHover-bright home">Home</Link>
                         <Link to="/resumes" className="nav-element onHover-bright">Resumes</Link>
+                        <Link to="/jobs" className="nav-element onHover-bright">Jobs</Link>
                         {
                             currentUser
                             &&

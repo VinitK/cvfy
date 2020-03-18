@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './view.project.styles.css';
 import { deleteUserProject } from '../../../../../../firebase/auth.util';
 import { ReactComponent as DeleteComp } from '../../../../../../assets/resume-form/delete.svg'
+// import { ReactComponent as EditComp } from '../../../../../../assets/resume-form/edit.svg'
 
 import ButtonComp from '../../../../../elements/button/button.component';
 import { addProjects } from '../../../../../../redux/projects/projects.actions';

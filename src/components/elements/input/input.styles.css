@@ -1,5 +1,6 @@
 .Input {
     position: relative;
+    margin-bottom: 10px;
 }
 
 .Input > .style {
@@ -8,9 +9,6 @@
     border: none;
     border-bottom: 1px solid var(--color-light);
     background-color: transparent;
-}
-.Input > .input {
-    height: 30px;
 }
 
 .Input > .inputfile {
@@ -35,7 +33,7 @@
 
 .Input > .float-label {
     position: absolute;
-    top: 30px;
+    top: 25px;
     left: 0;
     cursor: text;
     transition: all 200ms;

@@ -19,11 +19,12 @@ const EditResumeComp = () => {
 
     const tabs = [
         { name: <div className="mls">Contact</div>, icon: <ContactIcon className="icon" />, id: "#Edit-Contact__id", },
+        { name: <div className="mls">Skills</div>, icon: <SkillsIcon className="icon" />, id: "#Edit-Skills__id", },
         { name: <div className="mls">Work</div>, icon: <WorkIcon className="icon" />, id: "#Edit-Work__id", },
         { name: <div className="mls">Certifications</div>, icon: <CertificationsIcon className="icon" />, id: "#Edit-Certs__id", },
         { name: <div className="mls">Qualification</div>, icon: <QualificationIcon className="icon" />, id: "#Edit-Quals__id", },
-        { name: <div className="mls">Projects</div>, icon: <ProjectsIcon className="icon" />, id: "#Edit-Projects__id" },
-        { name: <div className="mls">Skills</div>, icon: <SkillsIcon className="icon" />, id: "#Edit-Skills__id", }];
+        { name: <div className="mls">Projects</div>, icon: <ProjectsIcon className="icon" />, id: "#Edit-Projects__id" }
+    ];
 
     return (
         <div className="Edit-resume frow">
@@ -34,11 +35,11 @@ const EditResumeComp = () => {
             </div>
             <div className="midbody fcol">
                 <EditContactComp />
+                <SkillsComp />
                 <EditWorkComp />
                 <CertsComp />
                 <QualsComp />
                 <ProjectsComp></ProjectsComp>
-                <SkillsComp />
             </div>
         </div >
     );

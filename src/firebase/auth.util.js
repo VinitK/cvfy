@@ -24,7 +24,7 @@ provider.setCustomParameters({ prompt: "select_account" }); // google sign in po
 const storageRef = storage.ref(); // Create a storage reference from our storage service
 
 // custom functions
-export const signInWithGoogle = () => auth.signInWithPopup(provider) // function to create sign in pop up with Google provider
+export const signInWithGoogle = () => auth.signInWithPopup(provider).catch(error => console.error(error)); // function to create sign in pop up with Google provider
 
 export const createUserProfileDoc = async (userAuth, restData) => {
     if (!userAuth) return;
@@ -64,28 +64,25 @@ export const sendMessage = async (contact, message) => {
     return msgRef.id;
 }
 
-export const updateUser = async (userId, state, restData) => {
-    let { displayName, email, phone, introduction, linkedin, website, resumeUrl } = state;
+export const updateUser = async (userId, state) => {
     if (!userId) return;
+    console.log("STATE", state);
+    let { displayName, phone, introduction, linkedin, website, resume, resumeUrl } = state;
     const userRef = firestore.collection("users").doc(userId);
     const resumeStorageRef = storageRef.child(`${userId}/resume`);
     try {
-        console.log(state);
-        if (state.resume) {
+        if (resume) {
             await resumeStorageRef.put(state.resume);
             resumeUrl = await resumeStorageRef.getDownloadURL();
         }
-        console.log(resumeUrl);
         await userRef.update(
             {
                 displayName,
-                email,
                 phone,
                 introduction,
                 linkedin,
                 website,
-                resumeUrl,
-                ...restData
+                resumeUrl
             }
         );
     } catch (error) {
@@ -108,12 +105,10 @@ export const getUserWork = async (userId) => {
     return firestore.collection(`users/${userId}/work`);
 }
 
-export const addUserWork = async (userId, state, restData) => {
+export const addUserWork = async (userId, state) => {
 
     if (!userId) return;
-
     const expRef = firestore.collection(`users/${userId}/work`).doc();
-
     try {
         const { company, designation, description, startDate, endDate, currentlyWorking } = state;
         const createdAt = new Date();
@@ -125,13 +120,32 @@ export const addUserWork = async (userId, state, restData) => {
             startDate,
             endDate,
             currentlyWorking,
-            createdAt,
-            ...restData
+            createdAt
         });
     } catch (err) {
         console.error("Error saving work experience to database:", err.message);
     }
     return expRef.id;
+}
+
+export const updateUserExperience = async (userId, state, expId) => {
+    if (!userId) return;
+    const expRef = firestore.collection(`users/${userId}/work`).doc(expId);
+    try {
+        const { company, designation, description, startDate, endDate, currentlyWorking } = state;
+        const updatedOn = new Date();
+        await expRef.update({
+            company,
+            designation,
+            description,
+            startDate,
+            endDate,
+            currentlyWorking,
+            updatedOn
+        });
+    } catch (err) {
+        console.error("Error updating work experience to database:", err.message);
+    }
 }
 
 export const deleteUserWork = async (userId, workId) => {
@@ -284,7 +298,7 @@ export const getUserSkills = async (userId) => {
     return firestore.collection(`users/${userId}/skills`);
 }
 
-export const addUserSkill = async (userId, state, restData) => {
+export const addUserSkill = async (userId, state) => {
 
     if (!userId) return;
 
@@ -297,8 +311,7 @@ export const addUserSkill = async (userId, state, restData) => {
         await skillRef.set({
             skillName,
             stars,
-            createdAt,
-            ...restData
+            createdAt
         });
     } catch (err) {
         console.error("Error saving skill to database:", err.message);
@@ -315,6 +328,87 @@ export const deleteUserSkill = async (userId, skillId) => {
         console.error("Error deleting skillification from database:", err.message);
     }
     return skillRef.id;
+}
+
+// JOBS
+
+export const getJobs = async (userId) => {
+    return firestore.collection("jobs");
+}
+
+export const addUserJob = async (userId, state) => {
+
+    if (!userId) return;
+    const jobRef = firestore.collection("jobs").doc();
+    try {
+        const { designation, company, locations, locationsArr, skills, skillsArr, description } = state;
+        const createdAt = new Date();
+        const createdBy = userId;
+
+        console.log(state);
+
+        await jobRef.set({
+            designation,
+            company,
+            locations,
+            locationsArr,
+            skills,
+            skillsArr,
+            description,
+            createdAt,
+            createdBy
+        });
+    } catch (err) {
+        console.error("Error saving job to database:", err.message);
+    }
+    return jobRef.id;
+}
+
+export const updateUserJob = async (userId, state, jobId) => {
+    if (!userId) return;
+    const jobRef = firestore.collection("jobs").doc(jobId);
+    try {
+        const { designation, company, locations, locationsArr, skills, skillsArr, description } = state;
+        const updatedOn = new Date();
+        const updatedBy = userId;
+
+        await jobRef.update({
+            designation,
+            company,
+            locations,
+            locationsArr,
+            skills,
+            skillsArr,
+            description,
+            updatedOn,
+            updatedBy
+        });
+    } catch (err) {
+        console.error("Error updating job to database:", err.message);
+    }
+}
+
+export const applyToJob = async (userId, jobId) => {
+    if (!userId) return;
+    const jobRef = firestore.collection("jobs").doc(jobId);
+    try {
+        await jobRef.update({
+            applied: firebase.firestore.FieldValue.arrayUnion(firestore.doc(`/users/${userId}`))
+        });
+    } catch (err) {
+        console.error("Error updating job application to database:", err.message);
+    }
+}
+
+export const deleteUserJob = async (userId, jobId) => {
+    if (!userId) return;
+    const jobRef = firestore.collection("jobs").doc(jobId);
+    try {
+        await jobRef.delete();
+    } catch (err) {
+        console.error("Error deleting job from database:", err.message);
+    }
+    return jobRef.id;
 }
 
 

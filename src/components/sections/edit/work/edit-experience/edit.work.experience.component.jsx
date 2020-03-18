@@ -4,19 +4,21 @@ import { connect } from 'react-redux';
 import "react-datepicker/dist/react-datepicker.css";
 import './edit.work.experience.styles.css';
 
-import { addUserWork } from '../../../../../firebase/auth.util';
+import { addUserWork, updateUserExperience } from '../../../../../firebase/auth.util';
 import { addExperience } from '../../../../../redux/work/work.actions';
 
 import InputComp from '../../../../elements/input/input.component';
 import ReactDatePicker from 'react-datepicker';
 import ButtonComp from '../../../../elements/button/button.component';
 import SpinnerComp from '../../../../elements/spinner/spinner.component';
+import { useEffect } from 'react';
 
 
-const EditWorkExpComp = ({ userId, addExperience }) => {
+const EditWorkExpComp = ({ userId, addExperience, experience, setEdit, setExperience, editId }) => {
 
     const [state, setState] = useState(
         {
+            id: "",
             startDate: null,
             endDate: null,
             company: "",
@@ -26,6 +28,23 @@ const EditWorkExpComp = ({ userId, addExperience }) => {
         }
     );
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (experience) {
+            const { id, startDate, endDate, company, designation, description, currentlyWorking } = experience;
+            setState(
+                {
+                    id,
+                    startDate,
+                    endDate,
+                    company,
+                    designation,
+                    description,
+                    currentlyWorking
+                }
+            );
+        }
+    }, [experience]);
 
     const resetState = () => {
         setState({
@@ -53,10 +72,19 @@ const EditWorkExpComp = ({ userId, addExperience }) => {
     const handleSubmit = async e => {
         e.preventDefault();
         setLoading(true);
-        const expId = await addUserWork(userId, state); // db
-        addExperience({ ...state, id: expId }); // redux
-        resetState();
-        setLoading(false);
+        if (experience) {
+            await updateUserExperience(userId, state, experience.id); // db
+            setExperience({ ...state, id: experience.id }) // view experience setState
+            // const workList = work.filter(exp => exp.id === experience.id);
+            // addWork(workList); // redux
+            // addExperience({ ...state, id: experience.id }); // redux
+            setEdit(false);
+        } else {
+            const expId = await addUserWork(userId, state); // db
+            addExperience({ ...state, id: expId }); // redux
+            resetState();
+            setLoading(false);
+        }
     }
 
     return (
@@ -93,20 +121,25 @@ const EditWorkExpComp = ({ userId, addExperience }) => {
                                 type="checkbox"
                                 className="checkbox"
                                 onChange={handleCurrentlyWorkingChange}
-                                id="currently-working__id"
+                                id={`currently-working${editId}`}
                                 name="currentlyWorking"
                                 checked={state.currentlyWorking}
                             />
-                            <label htmlFor="currently-working__id" className="mls">Currently Working</label>
+                            <label htmlFor={`currently-working${editId}`} className="mls">Currently Working</label>
                         </div>
                     </div>
                 </div>
-                <InputComp type="text" id="editExpCompany" name="company" value={state.company} onChange={handleChange}>Company Name</InputComp>
-                <InputComp type="text" id="editExpDesignation" name="designation" value={state.designation} onChange={handleChange}>Designation</InputComp>
-                <InputComp type="textarea" id="editExpDescription" rows="4" name="description" value={state.description} onChange={handleChange} >Key Activities Carried Out</InputComp>
-                <div className="frow-mid mtm">
-                    <ButtonComp btnType="SAVE_FORM" className="button" loading={loading}>Add</ButtonComp>
-                    {loading && <SpinnerComp className="mlm" />}
+                <InputComp type="text" id={`editExpCompany${editId}`} name="company" value={state.company} onChange={handleChange}>Company Name</InputComp>
+                <InputComp type="text" id={`editExpDesignation${editId}`} name="designation" value={state.designation} onChange={handleChange}>Designation</InputComp>
+                <InputComp type="textarea" id={`editExpDescription${editId}`} rows="4" name="description" value={state.description} onChange={handleChange} >Key Activities Carried Out</InputComp>
+                <div className="frow fjcsb facc form-btns mtm">
+                    <ButtonComp type="submit" btnType="ADD_FORM" className="button" loading={loading}>{experience ? "Update" : "Add"}</ButtonComp>
+                    {
+                        loading && <SpinnerComp className="mlm" />
+                    }
+                    {
+                        experience && <ButtonComp type="button" btnType="CANCEL_FORM" className="button" onClick={() => setEdit(false)} >Cancel</ButtonComp>
+                    }
                 </div>
             </form>
         </div>

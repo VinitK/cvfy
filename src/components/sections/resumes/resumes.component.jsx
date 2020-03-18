@@ -12,13 +12,15 @@ const ResumesComp = () => {
     useEffect(() => {
         (async function asyncFunction() {
             const usersRef = await getUsers();
-            const usersSnap = await usersRef.get();
+            const usersSnap = await usersRef.orderBy('createdAt', 'desc').get();
             const users = usersSnap.docs.map(userSnap => {
                 const user = userSnap.data();
                 return {
                     id: userSnap.id,
                     displayName: user.displayName,
-                    introduction: user.introduction
+                    introduction: user.introduction,
+                    photoURL: user.photoURL,
+                    createdAt: user.createdAt
                 }
             });
             setUsers(users);
@@ -35,9 +37,21 @@ const ResumesComp = () => {
                     :
                     users.length > 0 && users.map(user => (
                         <a href={`/cv/${user.id}`} key={user.id}>
-                            <div className="card neu-up mtm pm">
-                                <h5 className="ch3">{user.displayName}</h5>
-                                <p className="mts">{user.introduction}</p>
+                            <div className="card frow neu-up mtm pm">
+                                {
+                                    user.photoURL && (
+                                        <div className="image">
+                                            <img src={user.photoURL} alt={user.displayName} />
+                                        </div>
+                                    )
+                                }
+                                <div className="text fcol fjcsb plm prm">
+                                    <div>
+                                        <h5 className="ch3">{user.displayName}</h5>
+                                        <p className="mts">{user.introduction}</p>
+                                    </div>
+                                    <p className="mts">created on {user.createdAt.toDate().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
+                                </div>
                             </div>
                         </a>
                     ))

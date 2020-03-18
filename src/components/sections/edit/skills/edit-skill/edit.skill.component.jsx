@@ -15,7 +15,7 @@ const EditSkillComp = ({ userId, addSkill }) => {
 
     const [state, setState] = useState(
         {
-            skilName: "",
+            skillName: "",
             stars: 1,
 
         }
@@ -24,14 +24,13 @@ const EditSkillComp = ({ userId, addSkill }) => {
 
     const resetState = () => {
         setState({
-            ...state,
             skillName: "",
             stars: 1
         });
     }
 
-    const handleChange = e => {
-        const { value, name } = e.target;
+    const handleChange = ({ target }) => {
+        const { value, name } = target;
         setState({ ...state, [name]: value });
     }
 
@@ -60,7 +59,7 @@ const EditSkillComp = ({ userId, addSkill }) => {
                             id="rating-1"
                             name="stars"
                             value="1"
-                            checked={state.stars === 1}
+                            checked={state.stars === "1"}
                         />
                     </div>
                     <div className="rate fcol">
@@ -109,8 +108,8 @@ const EditSkillComp = ({ userId, addSkill }) => {
                     </div>
                     <label>Expert</label>
                 </div>
-                <div className="frow-mid mtm">
-                    <ButtonComp btnType="SAVE_FORM" className="button" loading={loading}>Add</ButtonComp>
+                <div className="frow facc mtm">
+                    <ButtonComp btnType="ADD_FORM" className="button" loading={loading}>Add</ButtonComp>
                     {loading && <SpinnerComp className="mlm" />}
                 </div>
             </form >

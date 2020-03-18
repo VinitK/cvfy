@@ -31,7 +31,7 @@ const SkillsComp = ({ userId, addSkills }) => {
 
     return (
         <div className="Skills card neu-up" id="Edit-Skills__id">
-            <div className="card-header">
+            <div className="card-header bgch4">
                 <h5>Skills</h5>
             </div>
             <div className="card-body">

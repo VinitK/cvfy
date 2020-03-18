@@ -52,8 +52,8 @@ const EditProjectComp = ({ userId, addProject }) => {
                 <InputComp type="text" id="editProjectTitle" name="title" value={state.title} onChange={handleChange}>Project Name</InputComp>
                 <InputComp type="text" id="editProjectConmpany" name="company" value={state.company} onChange={handleChange}>Company</InputComp>
                 <InputComp type="textarea" id="editProjectDescription" rows="4" name="description" value={state.description} onChange={handleChange} >Key Activities Carried Out</InputComp>
-                <div className="frow-mid mtm">
-                    <ButtonComp btnType="SAVE_FORM" className="button" loading={loading}>Add</ButtonComp>
+                <div className="frow facc mtm">
+                    <ButtonComp btnType="ADD_FORM" className="button" loading={loading}>Add</ButtonComp>
                     {loading && <SpinnerComp className="mlm" />}
                 </div>
             </form>
