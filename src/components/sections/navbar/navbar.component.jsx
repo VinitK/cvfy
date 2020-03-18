@@ -13,20 +13,22 @@ function NavbarComp({ currentUser }) {
         <div className="Navbar">
             <div className="sticky">
                 <div className="content">
-                    <div className="logo">
-                        <LogoComp className='logo h4'>cvfy.in</LogoComp>
+                    <div className="logo frow facc">
+                        <LogoComp className='h4'>cvfy.in</LogoComp>
                     </div>
-                    <nav className="nav">
+                    <nav className="nav frow">
                         <Link to="/" className="nav-element onHover-bright home">Home</Link>
                         <Link to="/resumes" className="nav-element onHover-bright">Resumes</Link>
                         <Link to="/jobs" className="nav-element onHover-bright">Jobs</Link>
                         {
                             currentUser
-                            &&
-                            <>
-                                <Link to={`/cv/${currentUser.id}`} className="nav-element onHover-bright">My CV</Link>
-                                <div onClick={() => auth.signOut()} className="nav-element onHover-bright">Sign out</div>
-                            </>
+                                ?
+                                <>
+                                    <Link to={`/cv/${currentUser.id}`} className="nav-element onHover-bright">My CV</Link>
+                                    <div onClick={() => auth.signOut()} className="nav-element onHover-bright">Sign out</div>
+                                </>
+                                :
+                                <Link to="/cv" className="nav-element onHover-bright">My CV</Link>
                         }
                     </nav>
                 </div>

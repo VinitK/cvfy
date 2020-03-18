@@ -20,7 +20,7 @@ const JobsComp = ({ userId }) => {
                         ?
                         <AddJobComp setEdit={setEdit} setJobs={setJobs} />
                         :
-                        <ButtonComp className="button bgch3 pm" type="button" onClick={() => setEdit(true)}>Add New Job</ButtonComp>
+                        <ButtonComp className="button bgch3 pm mm" type="button" onClick={() => setEdit(true)}>Add New Job</ButtonComp>
                 )
             }
             <ViewJobsComp jobs={jobs} setJobs={setJobs} />

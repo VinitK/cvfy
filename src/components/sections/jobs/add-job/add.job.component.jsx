@@ -67,7 +67,7 @@ const AddJobComp = ({ userId, setEdit, setJobs, job, setJob, editId }) => {
 
     return (
         <div className="AddJob frow fjcsb facs">
-            <div className="card neu-up mrm">
+            <div className="card neu-up mxs">
                 <div className="card-header">
                     <h5>Add New Job</h5>
                 </div>
@@ -88,7 +88,7 @@ const AddJobComp = ({ userId, setEdit, setJobs, job, setJob, editId }) => {
                     </form>
                 </div>
             </div>
-            <div className="preview card neu-up">
+            <div className="preview card neu-up mxs">
                 <div className="card-header">
                     <h5>Preview</h5>
                 </div>

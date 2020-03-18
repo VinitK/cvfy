@@ -1,5 +1,6 @@
 .CvPage {
     padding: 5px 0;
+    min-height: 100vh;
 }
 .CvPage > .breadcrump {
     justify-content: center;

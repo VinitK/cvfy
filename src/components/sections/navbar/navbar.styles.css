@@ -23,15 +23,6 @@
     justify-content: space-between;
 }
 
-.Navbar > .sticky > .content > .logo {
-    display: flex;
-    align-items: center;
-}
-
-.Navbar > .sticky > .content > .nav {
-    display: flex;
-}
-
 .Navbar > .sticky > .content > .nav > .nav-element {
     display: flex;
     align-items: center;
@@ -45,6 +36,19 @@
 }
 
 @media only screen and (max-width: 700px) {
+
+    .Navbar > .sticky > .content {
+        width: 96%;
+    }
+
+    .Navbar > .sticky > .content > .logo > .h4 {
+        font-size: 18px;
+    }
+    
+    .Navbar > .sticky > .content > .nav {
+        font-size: small;
+    }
+
     .Navbar > .sticky > .content > .nav > .home {
         display: none;
     }
