@@ -12,7 +12,7 @@ import ButtonComp from '../../../../elements/button/button.component';
 import SpinnerComp from '../../../../elements/spinner/spinner.component';
 
 
-const EditQualComp = ({ userId, addQual }) => {
+const EditQualComp = ({ currentUser, addQual }) => {
 
     const [state, setState] = useState(
         {
@@ -22,7 +22,11 @@ const EditQualComp = ({ userId, addQual }) => {
             score: "",
             startDate: null,
             endDate: null,
-            pursuing: false
+            pursuing: false,
+            displayName: currentUser.displayName,
+            introduction: currentUser.introduction,
+            photoURL: currentUser.photoURL
+
         }
     );
 
@@ -54,7 +58,7 @@ const EditQualComp = ({ userId, addQual }) => {
     const handleSubmit = async e => {
         e.preventDefault();
         setLoading(true);
-        const qualId = await addUserQual(userId, state); // db
+        const qualId = await addUserQual(currentUser.id, state); // db
         addQual({ ...state, id: qualId }); // redux
         resetState();
         setLoading(false);
@@ -117,7 +121,7 @@ const EditQualComp = ({ userId, addQual }) => {
 
 const mapStateToProps = ({ user }) => (
     {
-        userId: user.currentUser.id
+        currentUser: user.currentUser
     }
 );
 

@@ -14,7 +14,7 @@ const ViewProjectComp = ({ userId, projects, addProjects, project, ...rest }) =>
     const { title, company, description } = project;
 
     const deleteProject = (projects, project, userId) => {
-        deleteUserProject(userId, project.id); // db
+        deleteUserProject(userId, project); // db
         const filteredProjects = projects.filter(projectwork => project.id !== projectwork.id);
         console.log(filteredProjects)
         addProjects(filteredProjects); // redux
@@ -25,8 +25,8 @@ const ViewProjectComp = ({ userId, projects, addProjects, project, ...rest }) =>
             <div className="frow">
                 <div className="content fcol">
                     <h5 className="title ch4">{title}</h5>
-                    <p className="company mts">Company: {company}</p>
-                    <p className="description mts">Description: {description}</p>
+                    <p className="company mts ch3">at {company}</p>
+                    <p className="description mts">{description}</p>
                 </div>
                 <div className="fcol update-delete">
                     {/* <ButtonComp className="button-icon edit-icon"><EditComp className="icon" /></ButtonComp> */}

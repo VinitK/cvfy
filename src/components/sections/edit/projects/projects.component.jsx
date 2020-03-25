@@ -21,7 +21,7 @@ const ProjectsComp = ({ userId, addProjects }) => {
                 return {
                     id: projectSnap.id,
                     title: projectwork.title,
-                    comapny: projectwork.company,
+                    company: projectwork.company,
                     description: projectwork.description
                 }
             });

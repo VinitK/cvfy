@@ -12,7 +12,7 @@ import ButtonComp from '../../../../elements/button/button.component';
 import SpinnerComp from '../../../../elements/spinner/spinner.component';
 
 
-const EditCertComp = ({ userId, addCert }) => {
+const EditCertComp = ({ currentUser, addCert }) => {
 
     const [state, setState] = useState(
         {
@@ -20,38 +20,42 @@ const EditCertComp = ({ userId, addCert }) => {
             issuedBy: "",
             issueDate: null,
             validDate: null,
-            noExpiry: true
+            noExpiry: true,
+            displayName: currentUser.displayName,
+            introduction: currentUser.introduction,
+            photoURL: currentUser.photoURL
         }
     );
 
     const [loading, setLoading] = useState(false);
 
     const resetState = () => {
-        setState({
-            ...state,
-            title: "",
-            issuedBy: "",
-            issueDate: null,
-            validDate: null,
-            noExpiry: false
-        });
-
+        setState(prevState => (
+            {
+                ...prevState,
+                title: "",
+                issuedBy: "",
+                issueDate: null,
+                validDate: null,
+                noExpiry: true
+            }
+        ));
     }
 
     const handleNoExpiryChange = e => {
         const { checked, name } = e.target;
-        setState({ ...state, [name]: checked });
+        setState(prevState => ({ ...prevState, [name]: checked }));
     }
 
     const handleChange = e => {
         const { value, name } = e.target;
-        setState({ ...state, [name]: value });
+        setState(prevState => ({ ...prevState, [name]: value }));
     }
 
     const handleSubmit = async e => {
         e.preventDefault();
         setLoading(true);
-        const certId = await addUserCert(userId, state); // db
+        const certId = await addUserCert(currentUser.id, state); // db
         addCert({ ...state, id: certId }); // redux
         resetState();
         setLoading(false);
@@ -111,7 +115,7 @@ const EditCertComp = ({ userId, addCert }) => {
 
 const mapStateToProps = ({ user }) => (
     {
-        userId: user.currentUser.id
+        currentUser: user.currentUser
     }
 );
 

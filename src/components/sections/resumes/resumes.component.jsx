@@ -14,13 +14,13 @@ const ResumesComp = () => {
             const usersRef = await getUsers();
             const usersSnap = await usersRef.orderBy('createdAt', 'desc').get();
             const users = usersSnap.docs.map(userSnap => {
-                const user = userSnap.data();
+                const { displayName, introduction, photoURL, createdAt } = userSnap.data()
                 return {
                     id: userSnap.id,
-                    displayName: user.displayName,
-                    introduction: user.introduction,
-                    photoURL: user.photoURL,
-                    createdAt: user.createdAt
+                    displayName,
+                    introduction,
+                    photoURL,
+                    createdAt
                 }
             });
             setUsers(users);
@@ -29,33 +29,41 @@ const ResumesComp = () => {
     }, [setUsers]);
 
     return (
-        <div className="Resumes">
-            {
-                loading
-                    ?
-                    <LoadingComp />
-                    :
-                    users.length > 0 && users.map(user => (
-                        <a href={`/cv/${user.id}`} key={user.id}>
-                            <div className="card frow neu-up mtm pm">
-                                {
-                                    user.photoURL && (
-                                        <div className="image">
-                                            <img src={user.photoURL} alt={user.displayName} />
+        <div className="Resumes card neu-up">
+            <div className="card-header frow fjcc">
+                <h4>Latest Resumes</h4>
+            </div>
+            <div className="card-body">
+                {
+                    loading
+                        ?
+                        <LoadingComp />
+                        :
+                        users.length > 0 && users.map(user => (
+                            <div key={user.id}>
+                                <a href={`/cv/${user.id}`}>
+                                    <div className="card-row frow pm">
+                                        {
+                                            user.photoURL && (
+                                                <div className="image brxs">
+                                                    <img src={user.photoURL} alt={user.displayName} />
+                                                </div>
+                                            )
+                                        }
+                                        <div className="text fcol fjcsb plm prm">
+                                            <div>
+                                                <h5 className="ch3">{user.displayName}</h5>
+                                                <p className="mts cd">{user.introduction}</p>
+                                                {/* <p className="frow fwrap mtxs">{user.skillsArr && user.skillsArr.map((skill, index) => <span key={index} className="badge bgch4 mtxs mrxs fss">{skill}</span>)}</p> */}
+                                            </div>
+                                            <p className="mts cd">created on {user.createdAt.toDate().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
                                         </div>
-                                    )
-                                }
-                                <div className="text fcol fjcsb plm prm">
-                                    <div>
-                                        <h5 className="ch3">{user.displayName}</h5>
-                                        <p className="mts">{user.introduction}</p>
                                     </div>
-                                    <p className="mts">created on {user.createdAt.toDate().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
-                                </div>
+                                </a>
                             </div>
-                        </a>
-                    ))
-            }
+                        ))
+                }
+            </div>
         </div>
     );
 };

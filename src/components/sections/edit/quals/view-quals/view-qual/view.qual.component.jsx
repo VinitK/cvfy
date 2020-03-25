@@ -15,7 +15,7 @@ const ViewQualComp = ({ userId, quals, addQuals, qual, ...rest }) => {
     const endDate = qual.endDate && qual.endDate.toLocaleDateString('en-IN', { month: 'short', year: 'numeric' });
 
     const deleteQual = (quals, qual, userId) => {
-        deleteUserQual(userId, qual.id); // db
+        deleteUserQual(userId, qual); // db
         const filteredQuals = quals.filter(qualification => qual.id !== qualification.id);
         console.log(filteredQuals)
         addQuals(filteredQuals); // redux

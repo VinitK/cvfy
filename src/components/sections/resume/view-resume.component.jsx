@@ -117,7 +117,6 @@ const ViewResumeComp = () => { // COMPONENT
         })(); // IIFE
     }, [userId, setContact, setWork, setCerts, setQuals, setProjects, setSkills]);
 
-    console.log('rendering');
     return (
         <div className="View-resume bgcul pxl">
             {

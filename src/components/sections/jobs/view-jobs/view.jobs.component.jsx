@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 
 import './view.jobs.styles.css';
-import { getJobs } from '../../../../firebase/auth.util';
+import { getJobs, getAppliedList } from '../../../../firebase/auth.util';
 
 import ViewJobComp from './view-job/view.job.component';
 import ButtonComp from '../../../elements/button/button.component';
 
-const ViewJobsComp = ({ userId, jobs, setJobs }) => {
+const ViewJobsComp = ({ jobs, setJobs }) => {
 
     const [state, setState] = useState({});
+    const pageSize = 20;
 
-    const pageSize = 2;
-
-    useEffect(() => {
+    useEffect(() => { // gets jobs and applied and sets JobsArr (reduc sort) and other indicators in state
         (async function asyncFunction() {
-            const jobsRef = await getJobs();
+            const jobsRef = getJobs();
             const tempState = { jobsRef, seeMore: false };
-            jobsRef.orderBy("createdAt").limit(pageSize).get().then(jobs => {
+            jobsRef.orderBy('updatedOn', 'desc').limit(pageSize).get().then(jobs => {
                 if (jobs.docs.length > 0) {
                     tempState.last = jobs.docs[jobs.docs.length - 1];
                     tempState.seeMore = true;
@@ -25,24 +23,29 @@ const ViewJobsComp = ({ userId, jobs, setJobs }) => {
                         const job = jobSnap.data();
                         return {
                             id: jobSnap.id,
-                            ...job
+                            ...job,
                         }
                     });
-                    setJobs(jobsArr);
+                    setJobs(jobsArr); // redux sort
                 }
+                setState(tempState); // state
             });
-            setState(tempState);
         })();
     }, [setJobs]);
 
     const handleNext = () => {
-        state.jobsRef.orderBy("createdAt").startAfter(state.last).limit(pageSize).get().then(jobs => {
+        state.jobsRef.orderBy("updatedOn", "desc").startAfter(state.last).limit(pageSize).get().then(jobs => {
             if (jobs.docs.length > 0) {
-                const jobsArr = jobs.docs.map(jobSnap => {
+                const jobsArr = jobs.docs.map(async jobSnap => {
                     const job = jobSnap.data();
+                    // Applied
+                    const appliedRef = await getAppliedList(jobSnap.id);
+                    const appliedList = await appliedRef.get();
+                    const appliedArr = appliedList.docs.map(appliedSnap => appliedSnap.data());
                     return {
                         id: jobSnap.id,
-                        ...job
+                        ...job,
+                        appliedArr
                     }
                 });
                 setJobs(prevJobs => ([...prevJobs, ...jobsArr]));
@@ -53,21 +56,13 @@ const ViewJobsComp = ({ userId, jobs, setJobs }) => {
         });
     }
 
-    console.log(state.first ? state.first.id : state.first, state.last ? state.last.id : state.last);
-
     return (
-        <div className="ViewJobs fcol facc">
-            {jobs.map((job, index) => <ViewJobComp key={index} job={job} setJobs={setJobs} />)}
+        <div className="ViewJobs fcol">
+            <div className="card-header brs frow fjcc mtm"><h5>Latest Jobs</h5></div>
+            {jobs.map((job) => <ViewJobComp key={job.id} job={job} setJobs={setJobs} />)}
             {state.seeMore && <ButtonComp onClick={handleNext} type="button" className="button pm bgcl mm">See More</ButtonComp>}
-
         </div>
     )
 }
 
-const mapStateToProps = ({ user: { currentUser: { id } } }) => (
-    {
-        userId: id
-    }
-)
-
-export default connect(mapStateToProps)(ViewJobsComp);
+export default ViewJobsComp;

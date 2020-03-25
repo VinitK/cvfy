@@ -8,14 +8,13 @@ import { ReactComponent as DeleteComp } from '../../../../../../assets/resume-fo
 import ButtonComp from '../../../../../elements/button/button.component';
 import { addSkills } from '../../../../../../redux/skills/skills.actions';
 
-const ViewSkillComp = ({ userId, skills, addSkills, skill, ...rest }) => {
+const ViewSkillComp = ({ userId, skills, addSkills, skill }) => {
 
     const { skillName, stars } = skill;
 
     const deleteSkill = (skills, skill, userId) => {
-        deleteUserSkill(userId, skill.id); // db
-        const filteredSkills = skills.filter(skillset => skill.id !== skillset.id);
-        console.log(filteredSkills)
+        deleteUserSkill(userId, skill); // db
+        const filteredSkills = skills.filter(eachSkill => skill.id !== eachSkill.id);
         addSkills(filteredSkills); // redux
     };
 

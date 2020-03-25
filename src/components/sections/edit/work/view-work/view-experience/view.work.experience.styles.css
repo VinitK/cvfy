@@ -7,10 +7,6 @@
     justify-content: space-between;
 }
 
-.View-work-exp > .content > .description {
-    white-space: pre-wrap;
-}
-
 .View-work-exp > .update-delete > .delete-icon:hover > svg > g > g,
 .View-work-exp > .update-delete > .delete-icon:focus > svg > g > g {
     fill: #c13526;

@@ -17,13 +17,13 @@ const CertsComp = ({ userId, addCerts }) => {
             certsRef.get().then(certs => {
                 const certificates = certs.docs.map(certSnap => {
                     const certificate = certSnap.data();
-                    console.log(certificate)
                     return {
                         id: certSnap.id,
                         title: certificate.title,
                         issuedBy: certificate.issuedBy,
                         issueDate: certificate.issueDate && certificate.issueDate.toDate(),
-                        expiryDate: certificate.expiryDate && certificate.expiryDate.toDate()
+                        validDate: certificate.validDate && certificate.validDate.toDate(),
+                        noExpiry: certificate.noExpiry
                     }
                 });
                 addCerts(certificates); // redux

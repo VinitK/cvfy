@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import './view.job.styles.css';
@@ -9,38 +9,26 @@ import { deleteUserJob, applyToJob } from '../../../../../firebase/auth.util'; /
 
 import ButtonComp from '../../../../elements/button/button.component';
 import AddJobComp from '../../add-job/add.job.component';
+import SpinnerComp from '../../../../elements/spinner/spinner.component';
 
-const ViewJobComp = ({ userId, job, setJobs }) => {
+const ViewJobComp = ({ currentUser, job, setJobs }) => {
 
     const [edit, setEdit] = useState(false);
-    const [state, setState] = useState(
-        {
-            id: "",
-            designation: "",
-            company: "",
-            locationsArr: [],
-            skillsArr: [],
-            description: "",
-            createdAt: null,
-            updatedOn: null,
-            createdBy: null,
-            updatedBy: null,
-            applied: []
-        }
-    );
+    const [state, setState] = useState({ ...job });
+    const [applied, setApplied] = useState(currentUser.applied && currentUser.applied.some(doc => doc.jobId === job.id))
+    const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        setState(prevState => ({ ...prevState, ...job }));
-    }, [job, setState]);
-
-    const handleApply = async (userId, state, setState) => {
-        await applyToJob(userId, state.id);
-        setState(prevState => ({ ...prevState, applied: [{ id: userId }] }))
+    const handleApply = async (currentUser, state, applyToJob) => {
+        setLoading(true);
+        await applyToJob(currentUser, state);
+        setLoading(false);
+        setApplied(true);
     }
 
-    const handleDelete = async (userId, state) => {
-        await deleteUserJob(userId, state.id);
+    const handleDelete = async (currentUser, state, setJobs, deleteUserJob) => {
+        await deleteUserJob(currentUser.id, state.id);
         setJobs(prevState => prevState.filter(job => job.id !== state.id)); // redux-sort
+        // add currentUser with applied to job on redux state
     }
 
     return (
@@ -52,21 +40,24 @@ const ViewJobComp = ({ userId, job, setJobs }) => {
                     :
                     <div className="content neu-up card pm frow fjcsb">
                         <div className="text fcol">
-                            <h5><span className="ch3">{state.designation}</span> {state.company && <span>at <span className="ch4">{state.company}</span></span>}</h5>
-                            <p className="frow fwrap mtxs"><LocationComp className="icon mtxs mrxs" />{state.locationsArr && state.locationsArr.map((location, index) => <span key={index} className="badge bgcl mtxs mrxs fss">{location}</span>)}</p>
-                            <p className="frow fwrap mtxs">{state.skillsArr && state.skillsArr.map((skill, index) => <span key={index} className="badge bgch4 mtxs mrxs fss">{skill}</span>)}</p>
+                            <h5><span className="ch3">{state.designationObj && state.designationObj.designation}</span> {state.companyObj && <span>at <span className="ch4">{state.companyObj.company}</span></span>}</h5>
+                            <p className="frow fwrap mtxs"><LocationComp className="icon mtxs mrxs" />{state.locationsArrRefs && state.locationsArrRefs.map((location, index) => <span key={index} className="badge bgcl mtxs mrxs fss">{location.location}</span>)}</p>
+                            <p className="frow fwrap mtxs">{state.skillsArrRefs && state.skillsArrRefs.map((skill, index) => <span key={index} className="badge bgch4 mtxs mrxs fss">{skill.skill}</span>)}</p>
                             <p className="mtm">{state.description}</p>
                         </div>
-                        <div className="fcol fjcsb update-delete">
+                        <div className="fcol fjcsb face update-delete">
                             {
-                                (userId === state.createdBy || userId === state.updatedBy)
+                                state.created && state.created.some(obj => currentUser.id === obj.createdById)
                                     ?
                                     <>
                                         <ButtonComp onClick={() => setEdit(true)} className="button-icon edit-icon"><EditComp className="icon" /></ButtonComp>
-                                        <ButtonComp onClick={() => handleDelete(userId, state, setJobs)} className="button-icon delete-icon mtxs"><DeleteComp className="icon" /></ButtonComp>
+                                        <ButtonComp onClick={() => handleDelete(currentUser, state, setJobs, deleteUserJob)} className="button-icon delete-icon mtxs"><DeleteComp className="icon" /></ButtonComp>
                                     </>
                                     :
-                                    state.applied && <ButtonComp btnType="SAVE_FORM" onClick={() => handleApply(userId, state, setState)} disabled={state.applied.some(doc => doc.id === userId)} className="button pm">{state.applied.some(doc => doc.id === userId) ? "Applied" : "Apply"}</ButtonComp>
+                                    <>
+                                        <ButtonComp btnType="SAVE_FORM" onClick={() => handleApply(currentUser, state, applyToJob)} disabled={applied} className="button pm">{applied ? "Applied" : "Apply"}</ButtonComp>
+                                        {loading && <SpinnerComp className="mtm" />}
+                                    </>
                             }
                         </div>
                     </div>
@@ -75,9 +66,9 @@ const ViewJobComp = ({ userId, job, setJobs }) => {
     );
 }
 
-const mapStateToProps = ({ user: { currentUser: { id } } }) => (
+const mapStateToProps = ({ user: { currentUser } }) => (
     {
-        userId: id
+        currentUser
     }
 )
 

@@ -7,7 +7,7 @@ import ViewWorkExpComp from './view-experience/view.work.experience.component';
 
 const ViewWorkComp = ({ work }) => (
     <div>
-        {work.map((experience, index) => <ViewWorkExpComp key={index} experience={experience} />)}
+        {work.map((experience) => <ViewWorkExpComp key={experience.id} experience={experience} />)}
     </div>
 );
 

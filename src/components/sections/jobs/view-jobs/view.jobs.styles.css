@@ -1,0 +1,7 @@
+.ViewJobs {
+    width: 100%;
+}
+
+.ViewJobs > .card {
+    width: 100%;
+}

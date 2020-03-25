@@ -49,6 +49,11 @@ export const createUserProfileDoc = async (userAuth, restData) => {
     return userRef;
 }
 
+export const getUserContact = (userId) => {
+    if (!userId) return;
+    return firestore.doc(`users/${userId}`);
+}
+
 export const sendMessage = async (contact, message) => {
     const msgRef = firestore.collection("messages").doc();
     try {
@@ -95,10 +100,6 @@ export const getUsers = async () => {
     return firestore.collection("users");
 }
 
-export const getUserContact = (userId) => {
-    if (!userId) return;
-    return firestore.doc(`users/${userId}`);
-}
 
 export const getUserWork = async (userId) => {
     if (!userId) return;
@@ -106,16 +107,19 @@ export const getUserWork = async (userId) => {
 }
 
 export const addUserWork = async (userId, state) => {
-
     if (!userId) return;
-    const expRef = firestore.collection(`users/${userId}/work`).doc();
-    try {
-        const { company, designation, description, startDate, endDate, currentlyWorking } = state;
-        const createdAt = new Date();
 
-        await expRef.set({
+    const { company, designation, description, startDate, endDate, currentlyWorking } = state;
+    const createdAt = new Date();
+
+    // 1. Adding experience to user
+    const userExpRef = firestore.collection("users").doc(userId).collection("work").doc();
+    try {
+        await userExpRef.set({
             company,
+            companyRef: firestore.doc(`companies/${company}`),
             designation,
+            designationRef: firestore.doc(`designations/${designation}`),
             description,
             startDate,
             endDate,
@@ -125,38 +129,77 @@ export const addUserWork = async (userId, state) => {
     } catch (err) {
         console.error("Error saving work experience to database:", err.message);
     }
-    return expRef.id;
+
+    // 2. Adding user to company
+    const companyUserRef = firestore.collection("companies").doc(company).collection("associated").doc(userId);
+    try {
+        await companyUserRef.set(
+            {
+                userRef: firestore.doc(`users/${userId}`),
+                displayName: state.displayName,
+                introduction: state.introduction,
+                photoURL: state.photoURL
+            }
+        );
+    } catch (err) {
+        console.error("Error saving user to company.", err.message);
+    }
+
+    // 3. Adding designation to company
+    const designationUserRef = firestore.collection("designations").doc(designation).collection("associated").doc(userId);
+    try {
+        await designationUserRef.set(
+            {
+                userRef: firestore.doc(`users/${userId}`),
+                displayName: state.displayName,
+                introduction: state.introduction,
+                photoURL: state.photoURL
+            }
+        );
+    } catch (err) {
+        console.error("Error saving user to designation.", err.message);
+    }
+
+    return userExpRef.id;
 }
 
-export const updateUserExperience = async (userId, state, expId) => {
+export const updateUserExperience = async (userId, state, experience) => {
     if (!userId) return;
-    const expRef = firestore.collection(`users/${userId}/work`).doc(expId);
-    try {
-        const { company, designation, description, startDate, endDate, currentlyWorking } = state;
-        const updatedOn = new Date();
-        await expRef.update({
-            company,
-            designation,
-            description,
-            startDate,
-            endDate,
-            currentlyWorking,
-            updatedOn
-        });
-    } catch (err) {
-        console.error("Error updating work experience to database:", err.message);
-    }
+
+    await deleteUserWork(userId, experience);
+    const userExpRefId = await addUserWork(userId, state);
+
+    return userExpRefId;
 }
 
-export const deleteUserWork = async (userId, workId) => {
+export const deleteUserWork = async (userId, state) => {
     if (!userId) return;
-    const expRef = firestore.collection(`users/${userId}/work`).doc(workId);
+
+    // 1 Deleting Experience
+    const userExpRef = firestore.collection(`users/${userId}/work`).doc(state.id);
     try {
-        await expRef.delete();
+        await userExpRef.delete();
     } catch (err) {
-        console.error("Error deleting work experience from database:", err.message);
+        console.error("Error deleting work experience from user.", err.message);
     }
-    return expRef.id;
+
+    // 2 Deleting User from Company
+    const userCompaniesRef = firestore.collection(`companies/${state.company}/associated`).doc(userId);
+    try {
+        await userCompaniesRef.delete();
+    } catch (err) {
+        console.error("Error deleting user from Company.", err.message);
+    }
+
+    // 2 Deleting User from Company
+    const userDesignationsRef = firestore.collection(`designations/${state.designation}/associated`).doc(userId);
+    try {
+        await userDesignationsRef.delete();
+    } catch (err) {
+        console.error("Error deleting user from Designation.", err.message);
+    }
+
+    return userExpRef.id;
 }
 
 
@@ -167,39 +210,92 @@ export const getUserCerts = async (userId) => {
     return firestore.collection(`users/${userId}/certs`);
 }
 
-export const addUserCert = async (userId, state, restData) => {
-
+export const addUserCert = async (userId, state) => {
     if (!userId) return;
 
-    const certRef = firestore.collection(`users/${userId}/certs`).doc();
+    const { title, issuedBy, issueDate, validDate, noExpiry, displayName, introduction, photoURL } = state;
+    const createdAt = new Date();
 
+    // 1. Adding Cert to User
+    const certUserRef = firestore.collection(`users/${userId}/certs`).doc(title);
     try {
-        const { title, issuedBy, issueDate, validDate, noExpiry } = state;
-        const createdAt = new Date();
-
-        await certRef.set({
+        await certUserRef.set({
             title,
+            certRef: firestore.doc(`certs/${title}`),
             issuedBy,
+            issuedByRef: firestore.doc(`certProviders/${issuedBy}`),
             issueDate,
             validDate,
             noExpiry,
-            createdAt,
-            ...restData
+            createdAt
         });
     } catch (err) {
         console.error("Error saving certificate to database:", err.message);
     }
+
+    // 2. Adding Cert to Certs
+    const certRef = firestore.collection("certs").doc(title);
+    try {
+        await certRef.set(
+            {
+                certProviderRef: firestore.doc(`certProviders/${issuedBy}`),
+                certProvider: title
+            }
+        );
+    } catch (err) {
+        console.error("Error adding to certs.", err.message);
+    }
+
+    // 3. Add Provider to certProviders
+    const certProviderRef = firestore.collection("certProviders").doc(issuedBy).collection("certs").doc(title);
+    try {
+        await certProviderRef.set(
+            {
+                certRef: firestore.doc(`certs/${title}`),
+                cert: title
+            }
+        );
+    } catch (err) {
+        console.error("Error adding to certProviders.", err.message);
+    }
+
+    // 4. Add user to certs
+    const userCertRef = firestore.collection("certs").doc(title).collection("associated").doc(userId);
+    try {
+        await userCertRef.set(
+            {
+                userRef: firestore.doc(`users/${userId}`),
+                displayName,
+                introduction,
+                photoURL
+            }
+        );
+    } catch (err) {
+        console.error("Error adding user to cert in certs.", err.message);
+    }
+
     return certRef.id;
 }
 
-export const deleteUserCert = async (userId, certId) => {
+export const deleteUserCert = async (userId, cert) => {
     if (!userId) return;
-    const certRef = firestore.collection(`users/${userId}/certs`).doc(certId);
+
+    // 1 Deleting Cert from User
+    const certRef = firestore.collection(`users/${userId}/certs`).doc(cert.id);
     try {
         await certRef.delete();
     } catch (err) {
         console.error("Error deleting certificate from database:", err.message);
     }
+
+    // 2 Deleting User from Certs
+    const userCertsRef = firestore.collection(`certs/${cert.title}/associated`).doc(userId);
+    try {
+        await userCertsRef.delete();
+    } catch (err) {
+        console.error("Error deleting user from Certs.", err.message);
+    }
+
     return certRef.id;
 }
 
@@ -210,41 +306,108 @@ export const getUserQuals = async (userId) => {
     return firestore.collection(`users/${userId}/quals`);
 }
 
-export const addUserQual = async (userId, state, restData) => {
+export const addUserQual = async (userId, state) => {
 
     if (!userId) return;
 
+    const { course, institute, university, score, startDate, endDate, pursuing, displayName, introduction, photoURL } = state;
+    const createdAt = new Date();
+
     const qualRef = firestore.collection(`users/${userId}/quals`).doc();
-
     try {
-        const { course, institute, university, score, startDate, endDate, pursuing } = state;
-        const createdAt = new Date();
-
         await qualRef.set({
             course,
+            courseRef: firestore.doc(`courses/${course}`),
             institute,
+            instituteRef: firestore.doc(`institutes/${institute}`),
             university,
+            universityRef: firestore.doc(`universities/${university}`),
             score,
             startDate,
             endDate,
             pursuing,
-            createdAt,
-            ...restData
+            createdAt
         });
     } catch (err) {
         console.error("Error saving qualification to database:", err.message);
     }
+
+    const associatedToCourseRef = firestore.collection("courses").doc(course).collection("associated").doc(userId);
+    try {
+        await associatedToCourseRef.set(
+            {
+                userRef: firestore.doc(`users/${userId}`),
+                displayName,
+                introduction,
+                photoURL
+            }
+        );
+    } catch (err) {
+        console.error("Error adding to course > associated user.", err.message);
+    }
+
+    const associatedToInstituteRef = firestore.collection("institutes").doc(institute).collection("associated").doc(userId);
+    try {
+        await associatedToInstituteRef.set(
+            {
+                userRef: firestore.doc(`users/${userId}`),
+                displayName,
+                introduction,
+                photoURL
+            }
+        );
+    } catch (err) {
+        console.error("Error adding to institute > associated user.", err.message);
+    }
+
+    const associatedToUniversityRef = firestore.collection("universities").doc(university).collection("associated").doc(userId);
+    try {
+        await associatedToUniversityRef.set(
+            {
+                userRef: firestore.doc(`users/${userId}`),
+                displayName,
+                introduction,
+                photoURL
+            }
+        );
+    } catch (err) {
+        console.error("Error adding to university > associated user.", err.message);
+    }
+
     return qualRef.id;
 }
 
-export const deleteUserQual = async (userId, qualId) => {
+export const deleteUserQual = async (userId, qual) => {
     if (!userId) return;
-    const qualRef = firestore.collection(`users/${userId}/quals`).doc(qualId);
+
+    const qualRef = firestore.collection(`users/${userId}/quals`).doc(qual.id);
     try {
         await qualRef.delete();
     } catch (err) {
         console.error("Error deleting qualification from database:", err.message);
     }
+
+    const associatedCourseRef = firestore.collection(`courses/${qual.course}/associated`).doc(userId);
+    try {
+        await associatedCourseRef.delete();
+    } catch (err) {
+        console.error("Error deleting user from course.", err.message);
+    }
+
+    const associatedInstituteRef = firestore.collection(`institutes/${qual.institute}/associated`).doc(userId);
+    try {
+        await associatedInstituteRef.delete();
+    } catch (err) {
+        console.error("Error deleting user from institute.", err.message);
+    }
+
+    const associatedUniversityRef = firestore.collection(`universities/${qual.university}/associated`).doc(userId);
+    try {
+        await associatedUniversityRef.delete();
+    } catch (err) {
+        console.error("Error deleting user from university.", err.message);
+    }
+
     return qualRef.id;
 }
 
@@ -255,43 +418,72 @@ export const getUserProjects = async (userId) => {
     return firestore.collection(`users/${userId}/projects`);
 }
 
-export const addUserProject = async (userId, state, restData) => {
+export const addUserProject = async (userId, state) => {
 
     if (!userId) return;
 
-    const projectRef = firestore.collection(`users/${userId}/projects`).doc();
+    const { title, company, description, displayName, introduction, photoURL } = state;
 
+    const projectRef = firestore.collection(`users/${userId}/projects`).doc();
     try {
-        const { title, company, description } = state;
         const createdAt = new Date();
 
         await projectRef.set(
             {
                 title,
                 company,
+                companyRef: firestore.doc(`companies/${company}`),
                 description,
-                createdAt,
-                ...restData
+                createdAt
             }
         );
     } catch (err) {
-        console.error("Error saving project to database:", err.message);
+        console.error("Error saving project to user.", err.message);
     }
+
+    const associatedRef = firestore.collection("companies").doc(company).collection("associated").doc(userId);
+    try {
+        await associatedRef.set(
+            {
+                userRef: firestore.doc(`users/${userId}`),
+                displayName,
+                introduction,
+                photoURL
+            }
+        );
+    } catch (err) {
+        console.error("Error adding to company > associated user.", err.message);
+    }
+
     return projectRef.id;
 }
 
-export const deleteUserProject = async (userId, projectId) => {
+export const deleteUserProject = async (userId, project) => {
     if (!userId) return;
-    const projectRef = firestore.collection(`users/${userId}/projects`).doc(projectId);
+
+    const projectRef = firestore.collection(`users/${userId}/projects`).doc(project.id);
     try {
         await projectRef.delete();
     } catch (err) {
         console.error("Error deleting project from database:", err.message);
     }
+
+    const associatedRef = firestore.collection(`companies/${project.company}/associated`).doc(userId);
+    try {
+        await associatedRef.delete();
+    } catch (err) {
+        console.error("Error deleting project from database:", err.message);
+    }
+
     return projectRef.id;
 }
 
 // SKILLS
+
+export const getSkills = async (userId) => {
+    if (!userId) return;
+    return firestore.collection("skills");
+}
 
 export const getUserSkills = async (userId) => {
     if (!userId) return;
@@ -299,117 +491,472 @@ export const getUserSkills = async (userId) => {
 }
 
 export const addUserSkill = async (userId, state) => {
-
     if (!userId) return;
 
-    const skillRef = firestore.collection(`users/${userId}/skills`).doc();
+    const { skillName, stars, displayName, introduction, photoURL } = state;
 
+    const skillUserRef = firestore.collection("skills").doc(skillName).collection(stars).doc(userId);
     try {
-        const { skillName, stars } = state;
-        const createdAt = new Date();
+        await skillUserRef.set(
+            {
+                userRef: firestore.doc(`users/${userId}`),
+                skillName,
+                stars,
+                displayName,
+                introduction,
+                photoURL
+            }
+        );
+    } catch (err) {
+        console.error("Error creating skill and adding user to skills.", err.message);
+    }
 
-        await skillRef.set({
+    const userSkillRef = firestore.collection("users").doc(userId).collection("skills").doc(skillName);
+    try {
+        await userSkillRef.set({
+            skillRef: firestore.doc(`skills/${skillName}`),
             skillName,
             stars,
-            createdAt
+            createdAt: new Date()
         });
     } catch (err) {
-        console.error("Error saving skill to database:", err.message);
+        console.error("Error adding skill to user:", err.message);
     }
-    return skillRef.id;
+
+    return userSkillRef.id;
 }
 
-export const deleteUserSkill = async (userId, skillId) => {
+export const deleteUserSkill = async (userId, skill) => {
     if (!userId) return;
-    const skillRef = firestore.collection(`users/${userId}/skills`).doc(skillId);
+
+    const userSkillRef = firestore.collection(`users/${userId}/skills`).doc(skill.id);
     try {
-        await skillRef.delete();
+        await userSkillRef.delete();
     } catch (err) {
-        console.error("Error deleting skillification from database:", err.message);
+        console.error("Error deleting skill from user:", err.message);
     }
-    return skillRef.id;
+
+    const skillUserRef = firestore.collection(`skills/${skill.id}/${skill.stars}`).doc(userId);
+    try {
+        await skillUserRef.delete();
+    } catch (err) {
+        console.error("Error deleting user from skill:", err.message);
+    }
+
+    return userSkillRef.id;
 }
 
 // JOBS
 
-export const getJobs = async (userId) => {
+export const getJobs = () => {
     return firestore.collection("jobs");
 }
 
-export const addUserJob = async (userId, state) => {
-
+export const getUserJobs = (userId) => {
     if (!userId) return;
-    const jobRef = firestore.collection("jobs").doc();
+    return firestore.collection(`users/${userId}/jobs`);
+}
+
+export const getAppliedList = (jobId) => {
+    return firestore.collection(`jobs/${jobId}/applied`);
+}
+
+export const addUserJob = async (currentUser, state) => {
+    if (!currentUser.id) return;
+
+    const { designation, company, locationsArr, skillsArr, description } = state;
+    const userId = currentUser.id;
+    const { displayName, photoURL } = currentUser;
+    const createdAt = new Date();
+    const userRef = firestore.doc(`users/${userId}`);
+    const created = [{ createdBy: userRef, createdAt, displayName, photoURL, createdById: userId }];
+    const designationRef = firestore.doc(`designations/${designation}`);
+    const designationObj = { designation, designationRef };
+    const companyRef = firestore.doc(`companies/${company}`);
+    const companyObj = { company, companyRef }
+    const locationsArrRefs = locationsArr.map(location => ({ location, locationRef: firestore.doc(`locations/${location}`) }));
+    const skillsArrRefs = skillsArr.map(skill => ({ skill, skillRef: firestore.doc(`skills/${skill}`) }));
+
+    // CREATE JOB
+    const jobRef = firestore.collection("jobs").doc(createdAt.toISOString());
     try {
-        const { designation, company, locations, locationsArr, skills, skillsArr, description } = state;
-        const createdAt = new Date();
-        const createdBy = userId;
-
-        console.log(state);
-
         await jobRef.set({
-            designation,
-            company,
-            locations,
-            locationsArr,
-            skills,
-            skillsArr,
+            designationObj,
+            companyObj,
+            locationsArrRefs,
+            skillsArrRefs,
             description,
-            createdAt,
-            createdBy
+            created, // array of users
+            updatedOn: createdAt
         });
     } catch (err) {
-        console.error("Error saving job to database:", err.message);
+        console.error("Error saving job to jobs.", err.message);
     }
+
+    // ADD REFERENCE AND COPY IN USER
+    const userJobRef = firestore.collection(`users/${userId}/jobs`).doc(jobRef.id);
+    try {
+        await userJobRef.set({
+            designationObj,
+            companyObj,
+            locationsArrRefs,
+            skillsArrRefs,
+            description,
+            created, // array of users
+            jobRef,
+            updatedOn: createdAt
+        });
+    } catch (err) {
+        console.error("Error saving job to user.", err.message);
+    }
+
+    // ADDING JOB TO COMPANIES
+    const jobInCompanies = firestore.collection("companies").doc(company).collection("jobs").doc(jobRef.id);
+    try {
+        await jobInCompanies.set(
+            {
+                designationObj,
+                companyObj,
+                locationsArrRefs,
+                skillsArrRefs,
+                jobRef,
+                created, // array of users
+                updatedOn: createdAt
+            }
+        );
+    } catch (err) {
+        console.error("Error adding job to companies > associated job.", err.message);
+    }
+
+
+    // ADDING USER TO COMPANIES
+    const userInCompanies = firestore.collection("companies").doc(company).collection("hiring").doc(userId);
+    try {
+        await userInCompanies.set(
+            {
+                designationObj,
+                companyObj,
+                locationsArrRefs,
+                skillsArrRefs,
+                jobRef,
+                created, // array of users
+                updatedOn: createdAt
+            }
+        );
+    } catch (err) {
+        console.error("Error adding user to companies > associated user.", err.message);
+    }
+
+    // ADDING JOB TO DESIGNATION
+    const jobToDesignations = firestore.collection("designations").doc(designation).collection("jobs").doc(jobRef.id);
+    try {
+        await jobToDesignations.set(
+            {
+                designationObj,
+                companyObj,
+                locationsArrRefs,
+                skillsArrRefs,
+                jobRef,
+                created, // array of users
+                updatedOn: createdAt
+            }
+        );
+    } catch (err) {
+        console.error("Error adding job to designations > associated job.", err.message);
+    }
+
+    // ADDING JOB TO SKILLS
+    skillsArrRefs.map(async s => {
+        const jobInSkill = firestore.collection("skills").doc(s.skill).collection('jobs').doc(jobRef.id);
+        try {
+            await jobInSkill.set(
+                {
+                    designationObj,
+                    companyObj,
+                    locationsArrRefs,
+                    skillsArrRefs,
+                    jobRef,
+                    created, // array of users
+                    updatedOn: createdAt
+                }
+            )
+        } catch (err) {
+            console.error("Error adding job to skills > associated jobs.", err.message);
+        }
+    });
+
+    // ADDING JOB TO LOCATIONS
+    locationsArrRefs.map(async l => {
+        const jobInLocation = firestore.collection("locations").doc(l.location).collection('jobs').doc(jobRef.id);
+        try {
+            await jobInLocation.set(
+                {
+                    designationObj,
+                    companyObj,
+                    locationsArrRefs,
+                    skillsArrRefs,
+                    jobRef,
+                    created, // array of users
+                    updatedOn: createdAt
+                }
+            )
+        } catch (err) {
+            console.error("Error adding to locations > associated jobs.", err.message);
+        }
+    });
+
     return jobRef.id;
 }
 
-export const updateUserJob = async (userId, state, jobId) => {
-    if (!userId) return;
-    const jobRef = firestore.collection("jobs").doc(jobId);
-    try {
-        const { designation, company, locations, locationsArr, skills, skillsArr, description } = state;
-        const updatedOn = new Date();
-        const updatedBy = userId;
+export const updateUserJob = async (currentUser, newJob, oldJob) => {
+    if (!currentUser.id) return;
+    const { id, designation, company, locationsArr, skillsArr, description } = newJob;
+    const userId = currentUser.id;
+    const { displayName, photoURL } = currentUser;
+    const createdAt = new Date();
+    const userRef = firestore.doc(`users/${userId}`);
+    const updatedObj = { createdBy: userRef, createdAt, displayName, photoURL, createdById: userId };
+    const designationRef = firestore.doc(`designations/${designation}`);
+    const designationObj = { designation, designationRef };
+    const companyRef = firestore.doc(`companies/${company}`);
+    const companyObj = { company, companyRef }
+    const locationsArrRefs = locationsArr.map(location => ({ location, locationRef: firestore.doc(`locations/${location}`) }));
+    const skillsArrRefs = skillsArr.map(skill => ({ skill, skillRef: firestore.doc(`skills/${skill}`) }));
 
+    // job ref
+    const jobRef = firestore.collection("jobs").doc(id);
+
+    // set new job to id in jobs
+    try {
         await jobRef.update({
-            designation,
-            company,
-            locations,
-            locationsArr,
-            skills,
-            skillsArr,
+            designationObj,
+            companyObj,
+            locationsArrRefs,
+            skillsArrRefs,
             description,
-            updatedOn,
-            updatedBy
+            updatedOn: createdAt
         });
     } catch (err) {
-        console.error("Error updating job to database:", err.message);
+        console.error("Error updating jobs > job with new job.", err.message);
     }
-}
 
-export const applyToJob = async (userId, jobId) => {
-    if (!userId) return;
-    const jobRef = firestore.collection("jobs").doc(jobId);
+    // set new job to id in user's jobs collection
+    const jobInUser = firestore.collection(`users/${userId}/jobs`).doc(jobRef.id);
     try {
-        await jobRef.update({
-            applied: firebase.firestore.FieldValue.arrayUnion(firestore.doc(`/users/${userId}`))
+        await jobInUser.update({
+            designationObj,
+            companyObj,
+            locationsArrRefs,
+            skillsArrRefs,
+            description,
+            jobRef,
+            updatedOn: createdAt
         });
     } catch (err) {
-        console.error("Error updating job application to database:", err.message);
+        console.error("Error updating job in user.", err.message);
     }
+
+    // delete job from company
+    if (company !== oldJob.companyObj.company) { // if company is changed then delete job from company
+        try {
+            oldJob.companyObj.companyRef.collection("jobs").doc(jobRef.id).delete();
+        } catch (err) {
+            console.log("Failed to delete job from company.");
+        }
+
+        // and add job to the new company
+        const jobInCompany = companyRef.collection("jobs").doc(jobRef.id);
+        try {
+            await jobInCompany.set(
+                {
+                    jobRef,
+                    created: updatedObj
+                }
+            );
+        } catch (err) {
+            console.error("Error adding job to companies > company > associated job.", err.message);
+        }
+    }
+
+    // delete job from designation
+    if (designation !== oldJob.designationObj.designation) { // if designation is changed then delete job from designation
+        try {
+            oldJob.designationObj.designationRef.collection("jobs").doc(jobRef.id).delete();
+        } catch (err) {
+            console.log("Failed to delete job from designation.");
+        }
+
+        // and add job to the new Designation
+        const jobInDesignation = designationRef.collection("jobs").doc(jobRef.id);
+        try {
+            await jobInDesignation.set(
+                {
+                    jobRef,
+                    created: updatedObj
+                }
+            );
+        } catch (err) {
+            console.error("Error adding job to designations > designation > associated job.", err.message);
+        }
+    }
+
+    // ADDING JOB TO SKILLS
+    skillsArr.map(async skill => {
+        const jobInSkill = firestore.collection("skills").doc(skill).collection('jobs').doc(jobRef.id);
+        try {
+            await jobInSkill.update(
+                {
+                    designationObj,
+                    companyObj,
+                    locationsArrRefs,
+                    skillsArrRefs,
+                    jobRef,
+                    updatedOn: createdAt
+                }
+            )
+        } catch (err) {
+            console.error("Error adding job to skills > associated jobs.", err.message);
+        }
+    });
+
+    // ADDING JOB TO LOCATIONS
+    locationsArr.map(async location => {
+        const jobInLocation = firestore.collection("locations").doc(location).collection('jobs').doc(jobRef.id);
+        try {
+            await jobInLocation.set(
+                {
+                    designationObj,
+                    companyObj,
+                    locationsArrRefs,
+                    skillsArrRefs,
+                    jobRef,
+                    updatedOn: createdAt
+                }
+            )
+        } catch (err) {
+            console.error("Error adding to locations > associated jobs.", err.message);
+        }
+    });
+
+    // delete job from new skills
+    // delete job from removed skills
+
+    // delete job from new locations
+    // delete user from removed locations
+
+
+    return jobRef.id;
 }
 
 export const deleteUserJob = async (userId, jobId) => {
     if (!userId) return;
+
     const jobRef = firestore.collection("jobs").doc(jobId);
     try {
         await jobRef.delete();
     } catch (err) {
-        console.error("Error deleting job from database:", err.message);
+        console.error("Error deleting job from jobs", err.message);
     }
+
+    const userJobsRef = firestore.collection("users").doc(userId).collection("jobs").doc(jobId);
+    try {
+        await userJobsRef.delete();
+    } catch (err) {
+        console.error("Error deleting job from user.", err.message);
+    }
+
+    // delete from user pending
+
     return jobRef.id;
 }
 
+/* <ButtonComp btnType="SAVE_FORM" onClick={() => handleUpdateUser()} className="button pm">Update</ButtonComp>
+export const reverse = async (obj, jobId) => {
+
+    const jobRef = firestore.doc("jobs/XgJPOouoDqdqwrnhkPto");
+    jobRef.set({
+        companyObj: {
+            company: "Xoriant Solutions Pvt. Ltd.",
+            companyRef: firestore.doc('companies/Xoriant Solutions Pvt. Ltd.'),
+        },
+        created: [
+            {
+                createdAt: new Date(),
+                createdBy: firestore.doc('users/nlu395fs6UckQoN2vLTmETy2ybP2'),
+                createdById: "nlu395fs6UckQoN2vLTmETy2ybP2",
+                displayName: "Ronak Sequeira",
+                photoURL: "https://lh3.googleusercontent.com/a-/AOh14Gg_nCYCbySx6tDUp6mDfKvh2A9a9wTikhaCDkypqw"
+            },
+        ],
+        description: "Required experienceCloud - AWS Experience (2-3 years) Languages - Java, Python AWS Infra Services - EC2, EBS, VPC Serverless - Lambda, AWS Glue, AWS Data Pipeline Data Storage - AWS RedShift, AWS RDS, AWS DynamoDB Good Programming skills with understanding of multi-threading along with ability of writing performant and robust code with good knowledge of impact of the code on CPU and Memory usage. Be able to understand significance of error and exception handling in the Cloud or Serverless environment. Good problem solving and debugging skills for developing solutions using AWS cloud services.",
+        designationObj: {
+            designation: "Senior AWS Developer",
+            designationRef: firestore.doc('designations/Senior AWS Developer')
+        },
+        locationsArrRefs: [
+            {
+                location: "Pune",
+                locationRef: firestore.doc('locations/Pune')
+            }
+        ],
+        skillsArrRefs: [
+            {
+                skill: "AWS",
+                skillRef: firestore.doc('skills/AWS')
+            },
+            {
+                skill: "Java",
+                skillRef: firestore.doc('skills/Java')
+            },
+            {
+                skill: "Python",
+                skillRef: firestore.doc('skills/Python')
+            }
+        ],
+        updatedOn: new Date()
+    })
+} */
+
+export const applyToJob = async (currentUser, job) => {
+    if (!currentUser.id) return;
+
+    // adding user to jobs
+    const userObj = {
+        appliedBy: firestore.doc(`/users/${currentUser.id}`),
+        createdAt: new Date(),
+        userId: currentUser.id,
+        displayName: currentUser.displayName,
+        introduction: currentUser.introduction,
+        photoURL: currentUser.photoURL
+    }
+    const jobRef = firestore.doc(`jobs/${job.id}`);
+    try {
+        await jobRef.update({
+            applied: firebase.firestore.FieldValue.arrayUnion(userObj)
+        });
+    } catch (err) {
+        console.error("Error saving user to applied of job.", err.message);
+    }
+
+    // adding job to user
+    const jobObj = {
+        jobId: job.id,
+        appliedOn: firestore.doc(`/jobs/${job.id}`),
+        createdAt: new Date(),
+        designationObj: job.designationObj,
+        companyObj: job.companyObj
+    }
+    const userRef = firestore.doc(`users/${currentUser.id}`);
+    console.log("CHECK", userRef, jobObj)
+    try {
+        await userRef.update({
+            applied: firebase.firestore.FieldValue.arrayUnion(jobObj)
+        });
+    } catch (err) {
+        console.error("Error saving job to user's applied list.", err.message);
+    }
+
+    return jobRef.id;
+}
 
 export default firebase;

@@ -8,14 +8,16 @@ import { ReactComponent as DeleteComp } from '../../../../../../assets/resume-fo
 import ButtonComp from '../../../../../elements/button/button.component';
 import { addCerts } from '../../../../../../redux/certs/certs.actions';
 
-const ViewCertComp = ({ userId, certs, addCerts, cert, ...rest }) => {
+const ViewCertComp = ({ userId, certs, addCerts, cert }) => {
 
-    const { title, noExpiry, issuedBy } = cert;
+    const { title, issuedBy } = cert;
     const issueDate = cert.issueDate && cert.issueDate.toLocaleDateString('en-IN', { month: 'short', year: 'numeric' });
     const validDate = cert.validDate && cert.validDate.toLocaleDateString('en-IN', { month: 'short', year: 'numeric' });
 
+    console.log("VALID DATE", validDate)
+
     const deleteCert = (certs, cert, userId) => {
-        deleteUserCert(userId, cert.id); // db
+        deleteUserCert(userId, cert); // db
         const filteredCerts = certs.filter(certificate => cert.id !== certificate.id);
         console.log(filteredCerts)
         addCerts(filteredCerts); // redux
@@ -29,12 +31,11 @@ const ViewCertComp = ({ userId, certs, addCerts, cert, ...rest }) => {
                         <h5 className="ch4">{title}</h5>
                     </div>
                     <div className="frow issue-valid-date-group mts">
-                        <h6><span className="ch2">{issueDate}</span> to <span className="ch2">{noExpiry ? "lifetime validity" : validDate}</span></h6>
+                        <h6><span className="ch2">{issueDate}</span> to <span className="ch2">{cert.noExpiry ? "lifetime validity" : validDate}</span></h6>
                     </div>
                     <p className="mts">Issued by {issuedBy}</p>
                 </div>
                 <div className="fcol update-delete">
-                    {/* <ButtonComp className="button-icon edit-icon"><EditComp className="icon" /></ButtonComp> */}
                     <ButtonComp onClick={() => deleteCert(certs, cert, userId)} className="button-icon delete-icon"><DeleteComp className="icon" /></ButtonComp>
                 </div>
             </div>

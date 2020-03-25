@@ -2,45 +2,45 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import './add.job.styles.css'
-import { addUserJob, updateUserJob } from '../../../../firebase/auth.util';
+import { firestore, addUserJob, updateUserJob } from '../../../../firebase/auth.util';
 import { ReactComponent as LocationComp } from '../../../../assets/resume-form/location.svg'
 
 import InputComp from '../../../elements/input/input.component';
 import ButtonComp from '../../../elements/button/button.component';
 import SpinnerComp from '../../../elements/spinner/spinner.component';
 
-const AddJobComp = ({ userId, setEdit, setJobs, job, setJob, editId }) => {
+const AddJobComp = ({ currentUser, setEdit, setJobs, job, setJob, editId }) => {
 
     const [state, setState] = useState({
+        id: null,
         designation: "",
         company: "",
         locations: "",
         locationsArr: [],
         skills: "",
         description: "",
-        skillsArr: [],
-        displayDate: null
+        skillsArr: []
     });
 
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (job) {
-            const { id, designation, company, locations, locationsArr, skills, skillsArr, description, createdAt, updatedOn } = job;
-            const displayDate = updatedOn ? updatedOn : createdAt
-            setState(
+            const locationsArr = job.locationsArrRefs.map(l => l.location);
+            const skillsArr = job.skillsArrRefs.map(s => s.skill);
+            setState(prevState => (
                 {
-                    id,
-                    designation,
-                    company,
-                    locations,
+                    ...prevState,
+                    id: job.id,
+                    designation: job.designationObj.designation,
+                    company: job.companyObj.company,
+                    locations: locationsArr.join(", "),
                     locationsArr,
-                    skills,
+                    skills: skillsArr.join(", "),
                     skillsArr,
-                    description,
-                    displayDate
+                    description: job.description,
                 }
-            );
+            ));
         }
     }, [job]);
 
@@ -54,12 +54,57 @@ const AddJobComp = ({ userId, setEdit, setJobs, job, setJob, editId }) => {
     const handleSubmit = async e => {
         e.preventDefault();
         setLoading(true);
-        if (job) {
-            await updateUserJob(userId, state, job.id); // db
-            setJob({ ...state, updatedBy: userId }) // redux-sort
+        if (job) { // to update
+            const jobId = await updateUserJob(currentUser, state, job); // db
+            setJob(prevJob => ({
+                ...prevJob,
+                companyObj: {
+                    company: state.company,
+                    companyRef: firestore.doc(`companies/${state.company}`)
+                },
+                created: [
+                    {
+                        createdBy: firestore.doc(`users/${currentUser.id}`),
+                        createdAt: new Date(),
+                        createdById: currentUser.id,
+                        displayName: currentUser.displayName,
+                        photoURL: currentUser.photoURL
+                    }
+                ], // [{createdBy, createdAt, userId, displayName, photoURL}]
+                description: state.description,
+                designationObj: {
+                    designation: state.designation,
+                    designationRef: firestore.doc(`designations/${state.designation}`),
+                },
+                locationsArrRefs: state.locationsArr.map(location => ({ location, locationRef: firestore.doc(`locations/${location}`) })), // [{location, locationRef}]
+                skillsArrRefs: state.skillsArr.map(skill => ({ skill, locationRef: firestore.doc(`skills/${skill}`) })), // [{skill, skillRef}]
+                updatedOn: new Date(),
+            })) // redux-sort
         } else {
-            const jobId = await addUserJob(userId, state); // db
-            setJobs(prevState => [...prevState, { ...state, id: jobId, createdBy: userId }]); // redux
+            const jobId = await addUserJob(currentUser, state); // db
+            setJobs(prevJobs => [...prevJobs, {
+                id: jobId,
+                companyObj: {
+                    company: state.company,
+                    companyRef: firestore.doc(`companies/${state.company}`)
+                },
+                created: [
+                    {
+                        createdBy: firestore.doc(`users/${currentUser.id}`),
+                        createdAt: new Date(),
+                        createdById: currentUser.id,
+                        displayName: currentUser.displayName,
+                        photoURL: currentUser.photoURL
+                    }
+                ], // [{createdBy, createdAt, userId, displayName, photoURL}]
+                description: state.description,
+                designationObj: {
+                    designation: state.designation,
+                    designationRef: firestore.doc(`designations/${state.designation}`),
+                },
+                locationsArrRefs: state.locationsArr.map(location => ({ location, locationRef: firestore.doc(`locations/${location}`) })), // [{location, locationRef}]
+                skillsArrRefs: state.skillsArr.map(skill => ({ skill, locationRef: firestore.doc(`skills/${skill}`) })), // [{skill, skillRef}]
+            }]); // redux
         }
         setLoading(false);
         setEdit(false);
@@ -106,7 +151,7 @@ const AddJobComp = ({ userId, setEdit, setJobs, job, setJob, editId }) => {
 
 const mapStateToProps = ({ user }) => (
     {
-        userId: user.currentUser.id
+        currentUser: user.currentUser
     }
 );
 

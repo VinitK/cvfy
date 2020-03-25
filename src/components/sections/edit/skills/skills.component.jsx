@@ -14,7 +14,7 @@ const SkillsComp = ({ userId, addSkills }) => {
     useEffect(() => {
         (async function asyncFunction() {
             const skillsRef = await getUserSkills(userId);
-            skillsRef.get().then(skillset => {
+            skillsRef.orderBy("stars", "desc").get().then(skillset => {
                 const skills = skillset.docs.map(skillSnap => {
                     const skill = skillSnap.data();
                     return {

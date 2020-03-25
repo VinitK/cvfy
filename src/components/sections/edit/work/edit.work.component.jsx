@@ -9,11 +9,11 @@ import { addWork } from '../../../../redux/work/work.actions';
 import ViewWorkComp from './view-work/view.work.component';
 import EditWorkExpComp from './edit-experience/edit.work.experience.component';
 
-const EditWorkComp = ({ userId, addWork }) => {
+const EditWorkComp = ({ currentUser, addWork }) => {
 
     useEffect(() => {
         (async function asyncFunction() {
-            const workRef = await getUserWork(userId);
+            const workRef = await getUserWork(currentUser.id);
             workRef.get().then(work => {
                 const experiences = work.docs.map(experienceSnap => {
                     const experience = experienceSnap.data();
@@ -30,7 +30,7 @@ const EditWorkComp = ({ userId, addWork }) => {
                 addWork(experiences); // redux
             });
         })();
-    }, [addWork, userId]);
+    }, [addWork, currentUser]);
 
 
     return (
@@ -55,7 +55,7 @@ const EditWorkComp = ({ userId, addWork }) => {
 
 const mapStateToProps = ({ user }) => (
     {
-        userId: user.currentUser.id
+        currentUser: user.currentUser
     }
 );
 

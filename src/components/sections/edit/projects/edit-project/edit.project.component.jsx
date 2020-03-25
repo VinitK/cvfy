@@ -11,24 +11,30 @@ import ButtonComp from '../../../../elements/button/button.component';
 import SpinnerComp from '../../../../elements/spinner/spinner.component';
 
 
-const EditProjectComp = ({ userId, addProject }) => {
+const EditProjectComp = ({ currentUser, addProject }) => {
 
     const [state, setState] = useState(
         {
             title: "",
             company: "",
-            description: ""
+            description: "",
+            displayName: currentUser.displayName,
+            introduction: currentUser.introduction,
+            photoURL: currentUser.photoURL
         }
     );
 
     const [loading, setLoading] = useState(false);
 
     const resetState = () => {
-        setState({
-            title: "",
-            company: "",
-            description: ""
-        });
+        setState(prevState => (
+            {
+                ...prevState,
+                title: "",
+                company: "",
+                description: ""
+            }
+        ));
 
     }
 
@@ -40,7 +46,7 @@ const EditProjectComp = ({ userId, addProject }) => {
     const handleSubmit = async e => {
         e.preventDefault();
         setLoading(true);
-        const projectId = await addUserProject(userId, state); // db
+        const projectId = await addUserProject(currentUser.id, state); // db
         addProject({ ...state, id: projectId }); // redux
         resetState();
         setLoading(false);
@@ -63,7 +69,7 @@ const EditProjectComp = ({ userId, addProject }) => {
 
 const mapStateToProps = ({ user }) => (
     {
-        userId: user.currentUser.id
+        currentUser: user.currentUser
     }
 );
 
